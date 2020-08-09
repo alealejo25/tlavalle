@@ -165,6 +165,7 @@ public function guardarpagochequepropio(Request $request){
     			->with('cuentasbancariaspropias',$cuentasbancariaspropias)
         		->with('proveedores',$proveedores);
    }
+   
  public function guardarpagotransferencia(Request $request){
  		$date = new \DateTime();
         /*VALIDACION -----------------------------------------*/
