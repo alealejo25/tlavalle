@@ -23,10 +23,10 @@ class Ctasctesc extends Migration
             $table->decimal('haber',10,2);
             $table->decimal('acumulado',10,2);
 
-            $table->decimal('importesubtotal',10,2);
-            $table->decimal('iva',3,2);
-            $table->string('exento',10);
-            $table->decimal('importefinal',10,2);
+            $table->decimal('importesubtotal',10,2)->nullable();
+            $table->decimal('iva',3,2)->nullable();
+            $table->string('exento',10)->nullable();
+            $table->decimal('importefinal',10,2)->nullable();
 
             $table->string('observacion',150)->nullable();
             $table->string('estado',30)->nullable();

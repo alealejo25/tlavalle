@@ -19,7 +19,7 @@ class Remitosfletes extends Migration
             $table->string('observacion',150)->nullable();
             $table->integer('palletentregados')->default(0);
             $table->integer('palletdevueltos')->default(0);
-            $table->string('clientepalletdevuelto',15)->nullable();
+            $table->string('clientepalletdevuelto',50)->nullable();
             $table->integer('valepalletdevueltos')->nullable();
             $table->string('estado',15)->nullable();
             $table->string('modo',6);

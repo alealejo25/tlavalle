@@ -114,26 +114,7 @@ class FleteController extends Controller
 		 $datosAnticipo->save();
 
 
-		// FIN DE GUARDAR ANTICIPO--------------------------------------
-
-		// GUARDAR VALE ----------------------------------------------
-
-		// $datosVale=new Vale(request()->except('_token'));
-		// $datosVale->fecha=$request->fechainicio;
-		// $datosVale->cantidad=$request->vale;
-		// $datosVale->flete_id=$flete_id[0]->id;
 		
-		// $nremitovale=Vale::orderBy('id','DESC')->limit(1)->get();
-		// if(count($nremitovale)>0){
-	 //    	$datosVale->nroremito=$nremitovale[0]->nroremito+1;
-	 //    }
-	 //    else{
-	 //    	$datosVale->nroremito=200000;
-	 //    }
-		//  $datosVale->save();
-		// FIN DE GUARDAR VALE ----------------------------------------
-
-
 		// GUARDAR MOVIMIENTO DE CAJA ----------------------------------------------
 
 		$movimientocaja=new MovimientoCaja();
@@ -384,9 +365,6 @@ class FleteController extends Controller
     public function finalizarflete($id)
     {
 
-
-   
-
 		$flete=Flete::where('id',$id)->get();
 		$anticipos=Anticipo::where('flete_id',$id)->get();
 		$vales=Vale::where('flete_id',$id)->get();
@@ -510,44 +488,412 @@ class FleteController extends Controller
 	}
 
     /// FIJARSE ESTO PARA HACER LA CANCELACION DEL FLETE
-    public function guardarfinalizarflete(Request $request,$id){
-
-
+    public function guardarfinalizarflete(Request $request,$id)
+    {
     	/*VALIDACION -----------------------------------------*/
         $campos=[
             'valorflete'=>'required|numeric',
             'kmfin'=>'required|integer',
             'importe'=>'required|numeric',
-            'descripcion'=>'required|string|max:30',
-             'cliente_id1'   =>'required',
-             'remito1'=>'required'
+            'descripcion'=>'required|string|max:60',
+            'cliente_id1'   =>'required',
+            'remito1'=>'required'
+        ];
+ 		$Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+//validacion IDA1
+		if($request->clientedev1!=null || $request->valepalletd1 != null || $request->palletd1)
+		{
+		$campos=[
+            'clientedev1'   =>'required',
+            'valepalletd1'=>'required|integer',
+            'palletd1'=>'required|integer',
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}		
+
+////////////////FIN VALIDACION IDA1
+
+//validacion IDA2
+		if($request->cliente_id2!=null || $request->remito2 != null)
+		{
+
+		$campos=[
+            'cliente_id2'   =>'required',
+            'remito2'=>'required'
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}
+		if($request->clientedev2!=null || $request->valepalletd2 != null || $request->palletd2)
+		{
+		$campos=[
+            'clientedev2'   =>'required',
+            'valepalletd2'=>'required|integer',
+            'palletd2'=>'required|integer',
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}	
+///////// FIN VADILADCION IDA2
+
+
+		//validacion IDA3
+		if($request->cliente_id3!=null || $request->remito3 != null)
+		{
+
+		$campos=[
+            'cliente_id3'   =>'required',
+            'remito3'=>'required'
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}
+		if($request->clientedev3!=null || $request->valepalletd3 != null || $request->palletd3)
+		{
+		$campos=[
+            'clientedev3'   =>'required',
+            'valepalletd3'=>'required|integer',
+            'palletd3'=>'required|integer',
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}	
+///////// FIN VADILADCION IDA3
+
+		//validacion IDA4
+		if($request->cliente_id4!=null || $request->remito4 != null)
+		{
+
+		$campos=[
+            'cliente_id4'   =>'required',
+            'remito4'=>'required'
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}
+		if($request->clientedev4!=null || $request->valepalletd4 != null || $request->palletd4)
+		{
+		$campos=[
+            'clientedev4'   =>'required',
+            'valepalletd4'=>'required|integer',
+            'palletd4'=>'required|integer'
+        ];
+         	$Mensaje=["required"=>'El :attribute es requerido'];
+        	$this->validate($request,$campos,$Mensaje);
+		}	
+///////// FIN VADILADCION IDA3
+
+///// VALIDACION DE VALE1
+		 if($request->vale1!=null || $request->nroremitoestacion1 != null || $request->estacion_id1 != null){
+
+ 
+        $campos=[
+            'vale1'=>'required|integer',
+            'nroremitoestacion1'=>'required|string|max:30',
+            'estacion_id1'=>'required'
         ];
 
 
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-  		try{//esto es para que si hay un error en un insert en una table no grabe en la otra
-		DB::beginTransaction();   		 
-        $date = new \DateTime();
+    	}	
+///// FIN DE VALIDACION VALE1
 
+
+///// VALIDACION DE VALE2
+		 if($request->vale2!=null || $request->nroremitoestacion2 != null || $request->estacion_id2 != null){
+
+ 
+        $campos=[
+            'vale2'=>'required|integer',
+            'nroremitoestacion2'=>'required|string|max:30',
+            'estacion_id2'=>'required'
+        ];
+
+
+        $Mensaje=["required"=>'El :attribute es requerido'];
+
+        $this->validate($request,$campos,$Mensaje);
+    }
+///// FIN DE VALIDACION VALE2
+
+
+///// VALIDACION DE VALE3
+		 if($request->vale3!=null || $request->nroremitoestacion3 != null || $request->estacion_id3 != null){
+
+ 
+        $campos=[
+            'vale3'=>'required|integer',
+            'nroremitoestacion3'=>'required|string|max:30',
+            'estacion_id3'=>'required'
+        ];
+
+
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+    }
+///// FIN DE VALIDACION VALE3
+
+
+/*-----------------------------------------------------------------
+					FIN DE LAS VALIDACIONES
+-------------------------------------------------------------------*/
+
+
+try{//esto es para que si hay un error en un insert en una table no grabe en la otra
+		DB::beginTransaction(); 
+
+/// actualizar la cta cte del chofer -----------------------------
+
+        $date = new \DateTime();
  		$datoFlete=Flete::where('id',$id)->limit(1)->get();
 
- 		$chofer_id=$datoFlete[0]->chofer_id; 		;
-
+ 		$chofer_id=$datoFlete[0]->chofer_id; 		
 		$datochofer=Chofer::where('id',$chofer_id)->limit(1)->get();
- 	
-		$editarchofer=Chofer::where('id',$chofer_id)
-            ->update([
-                      'saldo'=>$datochofer[0]->saldo+$request->valorflete+$request->importe,
-                     ]);
 
-  
+		$editarchofer=Chofer::where('id',$chofer_id)
+        ->update([
+                  'saldo'=>$datochofer[0]->saldo+$request->valorflete+$request->importe,
+                 ]);
+//------------------- fin de la actualizacion --------------------
+
+		// GUARDAR REMITO 1
+		 if($request->cliente_id1 != null){
+		    $datosRemito=new RemitoFlete();
+		    $datosRemito->flete_id=$id;
+		    $datosRemito->modo='IDA';
+		    $datosRemito->estado='INGRESADO';
+		    $datosRemito->cliente_id=$request->cliente_id1;
+		    $datosRemito->nroremito=$request->remito1;
+		    if($request->pallete1==null)
+		    {$datosRemito->palletentregados=0;}
+		    else
+		    {$datosRemito->palletentregados=$request->pallete1;}	
+		    
+
+
+			//editar los paller de los clientes
+			$acumulado=Cliente::where('id',$request->cliente_id1)->orderBy('id','DESC')->limit(1)->get();
+			$editarcliente=Cliente::where('id',$request->cliente_id1)
+              ->update([
+                        'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete1
+                       ]);
+
+
+		    if($request->clientedev1 != null)
+		    {
+		    $datosRemito->palletdevueltos=$request->palletd1;
+			$datosRemito->clientepalletdevuelto=$request->clientedev1;
+			$datosRemito->valepalletdevueltos=$request->valepalletd1;	
+
+			//editar los paller de los clientes
+			$acumulado2=Cliente::where('nombre',$request->clientedev1)->orderBy('id','DESC')->limit(1)->get();
+            $editarcliente=Cliente::where('nombre',$request->clientedev1)
+            ->update([
+                      'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd1
+                      
+                      ]);
+		    }
+			$datosRemito->save();
+
+
+			//guardar comprobante del remito en ctactec
+	        $acumulado=Cliente::where('id',$request->cliente_id1)->orderBy('id','DESC')->limit(1)->get();
+
+	        $datosComprobante=new CtaCteC();
+	        $datosComprobante->tipocomprobante='REMITO';
+	        $datosComprobante->nrocomprobante=$request->remito1;
+	        $datosComprobante->debe=0;
+	        $datosComprobante->haber=0;
+	        $datosComprobante->importesubtotal=0;
+	        $datosComprobante->acumulado=$acumulado[0]->saldo;
+	        $datosComprobante->observacion=$request->observacion1;
+			$datosComprobante->cliente_id=$request->cliente_id1;
+			$datosComprobante->fechaemision=$date;
+			$datosComprobante->fechavencimiento=$date;
+			$datosComprobante->save();
+		}
+		// TERMINAR GUARDAR REMITO1!!!!
+
+
+
+
+
+		// GUARDAR REMITO 2
+		 if($request->cliente_id2 != null){
+		    $datosRemito=new RemitoFlete();
+		    $datosRemito->flete_id=$id;
+		    $datosRemito->modo='IDA';
+		    $datosRemito->estado='INGRESADO';
+		    $datosRemito->cliente_id=$request->cliente_id2;
+		    $datosRemito->nroremito=$request->remito2;
+		    $datosRemito->palletentregados=$request->pallete2;
+
+
+			//editar los paller de los clientes
+			$acumulado=Cliente::where('id',$request->cliente_id2)->orderBy('id','DESC')->limit(1)->get();
+			$editarcliente=Cliente::where('id',$request->cliente_id2)
+              ->update([
+                        'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete2
+                       ]);
+
+
+		    if($request->clientedev2 != null)
+		    {
+		    $datosRemito->palletdevueltos=$request->palletd2;
+			$datosRemito->clientepalletdevuelto=$request->clientedev2;
+			$datosRemito->valepalletdevueltos=$request->valepalletd2;	
+
+			//editar los paller de los clientes
+			$acumulado2=Cliente::where('nombre',$request->clientedev2)->orderBy('id','DESC')->limit(1)->get();
+            $editarcliente=Cliente::where('nombre',$request->clientedev2)
+            ->update([
+                      'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd2
+                      
+                      ]);
+		    }
+			$datosRemito->save();
+
+
+			//guardar comprobante del remito en ctactec
+	        $acumulado=Cliente::where('id',$request->cliente_id2)->orderBy('id','DESC')->limit(1)->get();
+
+	        $datosComprobante=new CtaCteC();
+	        $datosComprobante->tipocomprobante='REMITO';
+	        $datosComprobante->nrocomprobante=$request->remito2;
+	        $datosComprobante->debe=0;
+	        $datosComprobante->haber=0;
+	        $datosComprobante->importesubtotal=0;
+	        $datosComprobante->acumulado=$acumulado[0]->saldo;
+	        $datosComprobante->observacion=$request->observacion2;
+			$datosComprobante->cliente_id=$request->cliente_id2;
+			$datosComprobante->fechaemision=$date;
+			$datosComprobante->fechavencimiento=$date;
+			$datosComprobante->save();
+		}
+		// TERMINAR GUARDAR REMITO2!!!!
+
+
+
+
+		// GUARDAR REMITO 3
+		 if($request->cliente_id3 != null){
+		    $datosRemito=new RemitoFlete();
+		    $datosRemito->flete_id=$id;
+		    $datosRemito->modo='IDA';
+		    $datosRemito->estado='INGRESADO';
+		    $datosRemito->cliente_id=$request->cliente_id3;
+		    $datosRemito->nroremito=$request->remito3;
+		    $datosRemito->palletentregados=$request->pallete3;
+
+
+			//editar los paller de los clientes
+			$acumulado=Cliente::where('id',$request->cliente_id3)->orderBy('id','DESC')->limit(1)->get();
+			$editarcliente=Cliente::where('id',$request->cliente_id3)
+              ->update([
+                        'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete3
+                       ]);
+
+
+		    if($request->clientedev3 != null)
+		    {
+		    $datosRemito->palletdevueltos=$request->palletd3;
+			$datosRemito->clientepalletdevuelto=$request->clientedev3;
+			$datosRemito->valepalletdevueltos=$request->valepalletd3;	
+
+			//editar los paller de los clientes
+			$acumulado3=Cliente::where('nombre',$request->clientedev3)->orderBy('id','DESC')->limit(1)->get();
+            $editarcliente=Cliente::where('nombre',$request->clientedev3)
+            ->update([
+                      'saldopallet'=>$acumulado3[0]->saldopallet-$request->palletd3
+                      
+                      ]);
+		    }
+			$datosRemito->save();
+
+
+			//guardar comprobante del remito en ctactec
+	        $acumulado=Cliente::where('id',$request->cliente_id3)->orderBy('id','DESC')->limit(1)->get();
+
+	        $datosComprobante=new CtaCteC();
+	        $datosComprobante->tipocomprobante='REMITO';
+	        $datosComprobante->nrocomprobante=$request->remito3;
+	        $datosComprobante->debe=0;
+	        $datosComprobante->haber=0;
+	        $datosComprobante->importesubtotal=0;
+	        $datosComprobante->acumulado=$acumulado[0]->saldo;
+	        $datosComprobante->observacion=$request->observacion3;
+			$datosComprobante->cliente_id=$request->cliente_id3;
+			$datosComprobante->fechaemision=$date;
+			$datosComprobante->fechavencimiento=$date;
+			$datosComprobante->save();
+		}
+		// TERMINAR GUARDAR REMITO3!!!
+
+		// GUARDAR REMITO 4
+		 if($request->cliente_id4 != null){
+		    $datosRemito=new RemitoFlete();
+		    $datosRemito->flete_id=$id;
+		    $datosRemito->modo='IDA';
+		    $datosRemito->estado='INGRESADO';
+		    $datosRemito->cliente_id=$request->cliente_id4;
+		    $datosRemito->nroremito=$request->remito4;
+		    $datosRemito->palletentregados=$request->pallete4;
+
+
+			//editar los paller de los clientes
+			$acumulado=Cliente::where('id',$request->cliente_id4)->orderBy('id','DESC')->limit(1)->get();
+			$editarcliente=Cliente::where('id',$request->cliente_id4)
+              ->update([
+                        'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete4
+                       ]);
+
+
+		    if($request->clientedev4 != null)
+		    {
+		    $datosRemito->palletdevueltos=$request->palletd4;
+			$datosRemito->clientepalletdevuelto=$request->clientedev4;
+			$datosRemito->valepalletdevueltos=$request->valepalletd4;	
+
+			//editar los paller de los clientes
+			$acumulado4=Cliente::where('nombre',$request->clientedev4)->orderBy('id','DESC')->limit(1)->get();
+            $editarcliente=Cliente::where('nombre',$request->clientedev4)
+            ->update([
+                      'saldopallet'=>$acumulado4[0]->saldopallet-$request->palletd4
+                      
+                      ]);
+		    }
+			$datosRemito->save();
+
+
+			//guardar comprobante del remito en ctactec
+	        $acumulado=Cliente::where('id',$request->cliente_id4)->orderBy('id','DESC')->limit(1)->get();
+
+	        $datosComprobante=new CtaCteC();
+	        $datosComprobante->tipocomprobante='REMITO';
+	        $datosComprobante->nrocomprobante=$request->remito4;
+	        $datosComprobante->debe=0;
+	        $datosComprobante->haber=0;
+	        $datosComprobante->importesubtotal=0;
+	        $datosComprobante->acumulado=$acumulado[0]->saldo;
+	        $datosComprobante->observacion=$request->observacion4;
+			$datosComprobante->cliente_id=$request->cliente_id4;
+			$datosComprobante->fechaemision=$date;
+			$datosComprobante->fechavencimiento=$date;
+			$datosComprobante->save();
+		}
+		// TERMINAR GUARDAR REMITO4!!!
+
+
 
        	// GUARDAR VALES 1
-        if($request->vale1!=null){
+        if($request->estacion_id1 != null)
+        {
 		    $datosVale=new Vale();
 			$nremitovale=Vale::orderBy('id','DESC')->limit(1)->get();
-
 			
 			$datoestacion=Estacion::where('id',$request->estacion_id1)->get();
 
@@ -573,9 +919,8 @@ class FleteController extends Controller
 
 		}
 		// TERMINAR GUARDAR VALE!!!!
-
 		// GUARDAR VALES 2
-		 if($request->vale2!=null){
+		 if($request->estacion_id2!=null){
 		        $datosVale=new Vale();
 				$nremitovale=Vale::orderBy('id','DESC')->limit(1)->get();
 
@@ -605,7 +950,7 @@ class FleteController extends Controller
 		// TERMINAR GUARDAR VALE!!!!
 
 				// GUARDAR VALES 3
-		 if($request->vale3!=null){
+		 if($request->estacion_id3!=null){
 		        $datosVale=new Vale();
 				$nremitovale=Vale::orderBy('id','DESC')->limit(1)->get();
 
@@ -632,208 +977,9 @@ class FleteController extends Controller
 		}
 		// TERMINAR GUARDAR VALE!!!!
 
-
-		// GUARDAR REMITO 1
-		 if($request->cliente_id1 != null){
-		        $datosRemito=new RemitoFlete();
-				
-			    $datosRemito->cliente_id=$request->cliente_id1;
-				$datosRemito->flete_id=$id;
-				$datosRemito->nroremito=$request->remito1;
-				$datosRemito->modo='IDA';
-				$datosRemito->palletentregados=$request->pallete1;
-				$datosRemito->palletdevueltos=$request->palletd1;
-				$datosRemito->clientepalletdevuelto=$request->clientedev1;
-				$datosRemito->valepalletdevueltos=$request->valepalletd1;
-				$datosRemito->estado='INGRESADO';
-				$datosRemito->save();
-
- 
-				//guardar comprobante del remito en ctactec
-		        $acumulado=Cliente::where('id',$request->cliente_id1)->orderBy('id','DESC')->limit(1)->get();
-
-		        $datosComprobante=new CtaCteC();
-		        $datosComprobante->tipocomprobante='REMITO';
-		        $datosComprobante->nrocomprobante=$request->remito1;
-		        $datosComprobante->debe=0;
-		        $datosComprobante->haber=0;
-		        $datosComprobante->importesubtotal=0;
-		        $datosComprobante->acumulado=$acumulado[0]->saldo;
-		        $datosComprobante->observacion=$request->observacion1;
-				$datosComprobante->cliente_id=$request->cliente_id1;
-				$datosComprobante->fechaemision=$date;
-				$datosComprobante->fechavencimiento=$date;
-				$datosComprobante->save();
-
-				//editar los paller de los clientes
-
-				$editarcliente=Cliente::where('id',$request->cliente_id1)
-                ->update([
-                          'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete1
-                          
-                          ]);
-                $acumulado2=Cliente::where('nombre',$request->clientedev1)->orderBy('id','DESC')->limit(1)->get();
-                $editarcliente=Cliente::where('nombre',$request->clientedev1)
-                ->update([
-                          'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd1
-                          
-                          ]);
-		}
-		// TERMINAR GUARDAR REMITO!!!!
-
-
-		// GUARDAR REMITO 2
-		 if($request->cliente_id2 != null){
-		        $datosRemito=new RemitoFlete();
-				
-			    $datosRemito->cliente_id=$request->cliente_id2;
-				$datosRemito->flete_id=$id;
-				$datosRemito->nroremito=$request->remito2;
-				$datosRemito->modo='IDA';
-				$datosRemito->palletentregados=$request->pallete2;
-				$datosRemito->palletdevueltos=$request->palletd2;
-				$datosRemito->clientepalletdevuelto=$request->clientedev2;
-				$datosRemito->valepalletdevueltos=$request->valepalletd2;
-				$datosRemito->estado='INGRESADO';
-				$datosRemito->save();
-								//guardar comprobante del remito en ctactec
-		        $acumulado=Cliente::where('id',$request->cliente_id2)->orderBy('id','DESC')->limit(1)->get();
-
-		        $datosComprobante=new CtaCteC();
-		        $datosComprobante->tipocomprobante='REMITO';
-		        $datosComprobante->nrocomprobante=$request->remito2;
-		        $datosComprobante->debe=0;
-		        $datosComprobante->haber=0;
-		        $datosComprobante->importesubtotal=0;
-		        $datosComprobante->acumulado=$acumulado[0]->saldo;
-		        $datosComprobante->observacion=$request->observacion2;
-				$datosComprobante->cliente_id=$request->cliente_id2;
-				$datosComprobante->fechaemision=$date;
-				$datosComprobante->fechavencimiento=$date;
-				$datosComprobante->save();
-
-								//editar los paller de los clientes
-
-				$editarcliente=Cliente::where('id',$request->cliente_id2)
-                ->update([
-                          'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete2
-                          
-                          ]);
-
-                 $acumulado2=Cliente::where('nombre',$request->clientedev2)->orderBy('id','DESC')->limit(1)->get();
-                $editarcliente=Cliente::where('nombre',$request->clientedev2)
-                ->update([
-                          'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd2
-                          
-                          ]);
-		}
-		// TERMINAR GUARDAR REMITO!!!!
-
-		// GUARDAR REMITO 3
-		 if($request->cliente_id3 != null){
-		        $datosRemito=new RemitoFlete();
-				
-				$datosRemito->cliente_id=$request->cliente_id3;
-				$datosRemito->flete_id=$id;
-				$datosRemito->nroremito=$request->remito3;
-				$datosRemito->modo='VUELTA';
-				$datosRemito->palletentregados=$request->pallete3;
-				$datosRemito->palletdevueltos=$request->palletd3;
-				$datosRemito->clientepalletdevuelto=$request->clientedev3;
-				$datosRemito->valepalletdevueltos=$request->valepalletd3;
-				$datosRemito->estado='INGRESADO';
-				$datosRemito->save();
-
-
-								//guardar comprobante del remito en ctactec
-		        $acumulado=Cliente::where('id',$request->cliente_id3)->orderBy('id','DESC')->limit(1)->get();
-
-		        $datosComprobante=new CtaCteC();
-		        $datosComprobante->tipocomprobante='REMITO';
-		        $datosComprobante->nrocomprobante=$request->remito3;
-		        $datosComprobante->debe=0;
-		        $datosComprobante->haber=0;
-		        $datosComprobante->importesubtotal=0;
-		        $datosComprobante->acumulado=$acumulado[0]->saldo;
-		        $datosComprobante->observacion=$request->observacion3;
-				$datosComprobante->cliente_id=$request->cliente_id3;
-				$datosComprobante->fechaemision=$date;
-				$datosComprobante->fechavencimiento=$date;
-				$datosComprobante->save();
-
-								//editar los paller de los clientes
-				$pallettotal=$request->pallete3-$request->palletd3;
-				$editarcliente=Cliente::where('id',$request->cliente_id3)
-                ->update([
-                          'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete3
-                          
-                          ]);
-
-                 $acumulado2=Cliente::where('nombre',$request->clientedev3)->orderBy('id','DESC')->limit(1)->get();
-                $editarcliente=Cliente::where('nombre',$request->clientedev3)
-                ->update([
-                          'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd3
-                          
-                          ]);
-		}
-		// TERMINAR GUARDAR REMITO!!!!
-
-        		// GUARDAR REMITO 3
-		 if($request->cliente_id4 != null){
-		        $datosRemito=new RemitoFlete();
-				
-				$datosRemito->cliente_id=$request->cliente_id4;
-				$datosRemito->flete_id=$id;
-				$datosRemito->nroremito=$request->remito4;
-				$datosRemito->modo='VUELTA';
-				$datosRemito->palletentregados=$request->pallete4;
-				$datosRemito->palletdevueltos=$request->palletd4;
-				$datosRemito->clientepalletdevuelto=$request->clientedev4;
-				$datosRemito->valepalletdevueltos=$request->valepalletd4;
-				$datosRemito->estado='INGRESADO';
-				$datosRemito->save();
-
-
-
-								//guardar comprobante del remito en ctactec
-		        $acumulado=Cliente::where('id',$request->cliente_id4)->orderBy('id','DESC')->limit(1)->get();
-
-		        $datosComprobante=new CtaCteC();
-		        $datosComprobante->tipocomprobante='REMITO';
-		        $datosComprobante->nrocomprobante=$request->remito4;
-		        $datosComprobante->debe=0;
-		        $datosComprobante->haber=0;
-		        $datosComprobante->importesubtotal=0;
-		        $datosComprobante->acumulado=$acumulado[0]->saldo;
-		        $datosComprobante->observacion=$request->observacion4;
-				$datosComprobante->cliente_id=$request->cliente_id4;
-				$datosComprobante->fechaemision=$date;
-				$datosComprobante->fechavencimiento=$date;
-				$datosComprobante->save();
-
-								//editar los paller de los clientes
-				$pallettotal=$request->pallete4-$request->palletd4;
-				$editarcliente=Cliente::where('id',$request->cliente_id4)
-                ->update([
-                          'saldopallet'=>$acumulado[0]->saldopallet+$request->pallete4
-                          
-                          ]);
-                $acumulado2=Cliente::where('nombre',$request->clientedev4)->orderBy('id','DESC')->limit(1)->get();
-                $editarcliente=Cliente::where('nombre',$request->clientedev4)
-                ->update([
-                          'saldopallet'=>$acumulado2[0]->saldopallet-$request->palletd4
-                          
-                          ]);
-
-		}
-		// TERMINAR GUARDAR REMITO!!!!
-
 		$datosGastos=new GastoVarioFlete(request()->except('_token'));
 		$datosGastos->fecha=$date;
 		$datosGastos->save();
-
-
-
 
 		$movimientocaja=new MovimientoCaja();
 		$movimientocaja->tipo='GASTOS VARIOS';
@@ -897,7 +1043,7 @@ class FleteController extends Controller
                           ]);
 
 
-		 DB::commit();
+ 		DB::commit();
 		 	flash::success('Se finalizo el Flete con remito numero: '.$consultakminicio[0]->nroremito);
 	        return view('fletes.final')
 	        ->with('status','1')
@@ -912,11 +1058,11 @@ class FleteController extends Controller
 	    }
  		flash::success('Se finalizo el Flete con remito numero: '.$consultakminicio[0]->nroremito);
 			$datoFlete->each(function($datoFlete){
-            $datoFlete->chofer;
-            $datoFlete->camion;
+           $datoFlete->chofer;
+           $datoFlete->camion;
             
+
         });
- 		
 
 
 
