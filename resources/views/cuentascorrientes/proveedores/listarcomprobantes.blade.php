@@ -50,11 +50,13 @@
 					
 					
 					<td>
-				<!-- 	<form method="post" action="{{url('cuentascorrientes/clientes/'.$cliente->id) }}">
-							<a href="{{url('cuentascorrientes/clientes/'.$cliente->id.'/nuevocomprobante')}}"><input type="button" value="Nuevo Comprobante" class="btn btn-info">	</a>
-							<a href="{{url('cuentascorrientes/clientes/'.$cliente->id.'/listar')}}"><input type="button" value="Comprobantes" class="btn btn-success">	</a>
-							
-					</form> -->
+				 	<form method="get" class="submit-prevent-form" action="{{url('cuentascorrientes/proveedores/'.$cliente->id.'/anular') }}">
+
+								
+							@if($cliente->estado =='')
+								<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Anular</button>
+							@endif
+					</form> 
 					</td>
 				</tr>
 				

@@ -24,6 +24,11 @@
 
 
 
+<!-- include the style -->
+<link rel="stylesheet" href="{{asset('css/alertify.min.css')}}">
+
+
+
 <!-- agregado para probar fullcalendar
  jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -40,6 +45,9 @@
 <!-- fullcalendar -->
 <link href="css/fullcalendar.css" rel="stylesheet" />
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+
+
 <script src="js/moment.min.js"></script>
 <script src="js/fullcalendar.js"></script>
 
@@ -537,15 +545,26 @@
     <script src="{{asset('js/submit.js')}}"></script>
     <!-- Select2 -->
     <script src="{{asset('assets/lte/select2/dist/js/select2.min.js')}}"></script>
+    <script src="{{asset('js/alertify.js')}}"></script>
     
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+
     <script>
       $(document).ready(function(){
+
+
       $("select").select2({
         width: '100%'
         });
-      });
+
+
+     });
+  
     </script>
+
+
+  
 
 
     @yield("script")

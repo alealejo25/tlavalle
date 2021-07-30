@@ -50,8 +50,8 @@ class CierreCajaController extends Controller
         $datoscobrocheques= MovimientoCaja::where('caja_id',$request->caja_id)->where('tipo','COBRO CHEQUE PROPIO')->where('cierre','0')->sum('importe');
 
         $dinerocaja= MovimientoCaja::where('caja_id',$request->caja_id)->where('cierre','0')->orderBy('id','DESC')->limit(1)->get();
-
-        if(count($dinerocaja==0)){
+        
+        if(count($dinerocaja)==0){
             flash::success('No puede cerrar la caja, sin antes iniciarla!!!');
             return Redirect('/finanzas/cierrecajas/create');
         }

@@ -55,7 +55,7 @@
 						@else
 							<a href="{{url('mantenimientos/'.$camion->id.'/finalizarcamion')}}"><input type="button" disabled value="Finalizar" class="btn btn-success">	</a>
 						@endif
-							<a href="{{url('mantenimientos/'.$camion->id.'/finalizarcamion')}}"><input type="button" value="Detalle" class="btn btn-warning">	</a>
+							<a href="{{url('mantenimientos/'.$camion->id.'/detalle')}}"><input type="button" value="Detalle" class="btn btn-warning">	</a>
 					
 					</form>
 

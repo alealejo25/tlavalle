@@ -215,6 +215,8 @@ Route::get('mantenimientos/listarcamion','MantenimientoController@listarcamion')
 Route::get('mantenimientos/{slug?}/editarcamion', 'MantenimientoController@editarcamion')->name('editarcamion');
 Route::post('mantenimientos/guardaredicioncamion/{id?}','MantenimientoController@guardaredicioncamion')->name('guardaredicioncamion');
 Route::get('mantenimientos/{slug?}/finalizarcamion', 'MantenimientoController@finalizarcamion')->name('finalizarcamion');
+Route::get('mantenimientos/{slug?}/detalle', 'MantenimientoController@detalle')->name('detalle');
+
 //Route::post('mantenimientos/finalizarcamion','MantenimientoController@finalizarcamion')->name('finalizarcamion');
 
 Route::get('mantenimientos/acoplado','MantenimientoController@acoplado');
@@ -238,6 +240,7 @@ Route::get('cuentascorrientes/proveedores/{id?}/nuevocomprobante', 'CtaCtePContr
 	nuevocomprobante');
 Route::post('cuentascorrientes/proveedores/guardarcomprobantep/{id?}','CtaCtePController@guardarcomprobantep')->name('guardarcomprobantep');
 Route::get('cuentascorrientes/proveedores/{id?}/listar', 'CtaCtePController@listarcomprobantes')->name('listarcomprobantes');
+Route::get('cuentascorrientes/proveedores/{id?}/anular', 'CtaCtePController@anularcomprobantes')->name('anularcomprobantes');
 
 Route::get('cuentascorrientes/clientes/{id?}/editar', 'CtaCteCController@editarcomprobantec')->name('editarcomprobantec');
 

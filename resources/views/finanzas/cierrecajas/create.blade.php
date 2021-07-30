@@ -54,7 +54,7 @@
 			
 			<div class="Form-group">
 				<br/>
-				<a href="/finanzas/cierrecajas"><button class="btn btn-success">Regresar</button></a>
+				<a href="/"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
 		</div>

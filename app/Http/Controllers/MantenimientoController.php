@@ -149,6 +149,26 @@ class MantenimientoController extends Controller
             ->with('mantenimiento',$mantenimiento);
   }
 
+  public function detalle($slug)
+  {
+      $mantenimiento=MantenimientoC::find($slug);
+      $mantenimiento->each(function($mantenimiento)
+      {
+        $mantenimiento->camion;
+      });
+
+
+      $mantenimientorepuestos=MantenimientoCRepuesto::where('mantenimientoc_id',$slug);
+      $mantenimientorepuestos->each(function($mantenimientorepuestos){
+        $mantenimientorepuestos->repuesto;
+      });
+
+        return view('mantenimientos.detalle')
+                ->with('mantenimientorepuestos',$mantenimientorepuestos)
+              ->with('mantenimiento',$mantenimiento);
+  }
+
+
 
  public function acoplado(){
     $repuestos=Repuesto::orderBy('nombre','ASC')->pluck('nombre','id');

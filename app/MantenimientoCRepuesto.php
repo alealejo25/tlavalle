@@ -24,6 +24,10 @@ class MantenimientoCRepuesto extends Model
     // {
     //     return $this->belongsTo('App\Repuesto');
     // }
+    public function Repuesto()
+    {
+        return $this->hasMany('App\Repuesto');
+    }
 }
 
 

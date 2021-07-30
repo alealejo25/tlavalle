@@ -33,6 +33,11 @@ class Repuesto extends Model
         return $this->belongsToMany('App\mantenimientoc', 'MantenimientoCManodeObra','repuesto_id','mantenimientoc_id');
     }
 
+     public function MantenimeintoCRespuesto()
+    {
+        return $this->belongsTo('App\MantenimeintoCRespuesto');
+    }
+
     public function scopeSearch($query,$name)
     {
         return $query->where('nombre','LIKE',"%$name%");

@@ -25,7 +25,7 @@
 			</div>
 			<br>
 			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Generar y Continuar</button>
+				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Generar y Continuar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 			
