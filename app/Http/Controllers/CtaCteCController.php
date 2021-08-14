@@ -64,6 +64,19 @@ class CtaCteCController extends Controller
     public function guardarcomprobantec(Request $request,$id)
     {
 
+      /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'tipocomprobante'=>'required',
+            'nrocomprobante'=>'required|unique:CtasCtesC',
+            'fechaemision'=>'required',
+            'fechavencimiento'=>'required',
+            'importe'=>'required|numeric',
+          'importesubtotal'=>'required|numeric'
+           
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+        
     	$acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
         $datosComprobante=new CtaCteC(request()->except('_token'));
 

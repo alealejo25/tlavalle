@@ -18,7 +18,7 @@ class Ordendepagosc extends Migration
             $table->date('fecha');
             $table->string('nrocomprobante',20);
             $table->decimal('montoneto',8,2);
-            $table->string('descripcion',100);
+            $table->string('descripcion',100)->nullable();
             $table->string('provincia1',30)->nullable();
             $table->decimal('ingresobrutos1',8,2)->nullable();
             $table->string('provincia2',30)->nullable();

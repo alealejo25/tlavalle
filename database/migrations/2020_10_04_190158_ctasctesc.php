@@ -24,7 +24,7 @@ class Ctasctesc extends Migration
             $table->decimal('acumulado',10,2);
 
             $table->decimal('importesubtotal',10,2)->nullable();
-            $table->decimal('iva',3,2)->nullable();
+            $table->decimal('iva',8,2)->nullable();
             $table->string('exento',10)->nullable();
             $table->decimal('importefinal',10,2)->nullable();
 

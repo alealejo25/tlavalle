@@ -40,20 +40,18 @@ class CtaCtePController extends Controller
  public function guardarcomprobantep(Request $request,$id)
     {
 
-                  /*VALIDACION -----------------------------------------*/
+        /*VALIDACION -----------------------------------------*/
         $campos=[
             'tipocomprobante'=>'required',
-            'nrocomprobante'=>'required',
+            'nrocomprobante'=>'required|unique:CtasCtesP',
             'fechaemision'=>'required',
             'fechavencimiento'=>'required',
             'importe'=>'required|numeric',
-            'importesubtotal'=>'required|numeric'
+          'importesubtotal'=>'required|numeric'
            
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-
-
 
     	$acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
 

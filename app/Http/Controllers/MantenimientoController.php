@@ -14,7 +14,7 @@ use App\MantenimientoARepuesto;
 use App\MantenimientoAManodeObra;
 use App\ManoObra;
 use Laracasts\Flash\Flash;
-
+use  DB;
 class MantenimientoController extends Controller
 {
     public function __construct()
@@ -151,21 +151,20 @@ class MantenimientoController extends Controller
 
   public function detalle($slug)
   {
-      $mantenimiento=MantenimientoC::find($slug);
-      $mantenimiento->each(function($mantenimiento)
-      {
-        $mantenimiento->camion;
-      });
-
-
-      $mantenimientorepuestos=MantenimientoCRepuesto::where('mantenimientoc_id',$slug);
-      $mantenimientorepuestos->each(function($mantenimientorepuestos){
-        $mantenimientorepuestos->repuesto;
-      });
-
-        return view('mantenimientos.detalle')
-                ->with('mantenimientorepuestos',$mantenimientorepuestos)
-              ->with('mantenimiento',$mantenimiento);
+     $consulta=DB::table('repuestos')
+                          ->join('mantenimientoscrepuestos','repuestos.id','=','mantenimientoscrepuestos.repuesto_id')
+                          ->join('mantenimientosc','mantenimientoscrepuestos.mantenimientoc_id','=','mantenimientosc.id')
+                          ->where('mantenimientosc.id',$slug)
+                          ->get();
+     $camiones=MantenimientoC::where('id',$slug)->get();
+     $camiones->each(function($camiones){
+            $camiones->camion;
+          });
+                     //     dd($consulta);
+     return view('mantenimientos.verdetalle')
+                ->with('camiones',$camiones)
+                ->with('consulta',$consulta);
+              
   }
 
 
