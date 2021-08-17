@@ -55,7 +55,7 @@ class CtaCteCController extends Controller
 
     public function guardaropc(Request $request,$id)
     {
-$date = new \DateTime();
+    $date = new \DateTime();
         $datosComprobante=new OrdenPagoC(request()->except('_token'));
         $datosComprobante->cliente_id=$id;
         $datosComprobante->save();

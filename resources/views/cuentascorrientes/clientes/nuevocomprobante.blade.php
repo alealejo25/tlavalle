@@ -38,8 +38,7 @@
 										<option value="FACTURA">FACTURA</option>
 										<option value="NOTA DE CREDITO">NOTA DE CREDITO</option>
 										<option value="NOTA DE DEBITO">NOTA DE DEBITO</option>
-	
-										<option value="RECIBO">RECIBO</option>
+											<option value="RECIBO">RECIBO</option>
 										<option value="REMITO">REMITO</option>
 										
 							</select>
