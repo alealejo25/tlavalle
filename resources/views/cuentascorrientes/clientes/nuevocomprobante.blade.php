@@ -85,11 +85,7 @@
 				<input type="number" step=0.01 name="exento" class="form-control {{$errors->has('exento')?'is-invalid':''}}" placeholder="Exento ..." value="{{old('iva')}}">
 				{!! $errors->first('exento','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="Form-group">
-					<label for="importefinal">Importe Final</label>
-					<input type="number" step=0.01 name="importefinal" class="form-control {{$errors->has('importefinal')?'is-invalid':''}}" placeholder="Importe Final ..." value="{{old('importefinal')}}">
-					{!! $errors->first('importefinal','<div class="invalid-feedback">:message</div>')!!}
-				</div>
+
 			<div class="Form-group">
 				<label for="observacion">Observacion</label>
 				<input type="text" name="observacion" class="form-control {{$errors->has('observacion')?'is-invalid':''}}" value="{{old('observacion')}}"> 

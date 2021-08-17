@@ -19,7 +19,7 @@ class CtaCteCController extends Controller
 	public function index(Request $request)
     {
         
-        $clientes=Cliente::search($request->name)->orderBy('nombre','ASC')->paginate(20);
+        $clientes=Cliente::search($request->name)->orderBy('nombre','ASC')->paginate(50);
         return view('cuentascorrientes.clientes.index')
             ->with('clientes',$clientes);
 

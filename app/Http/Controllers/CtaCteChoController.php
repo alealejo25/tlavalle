@@ -18,7 +18,7 @@ class CtaCteChoController extends Controller
 	public function index(Request $request)
     {
         
-        $choferes=Chofer::orderBy('nombre','ASC')->paginate(20);
+        $choferes=Chofer::orderBy('nombre','ASC')->paginate(50);
         return view('cuentascorrientes.choferes.index')
             ->with('choferes',$choferes);
 
