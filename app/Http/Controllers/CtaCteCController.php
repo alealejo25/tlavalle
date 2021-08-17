@@ -55,9 +55,27 @@ class CtaCteCController extends Controller
 
     public function guardaropc(Request $request,$id)
     {
+$date = new \DateTime();
         $datosComprobante=new OrdenPagoC(request()->except('_token'));
         $datosComprobante->cliente_id=$id;
         $datosComprobante->save();
+        
+        $acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+        $datos=new CtaCteC(request()->except('_token'));
+        $datos->cliente_id=$id;
+        $datos->tipocomprobante="ORDEN DE PAGO";
+         $datos->fechaemision=$date;
+          $datos->fechavencimiento=$date;
+                $datos->debe=$request->montoneto;
+                $datos->haber=0;
+                $datos->acumulado=$acumulado[0]->saldo + $request->montoneto;
+                $datos->save();
+
+                $editarcliente=Cliente::where('id',$id)
+                ->update([
+                          'saldo'=>$datos->acumulado
+                          ]);
+            
         flash::success('Comprobante ingresado!!! - Tipo Orden de Pago Cliente - Nro ' .$request->nrocomprobante);
        return Redirect('cuentascorrientes/clientes/')->with('Mensaje','Comprobante ingresado!!!');
     }
@@ -112,16 +130,7 @@ class CtaCteCController extends Controller
                           ]);
 
         	break;
-        	case 'ORDEN DE PAGO':
-        		$datosComprobante->debe=$request->importe;
-        		$datosComprobante->haber=0;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
-        		$datosComprobante->save();
-				$editarcliente=Cliente::where('id',$id)
-                ->update([
-                          'saldo'=>$datosComprobante->acumulado
-                          ]);
-        	break;
+        	
 
             case 'NOTA DE CREDITO':
                 $datosComprobante->debe=$request->importe;

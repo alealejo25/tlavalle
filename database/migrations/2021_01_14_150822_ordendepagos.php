@@ -16,8 +16,8 @@ class Ordendepagos extends Migration
         Schema::create('ordendepagos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('numero');
-            $table->decimal('montoacumulado',8,2)->nullable();
-            $table->decimal('montofinal',8,2)->nullable();
+            $table->decimal('montoacumulado',12,2)->nullable();
+            $table->decimal('montofinal',12,2)->nullable();
             $table->date('fecha');
             $table->string('tipo',20);
             $table->string('estado',15);
