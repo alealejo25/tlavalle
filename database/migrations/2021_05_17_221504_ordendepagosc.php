@@ -17,18 +17,18 @@ class Ordendepagosc extends Migration
             $table->increments('id');
             $table->date('fecha');
             $table->string('nrocomprobante',20);
-            $table->decimal('montoneto',8,2);
-            $table->string('descripcion',100);
+            $table->decimal('montoneto',12,2);
+            $table->string('descripcion',100)->nullable();
             $table->string('provincia1',30)->nullable();
-            $table->decimal('ingresobrutos1',8,2)->nullable();
+            $table->decimal('ingresobrutos1',12,2)->nullable();
             $table->string('provincia2',30)->nullable();
-            $table->decimal('ingresobrutos2',8,2)->nullable();
+            $table->decimal('ingresobrutos2',12,2)->nullable();
             $table->string('provincia3',30)->nullable();
-            $table->decimal('ingresobrutos3',8,2)->nullable();
-            $table->decimal('retencionganancias',8,2)->nullable();
-            $table->decimal('suss',8,2)->nullable();
-            $table->decimal('otras',8,2)->nullable();
-            $table->decimal('montofinal',8,2)->nullable();
+            $table->decimal('ingresobrutos3',12,2)->nullable();
+            $table->decimal('retencionganancias',12,2)->nullable();
+            $table->decimal('suss',12,2)->nullable();
+            $table->decimal('otras',12,2)->nullable();
+            $table->decimal('montofinal',12,2)->nullable();
             $table->integer('cliente_id')->unsigned()->nullable();
             
             $table->foreign('cliente_id')->references('id')->on('clientes');

@@ -15,7 +15,7 @@
 			</div>
 			@endif	
  		<!--	{!!Form::open(array('url'=>'guardartransferencia','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} -->
-				{!!Form::open(['route' => 'generaropchofer','method'=>'POST'])!!}
+				{!!Form::open(['route' => 'generaropchofer','method'=>'POST','class'=>'submit-prevent-form'])!!}
 			{{Form::token()}}
 
 
@@ -31,10 +31,7 @@
 			
 			{!!Form::close()!!}
 			
-			<div class="Form-group">
-				<br/>
-				<a href="/pagos/pagoefectivo"><button class="btn btn-success">Regresar</button></a>
-			</div>
+		
 
 		</div>
 	</div> 

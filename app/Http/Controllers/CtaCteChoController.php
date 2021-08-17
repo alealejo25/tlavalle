@@ -41,6 +41,19 @@ class CtaCteChoController extends Controller
     public function guardarcomprobantecho(Request $request,$id)
     {
 
+
+      /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'tipocomprobante'=>'required',
+            'nrocomprobante'=>'required|unique:CtasCtesCho',
+            'fechaemision'=>'required',
+            'fechavencimiento'=>'required',
+            'importe'=>'required|numeric',
+          'importesubtotal'=>'required|numeric'
+           
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
       $acumulado=Chofer::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
 
         $datosComprobante=new CtaCteCho(request()->except('_token'));
