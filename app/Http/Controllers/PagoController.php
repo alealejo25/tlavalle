@@ -732,10 +732,10 @@ public function generaropchofer(Request $request){
           $saldoanterior=$proveedores;
         }
 
-        $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
-                ->update([
-                          'saldo'=>$saldoanterior->saldo-$request->importe
-                        ]);
+        // $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
+        //         ->update([
+        //                   'saldo'=>$saldoanterior->saldo-$request->importe
+        //                 ]);
 
       $caja='2';
       $datosmovimientoscajas=new MovimientoCaja(request()->except('_token'));
@@ -805,10 +805,10 @@ public function generaropchofer(Request $request){
                 $cheque=$cheques;
               }
 
-              $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
-                ->update([
-                'saldo'=>$saldoanterior->saldo-$cheque->importe
-                     ]);
+              // $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
+              //   ->update([
+              //   'saldo'=>$saldoanterior->saldo-$cheque->importe
+              //        ]);
               $actualizarcheque=ChequeTercero::where('id',$request->chequetercero_id)
                 ->update([
 		            'estado'=>'ENTREGADO',
@@ -831,10 +831,10 @@ public function generaropchofer(Request $request){
                   $chequepropio=$cheques;
                 }
 
-                $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
-                  ->update([
-                  'saldo'=>$saldoanterior->saldo-$request->importe
-                       ]);
+                // $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
+                //   ->update([
+                //   'saldo'=>$saldoanterior->saldo-$request->importe
+                //        ]);
 
                 $actualizarcheque=ChequePropio::where('id',$request->chequepropio_id)
                   ->update([
@@ -884,10 +884,10 @@ public function guardarpagochequepropio(Request $request){
           $chequepropio=$cheques;
         }
 
-        $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
-            ->update([
-            		'saldo'=>$saldoanterior->saldo-$request->importe
-                     ]);
+        // $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
+        //     ->update([
+        //     		'saldo'=>$saldoanterior->saldo-$request->importe
+        //              ]);
 
         $actualizarcheque=ChequePropio::where('id',$request->cheque_id)
      		     ->update([
@@ -926,10 +926,10 @@ public function guardarpagochequepropio(Request $request){
           $saldoanterior=$proveedores;
         }
 
-        $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
-            ->update([
-            		'saldo'=>$saldoanterior->saldo-$request->importe
-                     ]);
+        // $actualizarproveedor=Proveedor::where('id',$request->proveedor_id)
+        //     ->update([
+        //     		'saldo'=>$saldoanterior->saldo-$request->importe
+        //              ]);
             ///// falta hacer el movimiento de los pagos!!!! de cada pagina 
  }
  public function prestamo(){
@@ -1033,10 +1033,10 @@ public function guardarprestamo(Request $request){
 
         
         $saldofinalchofer=$consultachofer->saldo-$consultaprestamochofer->valorcuota;
-        $actualizarsaldochofer=Chofer::where('id',$consultaprestamochofer->chofer_id)
-              ->update([
-                   'saldo'=>$saldofinalchofer
-                       ]);
+        // $actualizarsaldochofer=Chofer::where('id',$consultaprestamochofer->chofer_id)
+        //       ->update([
+        //            'saldo'=>$saldofinalchofer
+        //                ]);
 
         $importerestante=$consultaprestamochofer->importerestante-$consultaprestamochofer->valorcuota;
         $cantcuotasfaltantes=$consultaprestamochofer->cantcuotasfaltantes-1;
@@ -1145,11 +1145,11 @@ public function guardarprestamo(Request $request){
     $consultachofer=Chofer::where('id',$request->chofer_id)->get();
     $saldofinal=$consultachofer[0]->saldo-$request->importe;
 
-    $actualizarproveedor=Chofer::where('id',$request->chofer_id)
-               ->update([
-                    'saldo'=>$saldofinal
+    // $actualizarproveedor=Chofer::where('id',$request->chofer_id)
+    //            ->update([
+    //                 'saldo'=>$saldofinal
                   
-                        ]);
+    //                     ]);
 
         flash::success('Se INGRESO un nuevo anticipo y se actualizo la cuenta del Chofer');
         flash::success('Se actualizo la CAJA ');
@@ -1191,11 +1191,11 @@ public function cerrarop($id){
 
     $datosproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)->get();
     $saldofinal=$datosproveedor[0]->saldo-$datosopchofer[0]->montoacumulado;
-    $actualizarproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)
-                ->update([
-                'saldo'=>$saldofinal
+    // $actualizarproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)
+    //             ->update([
+    //             'saldo'=>$saldofinal
 
-                     ]);
+    //                  ]);
 
     $datosopchofer=OrdenPago::orderBy('id','DESC')->get();
     $datosopchofer->each(function($datosopchofer){
@@ -1239,11 +1239,11 @@ public function cerraropchofer($id){
 
     $datoschofer=Chofer::where('id',$datosopchofer[0]->chofer_id)->get();
     $saldofinal=$datoschofer[0]->saldo-$datosopchofer[0]->montoacumulado;
-    $actualizarchofer=Chofer::where('id',$datosopchofer[0]->chofer_id)
-                ->update([
-                'saldo'=>$saldofinal
+    // $actualizarchofer=Chofer::where('id',$datosopchofer[0]->chofer_id)
+    //             ->update([
+    //             'saldo'=>$saldofinal
 
-                     ]);
+    //                  ]);
 
 
       flash::success('Se registro el pago en efectivo al chofer'); 
