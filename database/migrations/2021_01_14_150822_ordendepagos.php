@@ -12,7 +12,7 @@ class Ordendepagos extends Migration
      * @return void
      */
     public function up()
-    { 
+    {
         Schema::create('ordendepagos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('numero');

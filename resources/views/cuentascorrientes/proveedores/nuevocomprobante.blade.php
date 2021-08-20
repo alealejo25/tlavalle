@@ -17,7 +17,7 @@
 				</ul>
 			</div>
 			@endif	
-			{!!Form::open(['route' => ['guardarcomprobantep',$id],'method'=>'POST'])!!}
+			{!!Form::open(['route' => ['guardarcomprobantep',$id],'method'=>'POST','class'=>'submit-prevent-form'])!!}
 			<div class="Form-group">
 				<table>
 					<tr>
@@ -105,8 +105,8 @@
 				{!!Form::select('factura_id',$cuentacorrienteproveedor,null,['class' => 'form-control','placeholder'=>'Seleccione Factura asociada a la ND o NC','requerid' ])!!}
 			</div>
 			<br>
-			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+	<div class="Form-group">
+				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 

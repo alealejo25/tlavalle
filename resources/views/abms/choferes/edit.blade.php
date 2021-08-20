@@ -55,6 +55,11 @@
 				{!! $errors->first('saldo','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 			<div class="Form-group">
+				<label for="saldoinicial">Saldo Inicial</label>
+				<input type="text" name="saldoinicial" id="saldoinicial" class="form-control" placeholder="saldoinicial..." value="{{$choferes->saldoinicial}}">
+				{!! $errors->first('saldoinicial','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="Form-group">
 				<label for="camion_id">Dominio Camion</label>
 									
 				@if($choferes->id_camion===NULL)

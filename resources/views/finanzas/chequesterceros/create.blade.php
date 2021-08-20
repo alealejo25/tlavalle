@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			@endif	
- 			{!!Form::open(array('url'=>'finanzas/chequesterceros','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+ 			{!!Form::open(array('url'=>'finanzas/chequesterceros','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','class'=>'submit-prevent-form'))!!} 
 			{{Form::token()}}
 
 			<div class="Form-group">
@@ -47,8 +47,8 @@
 			</div>
 
 			<br>
-			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+	<div class="Form-group">
+				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 

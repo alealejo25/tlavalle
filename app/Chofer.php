@@ -18,6 +18,7 @@ class Chofer extends Model
     'fechanac',
     'nrocelular',
     'saldo',
+    'saldoinicial',
     'camion_id'
 	];
 	public function Camion()

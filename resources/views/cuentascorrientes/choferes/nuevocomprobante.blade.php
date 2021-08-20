@@ -17,7 +17,7 @@
 				</ul>
 			</div>
 			@endif	
-			{!!Form::open(['route' => ['guardarcomprobantecho',$id],'method'=>'POST'])!!}
+			{!!Form::open(['route' => ['guardarcomprobantecho',$id],'method'=>'POST','class'=>'submit-prevent-form'])!!}
 			<div class="Form-group">
 				<table>
 					<tr>
@@ -89,11 +89,7 @@
 				<input type="number" step=0.01 name="ganancia" class="form-control {{$errors->has('ganancia')?'is-invalid':''}}" placeholder="Ganancia ..." value="{{old('ganancia')}}">
 				{!! $errors->first('ganancia','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> 0b632d0434aacb961e8b6c179c1bf1ab2f09ee93
 
 			<div class="Form-group">
 				<label for="observacion">Observacion</label>
@@ -105,11 +101,11 @@
 				{!!Form::select('factura_id',$cuentacorrientechofer,null,['class' => 'form-control','placeholder'=>'Seleccione Factura asociada a la ND o NC','requerid' ])!!}
 			</div>
 			<br>
-			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+
+ 			<div class="Form-group">
+				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
-
 			
 			{!!Form::close()!!}
 			

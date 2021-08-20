@@ -23,6 +23,7 @@ class Cliente extends Model
 	    'telefono_contacto',
 	    'cuit',
 	    'saldo',
+        'saldoinicial',
 	    'clientepallet',
 	    'saldopallet',
 	    'condicion'

@@ -28,6 +28,7 @@
 					<th>Telefono Contacto</th>
 					<th>Cuit</th>
 					<th>Saldo</th>
+					<th>Saldo Inicial</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($proveedores as $proveedor)
@@ -41,6 +42,7 @@
 					<td>{{ $proveedor->telefono_contacto}}</td>
 					<td>{{ $proveedor->cuit}}</td>
 					<td>{{ $proveedor->saldo}}</td>
+					<td>{{ $proveedor->saldoinicial}}</td>
 					<td>
 					<form method="post" action="{{url('abms/proveedores/'.$proveedor->id) }}">
 							<a href="{{url('abms/proveedores/'.$proveedor->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>

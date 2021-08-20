@@ -88,6 +88,14 @@
 				{!! $errors->first('saldo','<div class="invalid-feedback">:message</div>')!!}
 				
 			</div>
+
+			<div class="Form-group">
+				<!-- <label for="nombre">Dominio</label> -->
+				{{Form::label('saldoinicial', 'Saldo Inicial')}}
+				<input type="text" class="form-control {{$errors->has('saldoinicial')?'is-invalid':''}}" placeholder="Saldo..." name="saldoinicial" id="saldoinicial"  value="{{$proveedores->saldoinicial}}">
+				{!! $errors->first('saldoinicial','<div class="invalid-feedback">:message</div>')!!}
+				
+			</div>
 			
 
 			<br>

@@ -24,7 +24,8 @@ class Proveedores extends Migration
                 $table->string('contacto',60);
                 $table->string('telefono_contacto',11);
                 $table->string('cuit',15)->unique();
-                $table->decimal('saldo',10,2)->default(0);
+                $table->decimal('saldo',12,2)->default(0);
+                $table->decimal('saldoinicial',12,2)->default(0);
                 $table->integer('condicion')->unsigned()->default(0);
                 $table->timestamps();
         });

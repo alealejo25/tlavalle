@@ -21,6 +21,7 @@ class Proveedor extends Model
 	    'telefono_contacto',
 	    'cuit',
 	    'saldo',
+         'saldoinicial',
 	    'condicion'
 	];
 

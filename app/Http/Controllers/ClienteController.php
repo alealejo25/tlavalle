@@ -41,8 +41,9 @@ class ClienteController extends Controller
             'clientepallet'=>'required|string',
             'telefono_contacto'=>'required|string|max:120',
             'cuit'=>'required|integer',
-            'saldo'=>'required|integer',
-            'provincia'=>'required',
+            'saldo'=>'required|numeric',
+            'saldoinicial'=>'required|numeric',
+            'provincia'=>'required'
 
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -78,7 +79,7 @@ class ClienteController extends Controller
             'clientepallet'=>'required|string',
             'telefono_contacto'=>'required|string|max:120',
             'cuit'=>'required|integer',
-            'saldo'=>'required|integer',
+            'saldo'=>'required|numeric',
             'provincia'=>'required',
 
         ];

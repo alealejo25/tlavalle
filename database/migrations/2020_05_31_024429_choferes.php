@@ -21,7 +21,8 @@ class Choferes extends Migration
             $table->string('direccion',100);
             $table->date('fechanac');
             $table->string('nrocelular',11);
-            $table->decimal('saldo',8,2);
+            $table->decimal('saldo',12,2)->default(0);
+            $table->decimal('saldoinicial',12,2)->default(0);
             $table->integer('camion_id')->nullable()->unsigned();
             $table->string('foto',256)->nullable();
             $table->integer('condicion')->unsigned()->default(0);

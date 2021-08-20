@@ -37,6 +37,7 @@
 					<th>Telefono Contacto</th>
 					<th>Cuit</th>
 					<th>Saldo</th>
+					<th>Saldo Inicial</th>
 					<th>Cliente Pallet</th>
 					<th>Saldo Pallet</th>
 					<th>Opciones</th>
@@ -54,6 +55,7 @@
 					<td>{{ $cliente->telefono_contacto}}</td>
 					<td>{{ $cliente->cuit}}</td>
 					<td>{{ $cliente->saldo}}</td>
+					<td>{{ $cliente->saldoinicial}}</td>
 					<td>{{ $cliente->clientepallet}}</td>
 					<td>{{ $cliente->saldopallet}}</td>
 					<td>

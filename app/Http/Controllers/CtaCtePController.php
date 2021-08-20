@@ -73,10 +73,10 @@ class CtaCtePController extends Controller
 
         		$datosComprobante->factura_id=null;
         		$datosComprobante->save();
-        		// $editarcliente=Proveedor::where('id',$id)
-          //       ->update([
-          //       		'saldo'=>$datosComprobante->acumulado
-          //                 ]);
+        		$editarcliente=Proveedor::where('id',$id)
+                ->update([
+                		'saldo'=>$datosComprobante->acumulado
+                          ]);
         	break;
 
         	
@@ -85,10 +85,10 @@ class CtaCtePController extends Controller
         		$datosComprobante->haber=0;
         		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
         		$datosComprobante->save();
-        		// $editarcliente=Proveedor::where('id',$id)
-          //       ->update([
-          //       		'saldo'=>$datosComprobante->acumulado
-          //                 ]);
+        		$editarcliente=Proveedor::where('id',$id)
+                ->update([
+                		'saldo'=>$datosComprobante->acumulado
+                          ]);
 
         	break;
         	case 'NOTA DE CREDITO':
@@ -106,10 +106,10 @@ class CtaCtePController extends Controller
         		$datosComprobante->haber=0;
         		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
         		$datosComprobante->save();
-        		// $editarcliente=Proveedor::where('id',$id)
-          //       ->update([
-          //       		'saldo'=>$datosComprobante->acumulado
-          //                 ]);
+        		$editarcliente=Proveedor::where('id',$id)
+                ->update([
+                		'saldo'=>$datosComprobante->acumulado
+                          ]);
 
 
 
@@ -119,10 +119,10 @@ class CtaCtePController extends Controller
         		$datosComprobante->haber=$request->importe;
         		$datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
         		$datosComprobante->save();
-				// $editarcliente=Proveedor::where('id',$id)
-    //             ->update([
-    //                       'saldo'=>$datosComprobante->acumulado
-    //                       ]);
+				$editarcliente=Proveedor::where('id',$id)
+                ->update([
+                          'saldo'=>$datosComprobante->acumulado
+                          ]);
         	break;
         }
    		flash::success('Comprobante ingresado!!! - Tipo '.$request->tipocomprobante. '-' .$request->nrocomprobante);
@@ -178,10 +178,10 @@ class CtaCtePController extends Controller
                 $datosComprobante->factura_id=$id;
                 $datosComprobante->estado='REALIZADO';
                 $datosComprobante->save();
-                // $editarcliente=Proveedor::where('id',$datoscomprobante[0]->proveedor_id)
-                // ->update([
-                //         'saldo'=>$datosComprobante->acumulado
-                //           ]);
+                $editarcliente=Proveedor::where('id',$datoscomprobante[0]->proveedor_id)
+                ->update([
+                        'saldo'=>$datosComprobante->acumulado
+                          ]);
                 $editarcomprobante=CtaCteP::where('id',$id)
                 ->update([
                         'estado'=>'ANULADO',

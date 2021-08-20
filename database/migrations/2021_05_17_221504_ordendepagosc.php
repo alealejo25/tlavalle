@@ -11,7 +11,7 @@ class Ordendepagosc extends Migration
      *
      * @return void
      */
-    public function up() 
+    public function up()
     {
         Schema::create('ordendepagosc', function (Blueprint $table) {
             $table->increments('id');

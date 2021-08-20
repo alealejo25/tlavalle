@@ -26,7 +26,8 @@ class Clientes extends Migration
             $table->string('contacto',120);
             $table->string('telefono_contacto',120);
             $table->string('cuit',15);
-            $table->decimal('saldo',10,2)->default(0);
+            $table->decimal('saldo',12,2)->default(0);
+            $table->decimal('saldoinicial',12,2)->default(0);
             $table->string('clientepallet',2)->default(0);
             $table->integer('saldopallet')->nullable();
             $table->integer('condicion')->unsigned()->default(0);

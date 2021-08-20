@@ -32,11 +32,13 @@ class ProveedorController extends Controller
         $campos=[
             'nombre'=>'required|string|max:50',
             'direccion'=>'required|string|max:50',
-            'telefono'=>'required|integer|max:11',
+            'telefono'=>'required|integer',
             'email1'=>'required',
             'contacto'=>'required|string|max:50',
-            'telefono_contacto'=>'required|integer|max:11',
-            'cuit'=>'required|integer'
+            'telefono_contacto'=>'required|integer',
+            'cuit'=>'required|integer',
+            'saldo'=>'required|numeric',
+            'saldoinicial'=>'required|numeric'
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
@@ -73,6 +75,7 @@ class ProveedorController extends Controller
             'telefono_contacto'=>'required',
             'cuit'=>'required|integer',
             'saldo'=>'required',
+            'saldoinicial'=>'required',
             'email1'=>'required',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];

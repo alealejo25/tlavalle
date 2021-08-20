@@ -27,6 +27,7 @@
 					<th>Fecha de Nac.</th>
 					<th>Nro. Telefono</th>
 					<th>Saldo</th>
+					<th>Saldo Inicial</th>
 					<th>Dominio Camion</th>
 					<th>Opciones</th>
 				</thead>
@@ -40,6 +41,7 @@
 					<td>{{ $chofer->fechanac}}</td>
 					<td>{{ $chofer->nrocelular}}</td>
 					<td>{{ $chofer->saldo}}</td>
+					<td>{{ $chofer->saldoinicial}}</td>
 					@if($chofer->camion_id===NULL)
 						<td><p>SIN ASOCIAR</p></td>
 					@else

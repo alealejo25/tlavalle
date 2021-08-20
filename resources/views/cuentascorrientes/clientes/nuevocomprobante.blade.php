@@ -19,7 +19,7 @@
 			@endif	
  			<!-- {!!Form::open(array('url'=>'fletes','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!}  -->
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
-			{!!Form::open(['route' => ['guardarcomprobantec',$id],'method'=>'POST'])!!}
+			{!!Form::open(['route' => ['guardarcomprobantec',$id],'method'=>'POST','class'=>'submit-prevent-form'])!!}
 
 
 			<div class="Form-group">
@@ -38,7 +38,8 @@
 										<option value="FACTURA">FACTURA</option>
 										<option value="NOTA DE CREDITO">NOTA DE CREDITO</option>
 										<option value="NOTA DE DEBITO">NOTA DE DEBITO</option>
-											<option value="RECIBO">RECIBO</option>
+	
+										<option value="RECIBO">RECIBO</option>
 										<option value="REMITO">REMITO</option>
 										
 							</select>
@@ -95,11 +96,10 @@
 				{!!Form::select('factura_id',$cuentacorrientecliente,null,['class' => 'form-control','placeholder'=>'Seleccione Factura asociada a la ND o NC','requerid' ])!!}
 			</div>
 			<br>
-			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+				<div class="Form-group">
+				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
-
 			
 			{!!Form::close()!!}
 			

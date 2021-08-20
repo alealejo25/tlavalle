@@ -74,10 +74,10 @@ class CtaCteChoController extends Controller
 
             $datosComprobante->factura_id=null;
             $datosComprobante->save();
-            // $editarcliente=Chofer::where('id',$id)
-            //     ->update([
-            //         'saldo'=>$datosComprobante->acumulado
-            //               ]);
+            $editarcliente=Chofer::where('id',$id)
+                ->update([
+                    'saldo'=>$datosComprobante->acumulado
+                          ]);
           break;
 
           
@@ -86,10 +86,10 @@ class CtaCteChoController extends Controller
             $datosComprobante->haber=0;
             $datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
             $datosComprobante->save();
-            // $editarcliente=Chofer::where('id',$id)
-            //     ->update([
-            //         'saldo'=>$datosComprobante->acumulado
-            //               ]);
+            $editarcliente=Chofer::where('id',$id)
+                ->update([
+                    'saldo'=>$datosComprobante->acumulado
+                          ]);
 
           break;
           case 'NOTA DE CREDITO':
@@ -107,10 +107,10 @@ class CtaCteChoController extends Controller
             $datosComprobante->haber=0;
             $datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
             $datosComprobante->save();
-            // $editarcliente=Chofer::where('id',$id)
-            //     ->update([
-            //         'saldo'=>$datosComprobante->acumulado
-            //               ]);
+            $editarcliente=Chofer::where('id',$id)
+                ->update([
+                    'saldo'=>$datosComprobante->acumulado
+                          ]);
 
 
 
@@ -120,10 +120,10 @@ class CtaCteChoController extends Controller
             $datosComprobante->haber=$request->importe;
             $datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
             $datosComprobante->save();
-        // $editarcliente=Chofer::where('id',$id)
-        //         ->update([
-        //                   'saldo'=>$datosComprobante->acumulado
-        //                   ]);
+        $editarcliente=Chofer::where('id',$id)
+                ->update([
+                          'saldo'=>$datosComprobante->acumulado
+                          ]);
           break;
         }
       flash::success('Comprobante ingresado!!! - Tipo '.$request->tipocomprobante. '-' .$request->nrocomprobante);

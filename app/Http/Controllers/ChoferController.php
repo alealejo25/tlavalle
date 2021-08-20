@@ -65,6 +65,8 @@ class ChoferController extends Controller
      */
     public function store(Request $request)
     {
+
+
                 /*VALIDACION -----------------------------------------*/
         if (is_null($request->camion_id))
         {
@@ -75,7 +77,8 @@ class ChoferController extends Controller
             'dni'=>'required|max:8',
             'direccion'=>'required|string|max:100',
             'fechanac'=>'required',
-            'saldo'=>'required'
+            'saldo'=>'required|numeric',
+            'saldoinicial'=>'required|numeric'
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
@@ -88,7 +91,8 @@ class ChoferController extends Controller
                 'dni'=>'required|max:8',
                 'direccion'=>'required|string|max:100',
                 'fechanac'=>'required',
-                'saldo'=>'required'
+                'saldo'=>'required',
+                'saldoinicial'=>'required|numeric'
                     ];
            $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);   
