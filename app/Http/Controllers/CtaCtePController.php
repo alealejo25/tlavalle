@@ -17,7 +17,7 @@ class CtaCtePController extends Controller
 	public function index(Request $request)
     {
         
-        $proveedores=Proveedor::search($request->name)->orderBy('nombre','ASC')->paginate(10);
+        $proveedores=Proveedor::search($request->name)->orderBy('nombre','ASC')->paginate(50);
         return view('cuentascorrientes.proveedores.index')
             ->with('proveedores',$proveedores);
 

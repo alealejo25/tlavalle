@@ -89,7 +89,11 @@
 				<input type="number" step=0.01 name="ganancia" class="form-control {{$errors->has('ganancia')?'is-invalid':''}}" placeholder="Ganancia ..." value="{{old('ganancia')}}">
 				{!! $errors->first('ganancia','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+<<<<<<< HEAD
+			
+=======
 
+>>>>>>> 0b632d0434aacb961e8b6c179c1bf1ab2f09ee93
 
 			<div class="Form-group">
 				<label for="observacion">Observacion</label>
