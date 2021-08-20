@@ -271,4 +271,51 @@ public function guardaredicioncomprobante(Request $request,$id)
         flash::success('Remitos Asociados Correctamente, a la Factura Nro. ' .$request->nrocomprobante);
         return Redirect('cuentascorrientes/clientes/')->with('Mensaje','Comprobante ingresado!!!');
    }
+
+
+
+   public function anularcomprobantes($id)
+    {
+        $date = new \DateTime();
+
+        $datoscomprobante=CtaCteC::where('id',$id)->get();
+        $acumulado=Cliente::where('id',$datoscomprobante[0]->cliente_id)->orderBy('id','DESC')->limit(1)->get();
+        $datosComprobante=new CtaCteC(request()->except('_token'));
+        $datosComprobante->cliente_id=$datoscomprobante[0]->cliente_id;
+
+
+
+        switch ($datoscomprobante[0]->tipocomprobante){
+            case 'FACTURA':
+                $datosComprobante->nrocomprobante=$datoscomprobante[0]->nrocomprobante.'/bis';
+                $datosComprobante->fechaemision=$date;
+                $datosComprobante->fechavencimiento=$date;
+                $datosComprobante->debe=$datoscomprobante[0]->haber;
+                $datosComprobante->haber=0;
+                $datosComprobante->acumulado=$acumulado[0]->saldo + $datoscomprobante[0]->haber;
+                $datosComprobante->importesubtotal=0;
+                $datosComprobante->iva=0;
+
+
+                
+                $datosComprobante->tipocomprobante='ANULACION FACTURA';
+                $datosComprobante->observacion='Anulacion por equivocación de carga';
+               // $datosComprobante->importefinal=$request->importefinal;
+                $datosComprobante->factura_id=$id;
+                $datosComprobante->estado='REALIZADO';
+                $datosComprobante->save();
+                $editarcliente=Cliente::where('id',$datoscomprobante[0]->cliente_id)
+                ->update([
+                        'saldo'=>$datosComprobante->acumulado
+                          ]);
+                $editarcomprobante=CtaCteC::where('id',$id)
+                ->update([
+                        'estado'=>'ANULADO',
+                          ]);
+            break;
+
+        }
+        flash::success('Comprobante Anulado!!! - Tipo ');
+       return Redirect('cuentascorrientes/clientes/')->with('Mensaje','Comprobante ingresado!!!');
+   }
 }

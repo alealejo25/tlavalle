@@ -241,6 +241,7 @@ Route::get('cuentascorrientes/proveedores/{id?}/nuevocomprobante', 'CtaCtePContr
 Route::post('cuentascorrientes/proveedores/guardarcomprobantep/{id?}','CtaCtePController@guardarcomprobantep')->name('guardarcomprobantep');
 Route::get('cuentascorrientes/proveedores/{id?}/listar', 'CtaCtePController@listarcomprobantes')->name('listarcomprobantes');
 Route::get('cuentascorrientes/proveedores/{id?}/anular', 'CtaCtePController@anularcomprobantes')->name('anularcomprobantes');
+Route::get('cuentascorrientes/clientes/{id?}/anular', 'CtaCteCController@anularcomprobantes')->name('anularcomprobantes');
 
 Route::get('cuentascorrientes/clientes/{id?}/editar', 'CtaCteCController@editarcomprobantec')->name('editarcomprobantec');
 

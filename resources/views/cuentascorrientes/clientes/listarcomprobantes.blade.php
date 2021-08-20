@@ -50,10 +50,13 @@
 					<td>{{ $cliente->observacion}}</td>
 					
 					<td>
-						<form method="post" action="{{url('cuentascorrientes/clientes/'.$cliente->id) }}">
-						<a href="{{url('cuentascorrientes/clientes/'.$cliente->id.'/editar')}}"><input type="button" value="Editar" class="btn btn-success">	</a>
+						<form method="get" class="submit-prevent-form" action="{{url('cuentascorrientes/clientes/'.$cliente->id.'/anular') }}">
+
 								
-						</form> 
+							@if($cliente->estado =='')
+								<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Anular</button>
+							@endif
+					</form> 
 					</td>
 				</tr>
 				
