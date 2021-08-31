@@ -15,12 +15,12 @@ class Remitosfletes extends Migration
     {
          Schema::create('remitosfletes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nroremito',20);
+            $table->string('nroremito',50);
             $table->string('observacion',150)->nullable();
             $table->integer('palletentregados')->default(0);
             $table->integer('palletdevueltos')->default(0);
             $table->string('clientepalletdevuelto',50)->nullable();
-            $table->integer('valepalletdevueltos')->nullable();
+            $table->string('valepalletdevueltos',50)->nullable();
             $table->string('estado',15)->nullable();
             $table->string('modo',6);
             $table->integer('cliente_id')->unsigned();

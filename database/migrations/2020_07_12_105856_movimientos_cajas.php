@@ -19,8 +19,8 @@ class MovimientosCajas extends Migration
             $table->string('tipo_movimiento',10);
             $table->string('descripcion',50);
             $table->date('fecha');
-            $table->decimal('importe',10,2);
-            $table->decimal('importe_final',10,2);
+            $table->decimal('importe',12,2);
+            $table->decimal('importe_final',12,2);
             $table->integer('caja_id')->unsigned();
             $table->integer('cierre')->unsigned()->default(0);
             $table->integer('condicion')->unsigned()->default(0);

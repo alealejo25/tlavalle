@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -461,7 +462,10 @@
                 <li><a href="/reportes/cierresdecaja"><i class="fa fa-circle-o"></i> Cierres de Caja</a></li>
                 @endcan
                 @can('pdffletes')
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> Fletes</a></li>
+                <li><a href="/reportes/flete"><i class="fa fa-circle-o"></i> Fletes</a></li>
+                @endcan
+                @can('pdffletes')
+                <li><a href="/reportes/anticipos"><i class="fa fa-circle-o"></i> Anticipos</a></li>
                 @endcan
                 
               </ul>

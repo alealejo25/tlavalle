@@ -13,7 +13,7 @@ class ProveedorController extends Controller
     }
     public function index(Request $request)
     {
-        $proveedores=Proveedor::search($request->name)->orderBy('nombre','ASC')->paginate(10);
+        $proveedores=Proveedor::search($request->name)->orderBy('nombre','ASC')->paginate(20);
         return view('abms.proveedores.index')
         ->with('proveedores',$proveedores);
     }

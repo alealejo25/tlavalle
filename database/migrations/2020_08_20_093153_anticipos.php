@@ -18,7 +18,7 @@ class Anticipos extends Migration
             $table->integer('flete_id')->nullable()->unsigned();
             $table->integer('chofer_id')->unsigned();
             $table->date('fecha');
-            $table->decimal('importe',10,2);
+            $table->decimal('importe',12,2);
             $table->string('nroremito',20);
             $table->string('observacion',80)->nullable();
             $table->string('estado',15);

@@ -16,7 +16,7 @@ class Chequesterceros extends Migration
         Schema::create('chequesterceros', function (Blueprint $table) {
             $table->increments('id');
             $table->string('numero',30);
-            $table->decimal('importe',10,2);
+            $table->decimal('importe',12,2);
             $table->date('fecha');
             $table->string('estado',30);
             $table->integer('cliente_id')->unsigned();

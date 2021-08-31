@@ -10,8 +10,8 @@
                     <div class="widget-one">
 
                         <!--TITULO-->
-                        <h4 class="text-center mb-5">Reporte Cuentas Corrientes Choferes. </h4>
-                        {!!Form::open(['route' => 'reportefletes','method'=>'POST'])!!}
+                        <h4 class="text-center mb-5">Reporte de anticipos </h4>
+                        {!!Form::open(['route' => 'reporteanticipos','method'=>'POST'])!!}
 						{{Form::token()}}
                         <!--ENCABEZADO-->
                         <div class="row">
@@ -28,11 +28,6 @@
 	                                <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
 									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
                               </div>
-                            </div>
-							               <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                               <div class="form-group">           
-									               {!!Form::select('chofer_id',$choferes,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-							               	</div>
                             </div>
 		                     <div class="col-sm-12 col-md-2 col-lg-2"> 
                                <div class="form-group">      
@@ -57,4 +52,3 @@
 </div>
 <!--  END CONTENT AREA  -->
 @endsection
-

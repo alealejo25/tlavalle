@@ -35,10 +35,10 @@
 					<td>{{ $prestamo->nroremito}}</td>
 					<td>{{ $prestamo->chofer->nombre}}</td>
 					<td>{{ $prestamo->descripcion}}</td>
-					<td>{{ $prestamo->importe}}</td>
-					<td>{{ $prestamo->importerestante}}</td>
-					<td>{{ $prestamo->valorcuota}}</td>
-					<td>{{ $prestamo->fechaproximopago}}</td>
+					<td class="text-right">${{  number_format($prestamo->importe},2,",",".")}}</td>
+					<td class="text-right">${{  number_format($prestamo->importerestante,2,",",".")}}</td>
+					<td class="text-right">${{  number_format($prestamo->valorcuota,2,",",".")}}</td>
+					<td>{{date("d/m/Y",strtotime($prestamo->fechaproximopago))  }}</td>
 					<td>{{ $prestamo->estado}}</td>
 
 					<td>

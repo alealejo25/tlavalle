@@ -18,14 +18,14 @@ class CierresCajas extends Migration
             $table->date('fecha');
             $table->string('descripcion',50);
 
-            $table->decimal('gastosvarios',10,2);
-            $table->decimal('dinerocaja',10,2);
-            $table->decimal('dinerofisico',10,2);
-            $table->decimal('diferencia',10,2);
-            $table->decimal('iniciales',10,2);
-            $table->decimal('pagos',10,2);
-            $table->decimal('transferencias',10,2);
-            $table->decimal('cobrocheques',10,2);
+            $table->decimal('gastosvarios',12,2);
+            $table->decimal('dinerocaja',12,2);
+            $table->decimal('dinerofisico',12,2);
+            $table->decimal('diferencia',12,2);
+            $table->decimal('iniciales',12,2);
+            $table->decimal('pagos',12,2);
+            $table->decimal('transferencias',12,2);
+            $table->decimal('cobrocheques',12,2);
             $table->integer('caja_id')->unsigned();
             $table->timestamps();
             

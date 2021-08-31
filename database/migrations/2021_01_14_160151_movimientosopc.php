@@ -15,7 +15,7 @@ class Movimientosopc extends Migration
     {
         Schema::create('movimientosopc', function (Blueprint $table) {
             $table->increments('id');
-            $table->decimal('importe',8,2);
+            $table->decimal('importe',12,2);
             $table->string('forma',20);
             $table->string('nroinstrumento',20)->nullable();
             $table->string('estado',15)->nullable();

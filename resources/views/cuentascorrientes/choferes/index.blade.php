@@ -21,7 +21,6 @@
 					<th>Nombre</th>
 					<th>Direccion</th>
 					<th>Telefono</th>
-
 					<th>Saldo</th>
 					<th>Opciones</th>
 				</thead>
@@ -31,8 +30,11 @@
 					<td>{{ $chofer->nombre}}</td>
 					<td>{{ $chofer->direccion}}</td>
 					<td>{{ $chofer->nrocelular}}</td>
-
-					<td>{{ $chofer->saldo}}</td>
+					@if($chofer->saldo<0)
+						<td bgcolor="red" class="text-right">${{  number_format($chofer->saldo,2,",",".")}}</td>
+					@else
+						<td class="text-right">${{  number_format($chofer->saldo,2,",",".")}}</td>
+					@endif
 					<td>
 					<form method="post" action="{{url('cuentascorrientes/choferes/'.$chofer->id) }}">
 							<a href="{{url('cuentascorrientes/choferes/'.$chofer->id.'/nuevocomprobante')}}"><input type="button" value="Nuevo Comprobante" class="btn btn-info">	</a>

@@ -9,6 +9,18 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 					<h3>Cuentas Corrientes Proveedores </h3>
+					@if(session('status'))
+						@if(session('status')=='1')
+							<div class="alert alert-success">
+								Se Guardo el Registro!!!!		
+							</div>
+						@else
+							<div class="alert alert-danger">
+								NO GUARDO EL COMPROBANTE!!!!
+								
+							</div>
+						@endif
+					@endif
 				</div>
 		
 			<!-- BUSCADOR DE CLIENTE-->
@@ -41,7 +53,11 @@
 					<td>{{ $proveedor->direccion}}</td>
 					<td>{{ $proveedor->telefono}}</td>
 					<td>{{ $proveedor->contacto}}</td>
-					<td>{{ $proveedor->saldo}}</td>
+					@if($proveedor->saldo<0)
+						<td bgcolor="red" class="text-right">${{  number_format($proveedor->saldo,2,",",".")}}</td>
+					@else
+						<td class="text-right">${{  number_format($proveedor->saldo,2,",",".")}}</td>
+					@endif
 					<td>
 					<form method="post" action="{{url('cuentascorrientes/proveedores/'.$proveedor->id) }}">
 							<a href="{{url('cuentascorrientes/proveedores/'.$proveedor->id.'/nuevocomprobante')}}"><input type="button" value="Nuevo Comprobante" class="btn btn-info">	</a>

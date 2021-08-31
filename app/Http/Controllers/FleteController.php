@@ -62,7 +62,8 @@ class FleteController extends Controller
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'chofer_id'=>'required',
-            'anticipo'=>'required',
+            'anticipo'=>'required|numeric',
+             'descripciontarifa'=>'required',
   
          ];
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -80,7 +81,7 @@ class FleteController extends Controller
 		$datosFlete=new Flete(request()->except('_token'));
 		$datosFlete->camion_id=$datosconsulta[0]->camion_id;
 		$datosFlete->kminicio=$datosconsulta[0]->km;
-		$datosFlete->descripciontarifa=$request->descripcion;
+//		$datosFlete->descripciontarifa=$request->descripcion;
 		$datosFlete->fechainicio=$date;
 		$datosFlete->estado='INICIADO';
 
@@ -218,15 +219,18 @@ class FleteController extends Controller
     public function nuevoanticipo($id){
 
 	   	$datosconsulta=Anticipo::where('flete_id',$id)->get();
+	   	$chofer_id=$datosconsulta[0]->chofer_id;
 
 
         return view('fletes.anticipos.nuevoanticipo')
         	->with('id',$id)
+        	->with('chofer_id',$chofer_id)
         	->with('datosconsulta',$datosconsulta);
 
     }
     
-    public function guardaranticipo(Request $request){
+    public function guardaranticipoflete(Request $request){
+
         $date = new \DateTime();
 		$datosAnticipo=new Anticipo(request()->except('_token'));
 		// GUARDAR ANTICIPO ----------------------------------------------
@@ -241,6 +245,7 @@ class FleteController extends Controller
 		    else{
 		    	$datosAnticipo->nroremito=300000;
 		    }
+		    $datosAnticipo->estado='PAGADO';
 		$datosAnticipo->save();
 		// FIN DE GUARDAR ANTICIPO--------------------------------------
 
@@ -251,10 +256,10 @@ class FleteController extends Controller
 		$movimientocaja=new MovimientoCaja();
 		$movimientocaja->tipo='ANTICIPO';
 		$movimientocaja->tipo_movimiento='EGRESO';
-		$movimientocaja->descripcion='ANTICIPO POR FLETE N° ....';
+		$movimientocaja->descripcion='ANTICIPO POR FLETE N° ';
 		$movimientocaja->fecha=$date;
 		$movimientocaja->importe=$anticipoimporte[0]->importe;
-		$movimientocaja->caja_id='2';
+		$movimientocaja->caja_id=2;
 
 		$consultamovimientos=MovimientoCaja::where('caja_id', $movimientocaja->caja_id)->orderBy('id','DESC')->limit(1)->get();
 		$importe_final_anterior=0;
@@ -490,6 +495,7 @@ class FleteController extends Controller
     /// FIJARSE ESTO PARA HACER LA CANCELACION DEL FLETE
     public function guardarfinalizarflete(Request $request,$id)
     {
+    	
     	/*VALIDACION -----------------------------------------*/
         $campos=[
             'valorflete'=>'required|numeric',

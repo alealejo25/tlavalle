@@ -16,7 +16,7 @@ class Chequespropios extends Migration
         Schema::create('chequespropios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('numero',15);
-            $table->decimal('importe',10,2)->nullable();
+            $table->decimal('importe',12,2)->nullable();
             $table->date('fecha');
             $table->string('estado',15);
             $table->integer('banco_id')->unsigned();

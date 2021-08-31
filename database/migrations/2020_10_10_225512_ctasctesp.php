@@ -19,16 +19,16 @@ class Ctasctesp extends Migration
             $table->string('nrocomprobante',20);
             $table->date('fechaemision');
             $table->date('fechavencimiento')->nullable();
-            $table->decimal('debe',10,2);
-            $table->decimal('haber',10,2);
-            $table->decimal('acumulado',10,2);
-            $table->decimal('importesubtotal',10,2)->nullable();
-            $table->decimal('iva',10,2)->nullable();
-            $table->decimal('percepcioniva',10,2)->nullable();
-            $table->decimal('ingresobruto',10,2)->nullable();
-            $table->decimal('tem',10,2)->nullable();
-            $table->decimal('ganancia',10,2)->nullable();
-            $table->decimal('importefinal',10,2)->nullable();
+            $table->decimal('debe',12,2);
+            $table->decimal('haber',12,2);
+            $table->decimal('acumulado',12,2);
+            $table->decimal('importesubtotal',12,2)->nullable();
+            $table->decimal('iva',12,2)->nullable();
+            $table->decimal('percepcioniva',12,2)->nullable();
+            $table->decimal('ingresobruto',12,2)->nullable();
+            $table->decimal('tem',12,2)->nullable();
+            $table->decimal('ganancia',12,2)->nullable();
+            $table->decimal('importefinal',12,2)->nullable();
 
 
             $table->string('observacion',150)->nullable();

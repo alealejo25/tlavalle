@@ -32,9 +32,10 @@
 					<td>{{ $datoopchofer->numero}}</td>
 					@if ($datoopchofer->proveedor_id != NULL)
 						<td>{{ $datoopchofer->proveedor->nombre}}</td>
-						<td>{{ $datoopchofer->fecha}}</td>
-						<td>{{ $datoopchofer->montoacumulado}}</td>
-						<td>{{ $datoopchofer->montofinal}}</td>
+						<td>{{date("d/m/Y",strtotime($datoopchofer->fecha))  }}</td>
+						<td class="text-right">${{  number_format($datoopchofer->montoacumulado},2,",",".")}}</td>
+						<td class="text-right">${{  number_format($datoopchofer->montofinal},2,",",".")}}</td>
+
 						<td>{{ $datoopchofer->estado}}</td>
 						<td>
 						<form method="post">

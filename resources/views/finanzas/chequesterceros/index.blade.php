@@ -31,8 +31,8 @@
 				<tr>
 					<td>{{ $chequetercero->id}}</td>
 					<td>{{ $chequetercero->numero}}</td>
-					<td>$ {{$chequetercero->importe}}</td>
-					<td>{{ $chequetercero->fecha}}</td>
+					<td class="text-right">${{  number_format($chequetercero->importe,2,",",".")}}</td>
+					<td>{{ date("d/m/Y",strtotime($chequetercero->fecha))}}</td>
 					<td>{{ $chequetercero->estado}}</td>
 					<td>{{ $chequetercero->cliente->nombre}}</td>
 					@if ($chequetercero->proveedor_id != NULL)

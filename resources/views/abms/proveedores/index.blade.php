@@ -41,8 +41,8 @@
 					<td>{{ $proveedor->contacto}}</td>
 					<td>{{ $proveedor->telefono_contacto}}</td>
 					<td>{{ $proveedor->cuit}}</td>
-					<td>{{ $proveedor->saldo}}</td>
-					<td>{{ $proveedor->saldoinicial}}</td>
+					<td class="text-right">${{  number_format($proveedor->saldo,2,",",".")}}</td>
+					<td class="text-right">${{  number_format($proveedor->saldoinicial,2,",",".")}}</td>
 					<td>
 					<form method="post" action="{{url('abms/proveedores/'.$proveedor->id) }}">
 							<a href="{{url('abms/proveedores/'.$proveedor->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>

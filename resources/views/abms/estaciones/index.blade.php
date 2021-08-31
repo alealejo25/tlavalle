@@ -38,7 +38,8 @@
 					<td>{{ $estacion->contacto}}</td>
 					<td>{{ $estacion->telefono_contacto}}</td>
 					<td>{{ $estacion->cuit}}</td>
-					<td>{{ $estacion->saldo}}</td>
+					<td class="text-right">${{  number_format($estacion->saldo,2,",",".")}}</td>
+
 					<td>
 					<form method="post" action="{{url('abms/estaciones/'.$estacion->id) }}">
 							<a href="{{url('abms/estaciones/'.$estacion->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>

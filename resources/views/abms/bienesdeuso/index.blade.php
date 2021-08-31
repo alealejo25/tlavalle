@@ -41,8 +41,8 @@
 					<td>{{ $bien_de_uso->id}}</td>
 					<td>{{ $bien_de_uso->codigo}}</td>
 					<td>{{ $bien_de_uso->descripcion}}</td>
-					<td>{{ $bien_de_uso->fecha_ingreso}}</td>
-					<td>{{ $bien_de_uso->fecha_egreso}}</td>
+					<td>{{ date("d/m/Y",strtotime($bien_de_uso->fecha_ingreso))}}</td>
+					<td>{{ date("d/m/Y",strtotime($bien_de_uso->fecha_egreso))}}</td>
 					<td>{{ $bien_de_uso->valor}}</td>
 					<td>{{ $bien_de_uso->amortizacion}}</td>
 					<td>

@@ -42,10 +42,15 @@
 					<td>{{ $cliente->id}}</td>
 					<td>{{ $cliente->tipocomprobante}}</td>
 					<td>{{ $cliente->nrocomprobante}}</td>
-					<td>{{ $cliente->fechavencimiento}}</td>
-					<td>{{ $cliente->debe}}</td>
-					<td>{{ $cliente->haber}}</td>
-					<td>{{ $cliente->acumulado}}</td>
+					<td>{{date("d/m/Y",strtotime($cliente->fechavencimiento))}}</td>
+					<td class="text-right">${{  number_format($cliente->debe,2,",",".")}}</td>
+					<td  class="text-right">${{  number_format($cliente->haber,2,",",".")}}</td>
+					@if($cliente->acumulado<0)
+						<td bgcolor="red" class="text-right">${{  number_format($cliente->acumulado,2,",",".")}}</td>
+					@else
+						<td class="text-right">${{  number_format($cliente->acumulado,2,",",".")}}</td>
+					@endif
+ 
 					<td>{{ $cliente->estado}}</td>
 					
 					

@@ -18,7 +18,7 @@ class RentasPrestamosMoratorias extends Migration
             $table->string('tipo',20);
             $table->string('tipo_plan',20);
             $table->string('descripcion',60);
-            $table->decimal('monto_declarado',10,2);
+            $table->decimal('monto_declarado',12,2);
             $table->string('cant_cuotas',5);
             $table->date('fecha_primera_cuota');
             $table->date('fecha_ultima_cuota')->nullable();

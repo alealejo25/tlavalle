@@ -10,7 +10,7 @@
                     <div class="widget-one">
 
                         <!--TITULO-->
-                        <h4 class="text-center mb-5">Reporte Cuentas Corrientes Choferes. </h4>
+                        <h4 class="text-center mb-5">Reporte de Fletes de Choferes. </h4>
                         {!!Form::open(['route' => 'reportefletes','method'=>'POST'])!!}
 						{{Form::token()}}
                         <!--ENCABEZADO-->

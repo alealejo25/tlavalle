@@ -42,10 +42,14 @@
 					<td>{{ $chofer->id}}</td>
 					<td>{{ $chofer->tipocomprobante}}</td>
 					<td>{{ $chofer->nrocomprobante}}</td>
-					<td>{{ $chofer->fechavencimiento}}</td>
-					<td>{{ $chofer->debe}}</td>
-					<td>{{ $chofer->haber}}</td>
-					<td>{{ $chofer->acumulado}}</td>
+					<td>{{date("d/m/Y",strtotime($chofer->fechavencimiento))  }}</td>
+					<td class="text-right">${{  number_format($chofer->debe,2,",",".")}}</td>
+					<td  class="text-right">${{  number_format($chofer->haber,2,",",".")}}</td>
+					@if($chofer->acumulado<0)
+						<td bgcolor="red" class="text-right">${{  number_format($chofer->acumulado,2,",",".")}}</td>
+					@else
+						<td class="text-right">${{  number_format($chofer->acumulado,2,",",".")}}</td>
+					@endif
 					<td>{{ $chofer->estado}}</td>
 					
 					

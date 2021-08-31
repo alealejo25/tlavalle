@@ -46,12 +46,12 @@
 					<td>{{ $camion->marca}}</td>
 					<td>{{ $camion->año}}</td>
 					<td>{{ $camion->km}}</td>
-					<td>{{ $camion->ultimoservice}}</td>
+					<td>{{ date("d/m/Y",strtotime($camion->ultimoservice))}}</td>
 					<td>{{ $camion->proximoservicecaja}}</td>
 					<td>{{ $camion->proximoservicediferencial}}</td>
 					<td>{{ $camion->proximoservicemotor}}</td>
-					<td>{{ $camion->fecha_ingreso}}</td>
-					<td>{{ $camion->fecha_egreso}}</td>
+					<td>{{ date("d/m/Y",strtotime($camion->fecha_ingreso))}}</td>
+					<td>{{ date("d/m/Y",strtotime($camion->fecha_egreso))}}</td>
 					<td>{{ $camion->valor}}</td>
 					<td>{{ $camion->amortizacion}}</td>
 					<td>

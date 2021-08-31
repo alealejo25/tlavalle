@@ -16,12 +16,16 @@
 			@endif	
  			<!-- {!!Form::open(array('url'=>'fletes','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!}  -->
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
-			{!!Form::open(['route' => 'guardaranticipo','method'=>'POST'])!!}
+			{!!Form::open(['route' => 'guardaranticipoflete','method'=>'POST'])!!}
 			
 			{{Form::token()}}
-			<div class="Form-group">
 
+			<div class="Form-group">
 				<input type="hidden" name="flete_id" class="form-control {{$errors->has('flete_id')?'is-invalid':''}}"   value="{{$id}}">
+				
+			</div>
+			<div class="Form-group">
+				<input type="hidden" name="chofer_id" class="form-control {{$errors->has('chofer_id')?'is-invalid':''}}"   value="{{$chofer_id}}">
 				{!! $errors->first('fechainicio','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 

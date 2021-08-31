@@ -46,7 +46,7 @@
 					<td>{{ $datos->cliente->nombre}}</td>
 					<td>{{ $datos->chofer->nombre}}</td>
 					<td>{{ $datos->receptor_mercaderia}}</td>
-					<td>{{ $datos->fecha}}</td>
+					<td>{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
 					<td>{{ $datos->tipo}}</td>
 					
 					<td>

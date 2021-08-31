@@ -18,6 +18,8 @@ use App\Chofer;
 use App\CtaCteCho;
 use App\CierreCaja;
 use App\Caja;
+use App\Flete;
+use App\Anticipo;
 use Afip;
 
 
@@ -27,6 +29,38 @@ class ReporteController extends Controller
         $this->middleware('auth');
     }
 
+     public function flete(Request $request)
+    {
+       $choferes=Chofer::orderBy('nombre','ASC')->pluck('nombre','id');
+        return view('reportes.fletes')
+         ->with('choferes',$choferes);
+
+    }
+    public function reportefletes(Request $request)
+    {
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->get();
+
+        $chofer= Chofer::where('id',$request->chofer_id)->get();
+        $consultasumamonto=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->sum('montoaliquidar');
+
+        $pdf=\PDF::loadView('pdf.reporteflete',['consulta'=>$consulta, 'chofer'=>$chofer,'consultasumamonto'=>$consultasumamonto,'fi'=>$fi,'ff'=>$ff])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteflete.pdf');
+
+
+
+    }
+
+
+//reporte de ctas ctes por fecha de proveedores
+ public function anticipos(Request $request)
+    {
+        return view('reportes.anticipos');
+         
+
+    }
 //reporte de ctas ctes por fecha de clientes
  public function index(Request $request)
     {
@@ -34,6 +68,22 @@ class ReporteController extends Controller
 		return view('reportes.ctasctesc')
        	 ->with('clientes',$clientes);
 
+    }
+
+
+    public function reporteanticipos(Request $request)
+    {
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        $consulta=Anticipo::whereBetween('fecha',[$fi, $ff])->get();
+
+       $consulta->each(function($consulta){
+            $consulta->chofer;
+            $consulta->flete;
+          });
+       $pdf=\PDF::loadView('pdf.reporteanticipos',['consulta'=>$consulta])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteanticipos.pdf');
     }
 
 public function reportectasctesc(Request $request)

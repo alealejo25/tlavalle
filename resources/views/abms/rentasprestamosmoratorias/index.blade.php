@@ -34,10 +34,11 @@
 					<td>{{ $renta_prestamo_moratoria->tipo}}</td>
 					<td>{{ $renta_prestamo_moratoria->tipo_plan}}</td>
 					<td>{{ $renta_prestamo_moratoria->descripcion}}</td>
-					<td>{{ $renta_prestamo_moratoria->monto_declarado}}</td>
+					<td class="text-right">${{  number_format($renta_prestamo_moratoria->monto_declarado,2,",",".")}}</td>
 					<td>{{ $renta_prestamo_moratoria->cant_cuotas}}</td>
-					<td>{{ $renta_prestamo_moratoria->fecha_primera_cuota}}</td>
-					<td>{{ $renta_prestamo_moratoria->fecha_ultima_cuota}}</td>
+					<td>{{date("d/m/Y",strtotime($renta_prestamo_moratoria->fecha_primera_cuota)) }}</td>
+					<td>{{date("d/m/Y",strtotime($renta_prestamo_moratoria->fecha_ultima_cuota)) }}</td>
+
 					<td>
 					<form method="post" action="{{url('abms/rentasprestamosmoratorias/'.$renta_prestamo_moratoria->id) }}">
 							<a href="{{url('abms/rentasprestamosmoratorias/'.$renta_prestamo_moratoria->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>

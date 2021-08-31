@@ -40,7 +40,8 @@
 				<tr>
 					<td><h4>Numero de Remito: {{ $anticipo->nroremito}}</h4></td>
 					<td><h5>Importe: $ {{number_format($anticipo->importe,2,",",".") }}</h5></td>
-					<td><h5>Fecha: {{ $anticipo->fecha}}</h5></td>
+					<td></td>
+					<td><h5>Fecha: {{date("d/m/Y",strtotime($anticipo->fecha))}}</h5></td>
 				</tr>
 				@endforeach
 				<br>

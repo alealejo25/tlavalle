@@ -17,7 +17,7 @@ class Movimientosprestamos extends Migration
             $table->increments('id');
             $table->date('fechadescuento')->nullable();
             $table->integer('cuota');
-            $table->decimal('importe',10,2);
+            $table->decimal('importe',12,2);
             $table->string('estado');
             $table->integer('prestamoschoferes_id')->unsigned();
             $table->timestamps();

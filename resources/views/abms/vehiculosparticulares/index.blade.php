@@ -39,8 +39,8 @@
 					<td>{{ $vehiculoparticular->marca}}</td>
 					<td>{{ $vehiculoparticular->año}}</td>
 					<td>{{ $vehiculoparticular->km}}</td>
-					<td>{{ $vehiculoparticular->fecha_ingreso}}</td>
-					<td>{{ $vehiculoparticular->fecha_egreso}}</td>
+					<td>{{date("d/m/Y",strtotime($vehiculoparticular->fecha_ingreso)) }}</td>
+					<td>{{date("d/m/Y",strtotime($vehiculoparticular->fecha_egreso)) }}</td>
 					<td>{{ $vehiculoparticular->valor}}</td>
 					<td>{{ $vehiculoparticular->amortizacion}}</td>
 					<td>

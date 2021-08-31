@@ -18,11 +18,11 @@ class Prestamoschoferes extends Migration
             $table->string('nroremito',15)->nullable();
             $table->string('descripcion',100);
             $table->string('modoprestamo',30);
-            $table->decimal('importe',10,2);
-            $table->decimal('importerestante',10,2);
+            $table->decimal('importe',12,2);
+            $table->decimal('importerestante',12,2);
             $table->integer('cantcuotas');
             $table->integer('cantcuotasfaltantes');
-            $table->decimal('valorcuota',10,2);
+            $table->decimal('valorcuota',12,2);
             $table->date('fechainicio');
             $table->integer('fechaproximopago');
             $table->date('fecha');

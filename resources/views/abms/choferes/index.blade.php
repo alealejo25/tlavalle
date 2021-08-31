@@ -38,10 +38,10 @@
 					<td>{{ $chofer->apellido}}</td>
 					<td>{{ $chofer->dni}}</td>
 					<td>{{ $chofer->direccion}}</td>
-					<td>{{ $chofer->fechanac}}</td>
+					<td>{{date("d/m/Y",strtotime($chofer->fechanac)) }}</td>
 					<td>{{ $chofer->nrocelular}}</td>
-					<td>{{ $chofer->saldo}}</td>
-					<td>{{ $chofer->saldoinicial}}</td>
+					<td class="text-right">${{  number_format($chofer->saldo,2,",",".")}}</td>
+					<td class="text-right">${{  number_format($chofer->saldoinicial,2,",",".")}}</td>
 					@if($chofer->camion_id===NULL)
 						<td><p>SIN ASOCIAR</p></td>
 					@else

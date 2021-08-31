@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Flete</title>
+    <title>Reporte Anticipos</title>
     <style>
         body {
             margin: 0;
@@ -85,13 +85,9 @@
     	 <IMG SRC="img\logotlpdf.jpg">
     	 <span class="derecha">Fecha de Emision {{date("d/m/Y",strtotime(now()))  }}</span>
     </div>
- 	<h2>Reporte de Ctas. Ctes. Clientes</h2>
+ 	<h2>Reporte anticipos</h2>
 
-@foreach ($cliente as $datos)
-<h3>Nombre: {{$datos->nombre}}</h3>
-<h3>Direccion: {{$datos->direccion}}</h3>
-<h3>Cuit: {{$datos->cuit}}</h3>
-@endforeach
+
 
 	<div>
 
@@ -100,21 +96,30 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Categoria</th>
+                    <th>Chofer</th>
+                    <th>Fecha</th>
+                    <th>Flete</th>
+                    <th>Remito</th>
+                    <th>Importe</th>
+                    <th>Observacion</th>
+                    
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
-                    <td >{{$datos->codigo}}</td>
-                    <td >{{$datos->nombre}}</td>
-                    <td >{{$datos->cantidad}}</td>
-                    <td >{{$datos->categoria->nombre}}</td>
-                 </tr>
+                    <td >{{$datos->chofer->nombre}}</td>
+                    <td >{{$datos->fecha}}</td>
+                    @if($datos->flete!=NULL)
+						<td >{{$datos->flete->nroremito}}</td>
+					@else
+						<td >s/n</td>
+					@endif
+					<td >{{$datos->nroremito}}</td>
+                    <td align="right">$ {{number_format($datos->importe,2,",",".")}}</td>
+                    <td >{{$datos->observacion}}</td>
+                </tr>
             @endforeach                   
             </tbody>
         </table>

@@ -52,7 +52,7 @@
 					<td>{{ $datos->id}}</td>
 					<td>{{ $datos->articulo->nombre}}</td>
 					<td>{{ $datos->articulo->categoria->nombre}}</td>
-					<td>{{ $datos->fecha}}</td>
+					<td>{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
 					<td>{{ $datos->cantidad}}</td>
 					
  						<!-- ACA HAY QUE PONER UN BOTON PARA ANULAR EL ARTICULO -->

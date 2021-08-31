@@ -85,9 +85,9 @@
     	 <IMG SRC="img\logotlpdf.jpg">
     	 <span class="derecha">Fecha de Emision {{date("d/m/Y",strtotime(now()))  }}</span>
     </div>
- 	<h2>Reporte de Ctas. Ctes. Clientes</h2>
-
-@foreach ($cliente as $datos)
+ 	<h2>Reporte Cta Cte Choferes</h2>
+ 	<h2>Periodo: Desde {{$fi}} hasta {{$ff}}</h2>
+@foreach ($chofer as $datos)
 <h3>Nombre: {{$datos->nombre}}</h3>
 <h3>Direccion: {{$datos->direccion}}</h3>
 <h3>Cuit: {{$datos->cuit}}</h3>
@@ -100,24 +100,34 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
-                    <th>Categoria</th>
+                    <th>Nro. Remito</th>
+                    <th>Descripcion</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                    <th>Estado</th>
+                    <th>Valor Flete</th>
+                    
+                    <th>Monto a Liquidar</th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
-                    <td >{{$datos->codigo}}</td>
-                    <td >{{$datos->nombre}}</td>
-                    <td >{{$datos->cantidad}}</td>
-                    <td >{{$datos->categoria->nombre}}</td>
-                 </tr>
+                    <td >{{$datos->nroremito}}</td>
+                    <td >{{$datos->descripciontarifa}}</td>
+                    <td>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
+                    <td>{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
+                    <td >{{$datos->estado}}</td>
+                    <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
+                    <td align="right">$ {{number_format($datos->montoaliquidar,2,",",".")}}</td>
+                    
+
+                </tr>
             @endforeach                   
             </tbody>
         </table>
+        <h3 align="right">Monto Total a Liquidar: {{$consultasumamonto}}</h3>
     </div>
 
 

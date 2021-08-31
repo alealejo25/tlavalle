@@ -25,7 +25,7 @@
 					<h3>Datos del Flete</h3>
 					<h4>Nro Remito Flete: {{ $flete->nroremito}}</h4>
 					<h4>Descripcion de la Vuelta: {{ $flete->descripciontarifa}}</h4>
-					<h4>Fecha: {{ $flete->fechaincio}}</h4>
+					<h4>Fecha: {{ $flete->fechainicio}}</h4>
 					<h3>Datos del Chofer</h3>
 					<h4>Chofer: {{ $flete->chofer->apellido}}, {{$flete->chofer->nombre}}</h4>
 

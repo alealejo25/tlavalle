@@ -31,8 +31,8 @@
 				<tr>
 					<td>{{ $camion->id}}</td>
 					<td>{{ $camion->camion->dominio}}</td>
-					<td>{{ $camion->fechainicio}}</td>
-					<td>{{ $camion->fechafin}}</td>
+					<td>{{date("d/m/Y",strtotime($camion->fechainicio))  }}</td>
+					<td>{{date("d/m/Y",strtotime($camion->fechafin))  }}</td>
 					<td>{{ $camion->observacion}}</td>
 				<!-- 	<td>{{ $camion->observacion}}</td> -->
 					@if($camion->estado=='INICIADO')

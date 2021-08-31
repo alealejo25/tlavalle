@@ -33,9 +33,8 @@
 				<tr>
 					<td>{{ $datosconsultas->anticipo_id}}</td>
 					<td>{{ $datosconsultas->nroremitoanticipo}}</td>
-					<td align="right">$ {{ $datosconsultas->importe}},00</td>
-										
-				<td>
+					<td class="text-right">${{  number_format($datosconsultas->importe,2,",",".")}}</td>
+					<td>
 					<form action="{{url('fletes/anticipos/eliminaranticipo/'.$datosconsultas->anticipo_id) }}">
 							{{csrf_field()}}
 							{{method_field('DELETE')}}

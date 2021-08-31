@@ -16,7 +16,7 @@ class Tarifas extends Migration
     Schema::create('tarifas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion',60);
-            $table->decimal('importe',10,2);
+            $table->decimal('importe',12,2);
             $table->integer('condicion')->unsigned()->default(0);
             $table->integer('cliente_id')->unsigned();
             $table->timestamps();

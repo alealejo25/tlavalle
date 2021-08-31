@@ -13,7 +13,7 @@ class RentaPrestamoMoratoriaController extends Controller
     }
     public function index(Request $request)
     {
-        $datos['rentas_prestamos_moratorias']=RentaPrestamoMoratoria::search($request->name)->orderBy('id','asc')->paginate(10);
+        $datos['rentas_prestamos_moratorias']=RentaPrestamoMoratoria::search($request->name)->orderBy('id','asc')->paginate(20);
         return view('abms.rentasprestamosmoratorias.index',$datos);
     }
     public function create()

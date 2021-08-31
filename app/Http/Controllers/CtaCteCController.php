@@ -7,6 +7,7 @@ use App\Cliente;
 use App\CtaCteC;
 use App\Provincia;
 use App\OrdenPagoC;
+use DB;
 
 use Laracasts\Flash\Flash;
 
@@ -95,7 +96,17 @@ $date = new \DateTime();
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
         
-    	$acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+
+         try{//esto es para que si hay un error en un insert en una table no grabe en la otra
+        DB::beginTransaction(); 
+
+        $acumulado=CtaCteC::where('cliente_id',$id)->orderBy('id','DESC')->limit(1)->get();
+        if(isset($acumulado))
+        {
+
+                $acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+        }
+
         $datosComprobante=new CtaCteC(request()->except('_token'));
 
 
@@ -177,9 +188,14 @@ $date = new \DateTime();
                           ]);
         	break;
         }
-   		flash::success('Comprobante ingresado!!! - Tipo '.$request->tipocomprobante. '-' .$request->nrocomprobante);
+               DB::commit();
+        flash::success('Comprobante ingresado!!! - Tipo '.$request->tipocomprobante. '-' .$request->nrocomprobante);
+   		
        return Redirect('cuentascorrientes/clientes/')->with('Mensaje','Comprobante ingresado!!!');
-
+       } catch(\Exception $e){
+            DB::rollBack();
+            return redirect ("cuentascorrientes/clientes")->with('status','2');
+        }
     }
 	public function listarcomprobantes($id)
     {

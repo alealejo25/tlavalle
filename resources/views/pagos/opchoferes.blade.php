@@ -29,6 +29,7 @@
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 			
+			
 			{!!Form::close()!!}
 			
 		

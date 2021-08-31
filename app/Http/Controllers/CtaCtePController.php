@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Proveedor;
 use App\CtaCteP;
+use DB;
 
 use Laracasts\Flash\Flash;
 
@@ -40,6 +41,7 @@ class CtaCtePController extends Controller
  public function guardarcomprobantep(Request $request,$id)
     {
 
+
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'tipocomprobante'=>'required',
@@ -53,9 +55,20 @@ class CtaCtePController extends Controller
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
 
-    	$acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+        try{//esto es para que si hay un error en un insert en una table no grabe en la otra
+        DB::beginTransaction(); 
+
+
+    	
+        $acumulado=CtaCteP::where('proveedor_id',$id)->orderBy('id','DESC')->limit(1)->get();
+        if(isset($acumulado))
+        {
+
+            $acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+        }
 
         $datosComprobante=new CtaCteP(request()->except('_token'));
+
         $datosComprobante->proveedor_id=$id;
 
         switch ($request->tipocomprobante){
@@ -75,7 +88,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$datosComprobante->acumulado
+                		'saldo'=>$acumulado[0]->saldo + $request->importe
                           ]);
         	break;
 
@@ -87,7 +100,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$datosComprobante->acumulado
+                		'saldo'=>$acumulado[0]->saldo + $request->importe
                           ]);
 
         	break;
@@ -98,7 +111,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                          'saldo'=>$datosComprobante->acumulado
+                          'saldo'=>$acumulado[0]->saldo - $request->importe
                           ]);
         	break;
         	case 'REMITO':
@@ -108,7 +121,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$datosComprobante->acumulado
+                		'saldo'=>$acumulado[0]->saldo + $request->importe
                           ]);
 
 
@@ -121,13 +134,19 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                          'saldo'=>$datosComprobante->acumulado
+                          'saldo'=>$acumulado[0]->saldo - $request->importe
                           ]);
         	break;
         }
-   		flash::success('Comprobante ingresado!!! - Tipo '.$request->tipocomprobante. '-' .$request->nrocomprobante);
-       return Redirect('cuentascorrientes/proveedores/')->with('Mensaje','Comprobante ingresado!!!');
 
+        DB::commit();
+   		flash::success('Comprobante ingresado!!! - Tipo '
+    );
+       return Redirect('cuentascorrientes/proveedores/')->with('Mensaje','Comprobante ingresado!!!');
+       } catch(\Exception $e){
+            DB::rollBack();
+            return redirect ("cuentascorrientes/proveedores")->with('status','2');
+        }
     }
 
     public function listarcomprobantes($id)

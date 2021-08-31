@@ -83,7 +83,7 @@
 <body>
     <div>
     	 <IMG SRC="img\logotlpdf.jpg">
-    	 <span class="derecha">Fecha de Emision {{now()}}</span>
+    	  <span class="derecha">Fecha de Emision {{date("d/m/Y",strtotime(now()))  }}</span>
     </div>
  	<h2>Reporte de Ctas. Ctes. Clientes</h2>
 
@@ -116,7 +116,7 @@
                     <td >{{$datos->nrocomprobante}}</td>
                     <td >{{$datos->tipo}}</td>
                     <td >{{$datos->descripcion}}</td>
-                    <td >{{$datos->fecha}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
                     <td >{{$datos->chofer->nombre}}</td>
                     <td >{{$datos->cantidad}}</td>
                     

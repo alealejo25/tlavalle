@@ -9,6 +9,18 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 					<h3>Ctas Corrientes Clientes </h3>
+					@if(session('status'))
+						@if(session('status')=='1')
+							<div class="alert alert-success">
+								Se Guardo el Registro!!!!		
+							</div>
+						@else
+							<div class="alert alert-danger">
+								NO GUARDO EL COMPROBANTE!!!!
+								
+							</div>
+						@endif
+					@endif
 				</div>
 		
 			<!-- BUSCADOR DE CLIENTE-->
@@ -37,7 +49,11 @@
 					<td>{{ $cliente->id}}</td>
 					<td>{{ $cliente->nombre}}</td>
 					<td>{{ $cliente->contacto}}</td>
-					<td>{{ $cliente->saldo}}</td>
+					@if($cliente->saldo<0)
+						<td bgcolor="red" class="text-right">${{  number_format($cliente->saldo,2,",",".")}}</td>
+					@else
+						<td class="text-right">${{  number_format($cliente->saldo,2,",",".")}}</td>
+					@endif
 					<td>
 					<form method="post" action="{{url('cuentascorrientes/clientes/'.$cliente->id) }}">
 							<a href="{{url('cuentascorrientes/clientes/'.$cliente->id.'/nuevocomprobante')}}"><input type="button" value="Nuevo Compr." class="btn btn-info btn-sm">	</a>

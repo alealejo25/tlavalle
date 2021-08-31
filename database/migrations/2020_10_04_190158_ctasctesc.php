@@ -19,14 +19,14 @@ class Ctasctesc extends Migration
             $table->string('nrocomprobante',20);
             $table->date('fechaemision');
             $table->date('fechavencimiento')->nullable();
-            $table->decimal('debe',10,2);
-            $table->decimal('haber',10,2);
-            $table->decimal('acumulado',10,2);
+            $table->decimal('debe',12,2);
+            $table->decimal('haber',12,2);
+            $table->decimal('acumulado',12,2);
 
-            $table->decimal('importesubtotal',10,2)->nullable();
+            $table->decimal('importesubtotal',12,2)->nullable();
             $table->decimal('iva',8,2)->nullable();
-            $table->string('exento',10)->nullable();
-            $table->decimal('importefinal',10,2)->nullable();
+            $table->string('exento',12)->nullable();
+            $table->decimal('importefinal',12,2)->nullable();
 
             $table->string('observacion',150)->nullable();
             $table->string('estado',30)->nullable();

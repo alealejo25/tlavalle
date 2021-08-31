@@ -60,9 +60,12 @@
 						@endif -->
 						@if($flete->estado=='INICIADO')
 							<a href="{{url('fletes/'.$flete->id.'/finalizarflete')}}"><input type="button" value="Finalizar" class="btn btn-success">	</a>
+							<a href="{{url('fletes/anticipos/'.$flete->id.'/nuevoanticipo')}}"><input type="button"  value="Nuevo Anticipo" class="btn btn-success">	</a>
 						@else
 							<a href="{{url('fletes/anticipos/'.$flete->id.'/finalizarflete')}}"><input type="button" disabled value="Finalizar" class="btn btn-success">	</a>
+							<a href="{{url('fletes/anticipos/'.$flete->id.'/nuevoanticipo')}}"><input type="button" disabled value="Nuevo Anticipo" class="btn btn-success">	</a>
 						@endif
+
 						<a href="{{url('fletes/'.$flete->id.'/cancelarflete')}}"><input type="button" value="Cancelar" class="btn btn-danger">	</a>
 						
 							<a href="{{url('fletes/listarfletePdf/'.$flete->id.'/pdf')}}"><input type="button" value="Imprimir" class="btn btn-warning">	</a>

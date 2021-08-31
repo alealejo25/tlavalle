@@ -99,7 +99,8 @@ Route::post('fletes/anticipos/guardaredicionanticipos/{id?}','FleteController@gu
 Route::get('fletes/anticipos/eliminaranticipo/{id?}','FleteController@eliminaranticipo')->name('eliminaranticipo');
 Route::get('fletes/anticipos/{id?}/nuevoanticipo', 'FleteController@nuevoanticipo')->name('nuevoanticipo');
 
-//Route::post('fletes/anticipos/guardaranticipo','FleteController@guardaranticipo')->name('guardaranticipo');
+
+Route::post('fletes/anticipos/guardaranticipoflete','FleteController@guardaranticipoflete')->name('guardaranticipoflete');
 Route::resource('fletes','FleteController');
 
 Route::get('fletes/vales/{id?}/editarvales', 'FleteController@editarvales')->name('editarvales');
@@ -293,6 +294,16 @@ Route::post('reportes/reportemovimientosarticulos/','ReporteController@reportemo
 //CIERRES DE CAJA POR FECHAS
 Route::get('reportes/cierresdecaja/','ReporteController@cierresdecaja');
 Route::post('reportes/reportecierresdecaja/','ReporteController@reportecierresdecaja')->name('reportecierresdecaja');
+
+
+//FLETES X CHOFER
+Route::get('reportes/flete/','ReporteController@flete');
+Route::post('reportes/reportefletes/','ReporteController@reportefletes')->name('reportefletes');
+
+
+//FLETES ANTICIPOS
+Route::get('reportes/anticipos/','ReporteController@anticipos');
+Route::post('reportes/reporteanticipos/','ReporteController@reporteanticipos')->name('reporteanticipos');
 
 //************************************************************************************************************
 

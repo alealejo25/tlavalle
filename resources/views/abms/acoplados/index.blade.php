@@ -50,8 +50,8 @@
 					<td>{{ $acoplado->modelo}}</td>
 					<td>{{ $acoplado->marca}}</td>
 					<td>{{ $acoplado->año}}</td>
-					<td>{{ $acoplado->fecha_ingreso}}</td>
-					<td>{{ $acoplado->fecha_egreso}}</td>
+					<td>{{ date("d/m/Y",strtotime($acoplado->fecha_ingreso))}}</td>
+					<td>{{ date("d/m/Y",strtotime($acoplado->fecha_egreso))}}</td>
 					<td>{{ $acoplado->valor}}</td>
 					<td>{{ $acoplado->amortizacion}}</td>
 					@if($acoplado->camion_id===NULL)

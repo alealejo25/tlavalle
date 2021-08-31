@@ -85,7 +85,7 @@
     	 <IMG SRC="img\logotlpdf.jpg">
     	 <span class="derecha">Fecha de Emision {{now()}}</span>
     </div>
- 	<h2>Reporte de Ctas. Ctes. Proveedor</h2>
+ 	<h2>Reporte Cta Cte Choferes</h2>
 
 @foreach ($chofer as $datos)
 <h3>Nombre: {{$datos->nombre}}</h3>
@@ -120,7 +120,7 @@
                     <td align="right">$ {{number_format($datos->debe,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->haber,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->acumulado,2,",",".")}}</td>
-
+ 
                 </tr>
             @endforeach                   
             </tbody>

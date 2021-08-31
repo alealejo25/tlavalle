@@ -17,7 +17,7 @@ class AfipPrestamosMoratorias extends Migration
             $table->increments('id');
             $table->string('tipo',20);
             $table->string('impuesto',35);
-            $table->decimal('monto_declarado',10,2);
+            $table->decimal('monto_declarado',12,2);
             $table->string('cant_cuotas',5);
             $table->date('fecha_primera_cuota');
             $table->date('fecha_ultima_cuota')->nullable();

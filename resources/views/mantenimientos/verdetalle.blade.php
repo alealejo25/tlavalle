@@ -19,8 +19,9 @@
 			@foreach ($camiones as $datos)
 				<tr>
 					<td><h4>Numero: {{ $datos->id}} - Nro de Unidad: {{ $datos->camion->nro_unidad}} Dominio: {{ $datos->camion->dominio}} </h4></td>
-					<td><h5>Fecha de Inicio: {{ $datos->fechainicio}}</h4></td>
-					<td><h5>Fecha de Fin: {{ $datos->fechafin}}</h4></td>
+					<td><h5>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</h4></td>
+					<td><h5>{{date("d/m/Y",strtotime($datos->fechafin))  }}</h4></td>
+					
 					<td><h5>Observacion: {{ $datos->observacion}}</h5></td>
 					<td><h5>Estado: {{ $datos->estado}}</h5></td>
 				</tr>

@@ -23,7 +23,7 @@ class VehiculosParticulares extends Migration
             $table->date('fecha_ingreso');
             $table->date('fecha_egreso')->nullable();
             $table->integer('valor');
-            $table->float('amortizacion',4,2);
+            $table->float('amortizacion',12,2);
             $table->string('foto',256)->nullable();
             $table->integer('condicion')->unsigned()->default(0);
             $table->timestamps();

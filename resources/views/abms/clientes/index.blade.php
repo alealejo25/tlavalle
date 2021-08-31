@@ -30,12 +30,12 @@
 					<th>Nombre</th>
 					<th>Direccion</th>
 					<th>Provincia</th>
-					<th>Localidad</th>
+
 					<th>Telefono</th>
 					<th>Email Principal</th>
 					<th>Contacto</th>
 					<th>Telefono Contacto</th>
-					<th>Cuit</th>
+
 					<th>Saldo</th>
 					<th>Saldo Inicial</th>
 					<th>Cliente Pallet</th>
@@ -48,14 +48,14 @@
 					<td>{{ $cliente->nombre}}</td>
 					<td>{{ $cliente->direccion}}</td>
 					<td>{{ $cliente->provincia}}</td>
-					<td>{{ $cliente->localidad}}</td>
+
 					<td>{{ $cliente->telefono}}</td>
 					<td>{{ $cliente->email1}}</td>
 					<td>{{ $cliente->contacto}}</td>
 					<td>{{ $cliente->telefono_contacto}}</td>
-					<td>{{ $cliente->cuit}}</td>
-					<td>{{ $cliente->saldo}}</td>
-					<td>{{ $cliente->saldoinicial}}</td>
+
+					<td class="text-right">${{  number_format($cliente->saldo,2,",",".")}}</td>
+					<td class="text-right">${{  number_format($cliente->saldoinicial,2,",",".")}}</td>
 					<td>{{ $cliente->clientepallet}}</td>
 					<td>{{ $cliente->saldopallet}}</td>
 					<td>

@@ -21,7 +21,7 @@ class Estaciones extends Migration
             $table->string('contacto',100);
             $table->string('telefono_contacto',11);
             $table->string('cuit',15)->unique();
-            $table->decimal('saldo',8,2)->default(0);
+            $table->decimal('saldo',12,2)->default(0);
             $table->integer('condicion')->unsigned()->default(0);
             $table->timestamps();
         });
