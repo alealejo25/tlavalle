@@ -88,7 +88,7 @@
  	<h2>Reporte Cta Cte Choferes</h2>
  	<h2>Periodo: Desde {{$fi}} hasta {{$ff}}</h2>
 @foreach ($chofer as $datos)
-<h3>Nombre: {{$datos->nombre}}</h3>
+<h3>Apellido y Nombre:{{$datos->apellido}}, {{$datos->nombre}}</h3>
 <h3>Direccion: {{$datos->direccion}}</h3>
 <h3>Cuit: {{$datos->cuit}}</h3>
 @endforeach
@@ -104,13 +104,16 @@
                     <th>Descripcion</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
+                    <th>Anticipos</th>
+                    <th>Gastos</th>
+                    <th>Kilometros</th>
+                    <th>Consumo</th>
                     <th>Estado</th>
                     <th>Valor Flete</th>
                     
                     <th>Monto a Liquidar</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
@@ -118,6 +121,11 @@
                     <td >{{$datos->descripciontarifa}}</td>
                     <td>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
                     <td>{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
+                    <td align="right">$ {{number_format($datos->anticipos,2,",",".")}}</td>
+                    <td align="right">$ {{number_format($datos->gastosvarios,2,",",".")}}</td>
+                    <td >{{$datos->kmtransitados}}</td>
+                    <td >{{$datos->combustiblegasto}}</td>
+
                     <td >{{$datos->estado}}</td>
                     <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->montoaliquidar,2,",",".")}}</td>

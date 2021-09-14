@@ -24,12 +24,14 @@ class Fletes extends Migration
             $table->integer('kmfin')->nullable();
             $table->integer('kmtransitados')->nullable();
             $table->string('descripciontarifa',150)->nullable();
-            $table->decimal('valorflete',8,2)->nullable();
+            $table->decimal('valorflete',12,2)->nullable();
             $table->integer('combustiblegasto')->nullable();
             $table->integer('combustibledestino')->nullable();
             $table->integer('combustibletucuman')->nullable();
-            $table->decimal('promedio',10,2)->default(0);
-            $table->decimal('montoaliquidar',10,2)->nullable();
+            $table->decimal('promedio',12,2)->default(0);
+            $table->decimal('montoaliquidar',12,2)->nullable();
+            $table->decimal('gastosvarios',12,2)->nullable();
+            $table->decimal('anticipos',12,2)->nullable();
             $table->string('estado',60);
             $table->integer('camion_id')->unsigned()->nullable();
             $table->integer('chofer_id')->unsigned()->nullable();

@@ -62,8 +62,7 @@ class FleteController extends Controller
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'chofer_id'=>'required',
-            'anticipo'=>'required|numeric',
-             'descripciontarifa'=>'required',
+            'anticipo'=>'required|numeric'            
   
          ];
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -81,7 +80,6 @@ class FleteController extends Controller
 		$datosFlete=new Flete(request()->except('_token'));
 		$datosFlete->camion_id=$datosconsulta[0]->camion_id;
 		$datosFlete->kminicio=$datosconsulta[0]->km;
-//		$datosFlete->descripciontarifa=$request->descripcion;
 		$datosFlete->fechainicio=$date;
 		$datosFlete->estado='INICIADO';
 
@@ -503,6 +501,7 @@ class FleteController extends Controller
             'importe'=>'required|numeric',
             'descripcion'=>'required|string|max:60',
             'cliente_id1'   =>'required',
+            'descripciontarifa'=>'required',
             'remito1'=>'required'
         ];
  		$Mensaje=["required"=>'El :attribute es requerido'];
@@ -1015,6 +1014,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 		$consultakminicio=Flete::where('id',$id)->select('nroremito','camion_id','kminicio','valorflete')->get();
 		$kminicio=$consultakminicio[0]->kminicio;// km con el que incia el flete
 		$kmtransitados=$request->kmfin-$kminicio;
+
 		$promedio=$kmtransitados/$consultasumavales;
 		$montoaliquidar=$request->valorflete+$request->importe-$consultasumaanticipos;
 		$estado='FINALIZADO';
@@ -1041,6 +1041,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
                           'promedio'=>$promedio,
                           'montoaliquidar'=>$montoaliquidar,
                           'valorflete'=>$request->valorflete,
+                          'descripciontarifa'=>$request->descripciontarifa,
                           'estado'=>$estado
                           ]);
         $editarcamion=Camion::where('id',$consultakminicio[0]->camion_id)

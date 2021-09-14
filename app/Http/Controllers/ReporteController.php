@@ -20,6 +20,7 @@ use App\CierreCaja;
 use App\Caja;
 use App\Flete;
 use App\Anticipo;
+use App\GastoVarioFlete;
 use Afip;
 
 
@@ -40,9 +41,16 @@ class ReporteController extends Controller
     {
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->get();
+        $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->where('estado','!=','CANCELADO')->get();
+
+        $consulta->each(function($consulta){
+            $consulta->gastovarioflete->sum('importe');
+        });
+
+
 
         $chofer= Chofer::where('id',$request->chofer_id)->get();
+
         $consultasumamonto=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->sum('montoaliquidar');
 
         $pdf=\PDF::loadView('pdf.reporteflete',['consulta'=>$consulta, 'chofer'=>$chofer,'consultasumamonto'=>$consultasumamonto,'fi'=>$fi,'ff'=>$ff])

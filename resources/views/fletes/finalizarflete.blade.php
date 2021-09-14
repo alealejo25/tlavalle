@@ -63,6 +63,11 @@
 			</div>
 
 			<div class="row">
+				<div class="Form-group">
+				<label for="descripciontarifa">Descripcion del Flete</label>
+				<input type="text" name="descripciontarifa" id="descripciontarifa" class="form-control {{$errors->has('descripciontarifa')?'is-invalid':''}}" placeholder="Descripcion del Flete..." value="{{old('descripciontarifa')}}">
+				{!! $errors->first('descripciontarifa','<div class="invalid-feedback">:message</div>')!!}
+			</div>
 			<div class="form-group col-lg-3 col-md-4 col-sm-12">
 				<label for="kmfin">KM de Llegada</label>
 				<input type="number" name="kmfin" class="form-control {{$errors->has('kmfin')?'is-invalid':''}}" value="{{old('kmfin')}}"> 

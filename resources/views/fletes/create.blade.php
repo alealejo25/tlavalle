@@ -18,11 +18,7 @@
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
 			{{Form::token()}}
 
-			<div class="Form-group">
-				<label for="descripciontarifa">Descripcion del Flete</label>
-				<input type="text" name="descripciontarifa" id="descripciontarifa" class="form-control {{$errors->has('descripciontarifa')?'is-invalid':''}}" placeholder="Descripcion del Flete..." value="{{old('descripciontarifa')}}">
-				{!! $errors->first('descripciontarifa','<div class="invalid-feedback">:message</div>')!!}
-			</div>
+			
 			<div class="Form-group">
 				<label for="chofer_id">Seleccione Chofer</label>
 				{!!Form::select('chofer_id',$choferes,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
