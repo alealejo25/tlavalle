@@ -106,7 +106,7 @@
                     <th>Fecha Fin</th>
                     <th>Anticipos</th>
                     <th>Gastos</th>
-                    <th>Kilometros</th>
+                    <th>Kms</th>
                     <th>Litro Total</th>
                     <th>Promedio</th>
                     <th>Estado</th>
@@ -123,14 +123,10 @@
                     <td>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
                     <td>{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
                     <td align="right">$ {{number_format($datos->anticipos,2,",",".")}}</td>
-                    @if($datos->gastosvariosfletes != null)
-                        <td align="right">$ {{number_format($datos->gastovarioflete->importe,2,",",".")}}</td>
-                    @else
-                        <td></td>
-                    @endif
-                    <td >{{$datos->kmtransitados}}</td>
-                    <td >{{$datos->combustiblegasto}}</td>
-                    <td >{{$datos->promedio}}</td>
+                    <td align="right">$ {{number_format($datos->gastosvarios->importe,2,",",".")}}</td>
+                    <td align="right">{{$datos->kmtransitados}}</td>
+                    <td align="right">{{$datos->combustiblegasto}}</td>
+                    <td align="right">{{$datos->promedio}}</td>
 
                     <td >{{$datos->estado}}</td>
                     <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
