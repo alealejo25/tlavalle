@@ -24,9 +24,9 @@
 				{!!Form::select('chofer_id',$choferes,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="Form-group">
-				<label for="anticipo">Anticipo</label>
-				<input type="number" step=0.01 name="anticipo" class="form-control {{$errors->has('anticipo')?'is-invalid':''}}" placeholder="Anticipo..." value="{{old('anticipo')}}">
-				{!! $errors->first('anticipo','<div class="invalid-feedback">:message</div>')!!}
+				<label for="anticipos">Anticipo</label>
+				<input type="number" step=0.01 name="anticipos" class="form-control {{$errors->has('anticipos')?'is-invalid':''}}" placeholder="Anticipo..." value="{{old('anticipos')}}">
+				{!! $errors->first('anticipos','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 			
 			<br>
