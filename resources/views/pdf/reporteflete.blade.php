@@ -123,7 +123,7 @@
                     <td>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
                     <td>{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
                     <td align="right">$ {{number_format($datos->anticipos,2,",",".")}}</td>
-                    <td align="right">$ {{number_format($datos->gastosvarios->importe,2,",",".")}}</td>
+                    <td align="right">$ {{number_format($datos->gastosvarios,2,",",".")}}</td>
                     <td align="right">{{$datos->kmtransitados}}</td>
                     <td align="right">{{$datos->combustiblegasto}}</td>
                     <td align="right">{{$datos->promedio}}</td>
