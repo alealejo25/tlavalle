@@ -44,14 +44,14 @@ class ReporteController extends Controller
         $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->where('estado','!=','CANCELADO')->get();
 
         $consulta->each(function($consulta){
-            $consulta->gastovarioflete->sum('importe');
+            $consulta->gastovarioflete;
         });
 
 
-
+   
         $chofer= Chofer::where('id',$request->chofer_id)->get();
 
-        $consultasumamonto=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->sum('montoaliquidar');
+        $consultasumamonto=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->where('estado','!=','CANCELADO')->sum('montoaliquidar');
 
         $pdf=\PDF::loadView('pdf.reporteflete',['consulta'=>$consulta, 'chofer'=>$chofer,'consultasumamonto'=>$consultasumamonto,'fi'=>$fi,'ff'=>$ff])
         ->setPaper('a4','landscape');

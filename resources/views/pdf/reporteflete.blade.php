@@ -100,14 +100,15 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Nro. Remito</th>
+                    <th>Nro.Rendicion</th>
                     <th>Descripcion</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
                     <th>Anticipos</th>
                     <th>Gastos</th>
                     <th>Kilometros</th>
-                    <th>Consumo</th>
+                    <th>Litro Total</th>
+                    <th>Promedio</th>
                     <th>Estado</th>
                     <th>Valor Flete</th>
                     
@@ -122,9 +123,14 @@
                     <td>{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
                     <td>{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
                     <td align="right">$ {{number_format($datos->anticipos,2,",",".")}}</td>
-                    <td align="right">$ {{number_format($datos->gastosvarios,2,",",".")}}</td>
+                    @if($datos->gastosvariosfletes != null)
+                        <td align="right">$ {{number_format($datos->gastovarioflete->importe,2,",",".")}}</td>
+                    @else
+                        <td></td>
+                    @endif
                     <td >{{$datos->kmtransitados}}</td>
                     <td >{{$datos->combustiblegasto}}</td>
+                    <td >{{$datos->promedio}}</td>
 
                     <td >{{$datos->estado}}</td>
                     <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
