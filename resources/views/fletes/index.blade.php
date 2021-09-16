@@ -66,7 +66,9 @@
 							<a href="{{url('fletes/anticipos/'.$flete->id.'/nuevoanticipo')}}"><input type="button" disabled value="Nuevo Anticipo" class="btn btn-success">	</a>
 						@endif
 
-						<a href="{{url('fletes/'.$flete->id.'/cancelarflete')}}"><input type="button" value="Cancelar" class="btn btn-danger">	</a>
+
+
+						<a href="{{url('fletes/'.$flete->id.'/cancelarflete')}}"><input type="button" value="Cancelar" class="btn btn-danger" onclick="return confirm('Seguro que desea Cancelar el Flete?');">	</a>
 						
 							<a href="{{url('fletes/listarfletePdf/'.$flete->id.'/pdf')}}"><input type="button" value="Imprimir" class="btn btn-warning">	</a>
 					</form>

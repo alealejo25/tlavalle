@@ -288,6 +288,11 @@ class FleteController extends Controller
                   				'anticipos'=>$consultaanticipoflete[0]->anticipos+$request->importe
                                  ]);
 
+		$datochofer=Chofer::where('id',$request->chofer_id)->limit(1)->get();
+		$editarchofer=Chofer::where('id',$request->chofer_id)
+            ->update([
+                      'saldo'=>$datochofer[0]->saldo-$request->importe
+                     ]);
 
 		flash::success('Se INGRESO un nuevo anticipo');
         flash::success('Se actualizo la CAJA PRINCIPAL');
@@ -392,9 +397,6 @@ class FleteController extends Controller
 			if($r->nroremitoestacion==NULL){
 				 		flash::warning('Debe editar los vales que no tengas Numero de Remito de Estacion para finalizar el flete');
 			return $this->editarvales($id);
-				
-
-				
 			}
 
 		}
@@ -422,10 +424,36 @@ class FleteController extends Controller
 		$date = new \DateTime();
     	$datoFlete=Flete::where('id',$id)->limit(1)->get();
 
+ 		$datochofer=Chofer::where('id',$datoFlete[0]->chofer_id)->limit(1)->get();
+
+ 		if($datoFlete[0]->estado=='FINALIZADO')
+		{$editarchofer=Chofer::where('id',$datoFlete[0]->chofer_id)
+            ->update([
+                      //'saldo'=>$datochofer[0]->saldo+$datoFlete[0]->gastosvarios+$datoFlete[0]->montoaliquidar
+                       'saldo'=>$datochofer[0]->saldo-$datoFlete[0]->montoaliquidar
+                     ]);
+        }
+        else{
+        	$editarchofer=Chofer::where('id',$datoFlete[0]->chofer_id)
+            ->update([
+                      //'saldo'=>$datochofer[0]->saldo+$datoFlete[0]->gastosvarios+$datoFlete[0]->montoaliquidar
+                       'saldo'=>$datochofer[0]->saldo+$datoFlete[0]->anticipos-$datoFlete[0]->montoaliquidar
+                     ]);
+        }
+    	// poner en cancelado el estado del flete
     	$editarflete=Flete::where('id',$id)
             ->update([
-                      'estado'=>'CANCELADO'
+                      'estado'=>'CANCELADO',
+                      'valorflete'=>0,
+                      'combustiblegasto'=>0,
+                      'combustibledestino'=>0,
+                      'combustibletucuman'=>0,
+                      'promedio'=>0,
+                      'montoaliquidar'=>0,
+                      'gastosvarios'=>0,
+                      'anticipos'=>0,
                      ]);
+		//----------------------------------------------
 
         $datochofer=Chofer::where('id',$datoFlete[0]->chofer_id)->limit(1)->get();
 
@@ -451,21 +479,22 @@ class FleteController extends Controller
 		    $datosAnticipo->importe=$importe;
 		    $datosAnticipo->flete_id=$datoFlete[0]->id;
 		    $datosAnticipo->chofer_id=$datoFlete[0]->chofer_id;
-		    $datosAnticipo->estado='CANCELADO';
+		    $datosAnticipo->estado='CANCELACION';
 		    $datosAnticipo->fecha=$date;
 		    $datosAnticipo->observacion='Anticipo anulado por cancelacion de Flete n° '.$datoFlete[0]->nroremito;
 			$datosAnticipo->save();
 
 
-			$editarchofer=Chofer::where('id',$datoFlete[0]->chofer_id)
-            ->update([
-                      'saldo'=>$r->importe+$datochofer[0]->saldo
-                     ]);
+			// $editarchofer=Chofer::where('id',$datoFlete[0]->chofer_id)
+   //          ->update([
+   //                    'saldo'=>$r->importe+$datochofer[0]->saldo
+   //                   ]);
+
 
 		}
 		//// FIN DE CANCELACION DE ANTICIPOS
 
-        //CANCELACION DE TODOS LOS ANTICIPOS Y DEVUELDE EL DINERO AL CHOFER
+        //CANCELACION DE TODOS LOS VALES
         $vales=Vale::where('flete_id',$id)->where('estado','INGRESADO')->get();
 
 		foreach ($vales as $key => $r) {
@@ -503,7 +532,65 @@ class FleteController extends Controller
                           ]);
 
 		}
-		//// FIN DE CANCELACION DE ANTICIPOS
+
+
+		$remitos=RemitoFlete::where('flete_id',$id)->where('estado','INGRESADO')->get();
+
+		foreach ($remitos as $key => $r) {
+
+			$editarremito=RemitoFlete::where('flete_id',$id)->where('estado','INGRESADO')
+            ->update([
+                      'estado'=>'ANULADO'
+                     ]);
+
+			$datosRemito=new RemitoFlete();
+			$nremito=RemitoFlete::orderBy('id','DESC')->limit(1)->get();
+	
+			//$datoestacion=Estacion::where('id',$r->estacion_id)->get();
+
+
+			if(count($nremito)>0){
+		    	$datosRemito->nroremito=$nremito[0]->nroremito+1;
+		    }
+		    else{
+		    	$datosRemito->nroremito=400000;
+		    }
+
+		    $datosRemito->flete_id=$datoFlete[0]->id;
+			$datosRemito->cliente_id=$r->cliente_id;
+			$datosRemito->modo='C';
+			$datosRemito->estado='CANCELADO';
+			$datosRemito->observacion='Remito anulado por cancelacion de Flete n° '.$datoFlete[0]->nroremito;
+			$datosRemito->save();
+
+
+		}
+
+		//// FIN DE CANCELACION DE remitos
+
+ 		//CANCELACION DE MOVIMIENTO DE CAJA
+		$movimientocaja=new MovimientoCaja();
+		$movimientocaja->tipo='CANCELACION FLETE';
+		$movimientocaja->tipo_movimiento='INGRESO';
+		$movimientocaja->descripcion='Devolucion por cancelacion de Flete';
+		$movimientocaja->fecha=$date;
+		$movimientocaja->importe=$datoFlete[0]->anticipos;
+		$movimientocaja->caja_id=2;
+
+
+		$consultamovimientos=MovimientoCaja::where('caja_id', $movimientocaja->caja_id)->orderBy('id','DESC')->limit(1)->get();
+		$importe_final_anterior=0;
+      	if($consultamovimientos <> null){
+        foreach ($consultamovimientos as $consultamovimiento) {
+          $importe_final_anterior=$consultamovimiento->importe_final+$datoFlete[0]->anticipos;
+        }
+      }  
+      $movimientocaja->importe_final=$importe_final_anterior;
+      $movimientocaja->save();
+
+		flash::success('Se cancelo el FLETE');
+         return Redirect('fletes');
+
 
 	}
 
@@ -1144,3 +1231,4 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 
 	
 }
+

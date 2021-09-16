@@ -127,7 +127,6 @@
                     <td align="right">{{$datos->kmtransitados}}</td>
                     <td align="right">{{$datos->combustiblegasto}}</td>
                     <td align="right">{{$datos->promedio}}</td>
-
                     <td >{{$datos->estado}}</td>
                     <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->montoaliquidar,2,",",".")}}</td>

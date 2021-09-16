@@ -22,6 +22,7 @@ class Vales extends Migration
             $table->string('nroremitovale',20);
             $table->string('nroremitoestacion',20)->nullable();
             $table->string('estado',60)->nullable();
+            $table->string('observacion',120)->nullable();
             $table->timestamps();
 
             $table->foreign('flete_id')->references('id')->on('fletes');
