@@ -100,12 +100,12 @@ $date = new \DateTime();
          try{//esto es para que si hay un error en un insert en una table no grabe en la otra
         DB::beginTransaction(); 
 
-        $acumulado=CtaCteC::where('cliente_id',$id)->orderBy('id','DESC')->limit(1)->get();
-        if(isset($acumulado))
-        {
+       // $acumulado=CtaCteC::where('cliente_id',$id)->orderBy('id','DESC')->limit(1)->get();
+        //if(isset($acumulado))
+        //{
 
                 $acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
-        }
+        //}
 
         $datosComprobante=new CtaCteC(request()->except('_token'));
 
@@ -328,6 +328,7 @@ public function guardaredicioncomprobante(Request $request,$id)
                 ->update([
                         'estado'=>'ANULADO',
                           ]);
+            
             break;
 
         }
