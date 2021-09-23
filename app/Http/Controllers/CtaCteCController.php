@@ -67,9 +67,9 @@ $date = new \DateTime();
         $datos->tipocomprobante="ORDEN DE PAGO";
          $datos->fechaemision=$date;
           $datos->fechavencimiento=$date;
-                $datos->debe=$request->montoneto;
+                $datos->debe=$request->montofinal;
                 $datos->haber=0;
-                $datos->acumulado=$acumulado[0]->saldo + $request->montoneto;
+                $datos->acumulado=$acumulado[0]->saldo + $request->montofinal;
                 $datos->save();
 
                 $editarcliente=Cliente::where('id',$id)
@@ -124,7 +124,7 @@ $date = new \DateTime();
                 $datosComprobante->factura_id=null;
         		$datosComprobante->save();
         		$editarcliente=Cliente::where('id',$id)
-                ->update([
+                ->update([                    
                 		'saldo'=>$datosComprobante->acumulado
                           ]);
         	break;
