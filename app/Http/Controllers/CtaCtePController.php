@@ -48,8 +48,8 @@ class CtaCtePController extends Controller
             'nrocomprobante'=>'required|unique:CtasCtesP',
             'fechaemision'=>'required',
             'fechavencimiento'=>'required',
-            'importe'=>'required|numeric',
-          'importesubtotal'=>'required|numeric'
+            'importe'=>'required|numeric'
+        //  'importesubtotal'=>'required|numeric'
            
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -64,7 +64,7 @@ class CtaCtePController extends Controller
         //if(isset($acumulado))
         //{
 
-            $acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+            $acumulado=Proveedor::where('id',$id)->get();
         //}
 
         $datosComprobante=new CtaCteP(request()->except('_token'));
@@ -109,6 +109,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->haber=$request->importe;
         		$datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
         		$datosComprobante->save();
+                dd($datosComprobante->acumulado);
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
                           'saldo'=>$acumulado[0]->saldo - $request->importe

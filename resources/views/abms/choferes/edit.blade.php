@@ -51,7 +51,7 @@
 			</div>
 			<div class="Form-group">
 				<label for="saldo">Saldo</label>
-				<input type="text" name="saldo" id="saldo" class="form-control" placeholder="Saldo..." value="{{$choferes->saldo}}">
+				<input type="text" name="saldo" id="saldo" class="form-control" placeholder="Saldo..." value="{{$choferes->saldo}}" >
 				{!! $errors->first('saldo','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 			<div class="Form-group">
