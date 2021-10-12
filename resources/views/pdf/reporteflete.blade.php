@@ -100,13 +100,17 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Nro.Remito</th>
+                    <th>Rendicion</th>
                     <th>Descripcion</th>
                     <th>Anticipos</th>
                     <th>Gastos</th>
                     <th>Kms</th>
                     <th>Litro Total</th>
                     <th>Promedio</th>
+                    <th>Rto 1</th>
+                    <th>Rto 2</th>
+                    <th>Rto 3</th>
+                    <th>Rto 4</th>
                     <th>Estado</th>
                     <th>Valor Flete</th>
                     
@@ -123,6 +127,29 @@
                     <td align="right">{{$datos->kmtransitados}}</td>
                     <td align="right">{{$datos->combustiblegasto}}</td>
                     <td align="right">{{$datos->promedio}}</td>
+                    @if($datos->remitoflete[0]->nroremito!=NULL)
+                    <td > {{$datos->remitoflete[0]->nroremito}}</td>
+                    @else
+                    <td>Sin Rto</td>
+                    @endif
+                    @if(isset($datos->remitoflete[1]->nroremito))
+                    <td > {{$datos->remitoflete[1]->nroremito}}</td>
+                    @else
+                    <td>Sin Rto</td>
+                    @endif
+                    
+                    @if(isset($datos->remitoflete[2]->nroremito))
+                    <td> {{$datos->remitoflete[2]->nroremito}}</td>
+                    @else
+                    <td>Sin Rto</td>
+                    @endif
+
+                    @if(isset($datos->remitoflete[3]->nroremito))
+                    <td> {{$datos->remitoflete[3]->nroremito}}</td>
+                    @else
+                    <td>Sin Rto</td>
+                    
+                    @endif
                     <td >{{$datos->estado}}</td>
                     <td align="right">$ {{number_format($datos->valorflete,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->montoaliquidar,2,",",".")}}</td>

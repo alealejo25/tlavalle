@@ -45,6 +45,7 @@ class ReporteController extends Controller
 
         $consulta->each(function($consulta){
             $consulta->gastovarioflete;
+            $consulta->remitoflete;
         });
 
 
