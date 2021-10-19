@@ -63,7 +63,6 @@ class CtaCteCController extends Controller
             'nrocomprobante'=>'required|unique:CtasCtesC',
             'montoneto'=>'required|numeric',
             'montofinal'=>'required|numeric'
-           
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);

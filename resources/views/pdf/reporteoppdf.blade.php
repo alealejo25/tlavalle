@@ -98,7 +98,7 @@
 		</div>
 	</div>
     @endforeach   
-    <h2>Resumen de la Orden de compra</h2>
+    <h2>Resumen de la Orden de Pago</h2>
     <div>
         <table class="table table-bordered table-striped table-sm">
             <thead>
