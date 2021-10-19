@@ -56,6 +56,17 @@ class CtaCteCController extends Controller
 
     public function guardaropc(Request $request,$id)
     {
+
+
+         /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'nrocomprobante'=>'required|unique:CtasCtesC',
+            'montoneto'=>'required|numeric',
+            'montofinal'=>'required|numeric'
+           
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
 $date = new \DateTime();
         $datosComprobante=new OrdenPagoC(request()->except('_token'));
         $datosComprobante->cliente_id=$id;
