@@ -109,7 +109,6 @@ class CtaCtePController extends Controller
         		$datosComprobante->haber=$request->importe;
         		$datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
         		$datosComprobante->save();
-                dd($datosComprobante->acumulado);
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
                           'saldo'=>$acumulado[0]->saldo - $request->importe
