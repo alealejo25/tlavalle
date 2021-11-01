@@ -41,7 +41,7 @@ class ReporteController extends Controller
     {
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->where('estado','!=','CANCELADO')->get();
+        $consulta=Flete::whereBetween('fechainicio',[$fi, $ff])->where('chofer_id',$request->chofer_id)->where('estado','=','FINALIZADO')->get();
 
         $consulta->each(function($consulta){
             $consulta->gastovarioflete;
