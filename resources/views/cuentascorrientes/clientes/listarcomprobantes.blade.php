@@ -30,7 +30,10 @@
 					<th>#</th>
 					<th>Tipo de Comprobante</th>
 					<th>Nro Comprobante</th>
-					<th>Fecha Vencimiento</th>
+					<th>Subtotal</th>
+					<th>IVA</th>
+					<th>Exento</th>
+					<th>ImpFinal</th>
 					<th>Debe</th>
 					<th>Haber</th>
 					<th>Acumulado</th>
@@ -43,7 +46,11 @@
 					<td>{{ $cliente->id}}</td>
 					<td>{{ $cliente->tipocomprobante}}</td>
 					<td>{{ $cliente->nrocomprobante}}</td>
-					<td>{{date("d/m/Y",strtotime($cliente->fechavencimiento)) }}</td>
+					<!-- <td>{{date("d/m/Y",strtotime($cliente->fechavencimiento)) }}</td> -->
+					<td  class="text-right">${{  number_format($cliente->importesubtotal,2,",",".")}}</td>
+					<td  class="text-right">${{  number_format($cliente->iva,2,",",".")}}</td>
+					<td  class="text-right">${{  number_format($cliente->exento,2,",",".")}}</td>
+					<td  class="text-right">${{  number_format($cliente->importefinal,2,",",".")}}</td>
 					<td class="text-right">${{  number_format($cliente->debe,2,",",".")}}</td>
 					<td  class="text-right">${{  number_format($cliente->haber,2,",",".")}}</td>
 					@if($cliente->acumulado<0)
