@@ -54,7 +54,7 @@ class PermissionsTableSeeder extends Seeder
 
      DB::table('users')->insert([
         'name'  => 'Natali Alburquerque',
-        'Tipo'  => 'Administracion',
+        'Tipo'  => 'Admin',
         'email'     => 'natalb@transportelavalle.com',
         'password'  => bcrypt('nata1351'),
     ]);
