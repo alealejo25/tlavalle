@@ -13,6 +13,7 @@ class Ctasctesp extends Migration
      */
     public function up()
     {
+     
          Schema::create('ctasctesp', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tipocomprobante',20);
