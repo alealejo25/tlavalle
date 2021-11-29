@@ -42,18 +42,7 @@ class CtaCtePController extends Controller
     {
 
 
-        /*VALIDACION -----------------------------------------*/
-        $campos=[
-            'tipocomprobante'=>'required',
-            'nrocomprobante'=>'required|unique:CtasCtesP',
-            'fechaemision'=>'required',
-            'fechavencimiento'=>'required',
-            'importe'=>'required|numeric'
-        //  'importesubtotal'=>'required|numeric'
-           
-        ];
-        $Mensaje=["required"=>'El :attribute es requerido'];
-        $this->validate($request,$campos,$Mensaje);
+       
 
         try{//esto es para que si hay un error en un insert en una table no grabe en la otra
         DB::beginTransaction(); 
