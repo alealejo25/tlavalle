@@ -21,6 +21,7 @@ use App\Caja;
 use App\Flete;
 use App\Anticipo;
 use App\GastoVarioFlete;
+use App\RemitoFlete;
 use Afip;
 
 
