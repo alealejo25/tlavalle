@@ -45,7 +45,7 @@ class CtaCteChoController extends Controller
       /*VALIDACION -----------------------------------------*/
         $campos=[
             'tipocomprobante'=>'required',
-            'nrocomprobante'=>'required|unique:CtasCtesCho',
+            'nrocomprobante'=>'required|unique:ctasctescho',
             'fechaemision'=>'required',
             'fechavencimiento'=>'required',
             'importe'=>'required|numeric',

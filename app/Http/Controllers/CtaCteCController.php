@@ -60,10 +60,9 @@ class CtaCteCController extends Controller
 
          /*VALIDACION -----------------------------------------*/
         $campos=[
-            'nrocomprobante'=>'required|unique:CtasCtesC',
+            'nrocomprobante'=>'required|unique:ctasctesc',
             'montoneto'=>'required|numeric',
             'montofinal'=>'required|numeric'
-        ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
 $date = new \DateTime();
