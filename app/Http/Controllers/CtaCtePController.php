@@ -43,8 +43,7 @@ class CtaCtePController extends Controller
 
         $campos=[
             'tipocomprobante'=>'required',
-            //'nrocomprobante'=>'required|unique:CtasCtesP',
-            'nrocomprobante'=>'required',
+            'nrocomprobante'=>'required|unique:ctasctesp',
             'fechaemision'=>'required',
             'fechavencimiento'=>'required',
             'importe'=>'required|numeric'
