@@ -41,24 +41,21 @@ class CtaCtePController extends Controller
  public function guardarcomprobantep(Request $request,$id)
     {
 
+        $campos=[
+            'tipocomprobante'=>'required',
+            'nrocomprobante'=>'required|unique:CtasCtesP',
+            'fechaemision'=>'required',
+            'fechavencimiento'=>'required',
+            'importe'=>'required|numeric'
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
 
-       
-
-        try{//esto es para que si hay un error en un insert en una table no grabe en la otra
-        DB::beginTransaction(); 
-
-
-    	
-       // $acumulado=CtaCteP::where('proveedor_id',$id)->orderBy('id','DESC')->limit(1)->get();
-        //if(isset($acumulado))
-        //{
-
+        try{
+            DB::beginTransaction(); 
             $acumulado=Proveedor::where('id',$id)->get();
-        //}
-
-        $datosComprobante=new CtaCteP(request()->except('_token'));
-
-        $datosComprobante->proveedor_id=$id;
+            $datosComprobante=new CtaCteP(request()->except('_token'));
+            $datosComprobante->proveedor_id=$id;
 
         switch ($request->tipocomprobante){
         	case 'FACTURA':
@@ -129,9 +126,8 @@ class CtaCtePController extends Controller
         }
 
         DB::commit();
-   		flash::success('Comprobante ingresado!!! - Tipo '
-    );
-       return Redirect('cuentascorrientes/proveedores/')->with('Mensaje','Comprobante ingresado!!!');
+   		flash::success('Comprobante ingresado!!!');
+       return Redirect('cuentascorrientes/proveedores/')->with('Mensaje','Comprobante Ingresado!!!');
        } catch(\Exception $e){
             DB::rollBack();
             return redirect ("cuentascorrientes/proveedores")->with('status','2');
