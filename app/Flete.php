@@ -59,7 +59,7 @@ public function Chofer()
 
 public function RemitoFlete()
     {
-        return $this->hasMany('App\RemitoFLete');
+        return $this->hasMany('App\RemitoFlete');
     }
     //------------
 
