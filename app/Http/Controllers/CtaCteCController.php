@@ -63,9 +63,12 @@ class CtaCteCController extends Controller
             'nrocomprobante'=>'required|unique:ctasctesc',
             'montoneto'=>'required|numeric',
             'montofinal'=>'required|numeric'
+        ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-$date = new \DateTime();
+
+
+        $date = new \DateTime();
         $datosComprobante=new OrdenPagoC(request()->except('_token'));
         $datosComprobante->cliente_id=$id;
         $datosComprobante->save();
