@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-    	 <IMG SRC="\img\logotlpdf.jpg">
+    	 <IMG SRC="public\img\logotlpdf.jpg">
     	 <span class="derecha">Fecha de Emision {{date("d/m/Y",strtotime(now()))  }}</span>
     </div>
  	<h2>Reporte Cta Cte Choferes</h2>
