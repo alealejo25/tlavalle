@@ -82,13 +82,12 @@
 </head>
 <body>
     <div>
-    	 <img src="img\logotlpdf.jpg">
-        <img src="\img\logotlpdf.jpg">
+    	 
         <img src="img/logotlpdf.jpg">
-         <img src="{{asset('/public/img/logotlpdf.jpg')}}">
+         <!-- <img src="{{asset('/public/img/logotlpdf.jpg')}}"> -->
          <img src="{{asset('/img/logotlpdf.jpg')}}">
          <img src="{{asset('img/logotlpdf.jpg')}}">
-         <img src="{{asset('\public\img\logotlpdf.jpg')}}">
+      <!--   <img src="{{asset('\public\img\logotlpdf.jpg')}}">-->
     	 <span class="derecha">Fecha de Emision {{date("d/m/Y",strtotime(now()))  }}</span>
     </div>
  	<h2>Reporte Cta Cte Choferes</h2>
