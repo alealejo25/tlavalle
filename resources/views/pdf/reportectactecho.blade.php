@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-    	 <IMG SRC="img\logotlpdf.jpg">
+    	<img src="img/logotlpdf.jpg">
     	 <span class="derecha">Fecha de Emision {{now()}}</span>
     </div>
  	<h2>Reporte Cta Cte Choferes</h2>

@@ -30,7 +30,6 @@ class PermissionsTableSeeder extends Seeder
         'condicion'     => '0',
     ]);
 
-
  		DB::table('users')->insert([
         'name'  => 'Jesica Alburquerque',
         'Tipo'  => 'Admin',
@@ -446,11 +445,12 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$logistica->givePermissionTo([
+			'bancos_index',
+			'acoplados_index',
 			'iniciarflete',
 			'listarfletes',
 			'listarmantenimientocamion',
 			'choferes_index',
-			'acoplados_index',
 			'camiones_index',
 			'logistica',
 			'tallerlogistica',

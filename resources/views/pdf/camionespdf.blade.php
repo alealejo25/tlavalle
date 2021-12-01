@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-    	 <IMG SRC="img\logotlpdf.jpg">
+    	<img src="img/logotlpdf.jpg">
         <h2>Lista de Camiones <span class="derecha">{{now()}}</span></h2>
 
     </div>

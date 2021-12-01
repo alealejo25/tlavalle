@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-    	 <IMG SRC="img\logotlpdf.jpg">
+    	 <img src="img/logotlpdf.jpg">
     	 <span class="derecha">{{now()}}</span>
         <h1>ANTICIPO</h1> 
     </div>
