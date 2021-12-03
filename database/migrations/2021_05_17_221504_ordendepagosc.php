@@ -16,7 +16,7 @@ class Ordendepagosc extends Migration
         Schema::create('ordendepagosc', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
-            $table->string('nrocomprobante',20);
+            $table->string('nrocomprobante',30);
             $table->decimal('montoneto',12,2);
             $table->string('descripcion',100)->nullable();
             $table->string('provincia1',30)->nullable();

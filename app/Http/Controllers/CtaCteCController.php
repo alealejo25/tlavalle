@@ -60,7 +60,7 @@ class CtaCteCController extends Controller
 
          /*VALIDACION -----------------------------------------*/
         $campos=[
-            'nrocomprobante'=>'required|unique:ctasctesc',
+            'nrocomprobante'=>'required|max:20|unique:ctasctesc',
             'montoneto'=>'required|numeric',
             'montofinal'=>'required|numeric'
         ];
