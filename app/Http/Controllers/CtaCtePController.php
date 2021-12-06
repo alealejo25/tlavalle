@@ -53,7 +53,7 @@ class CtaCtePController extends Controller
 
         try{
             DB::beginTransaction(); 
-            $acumulado=Proveedor::where('id',$id)->get();
+            $proveedorsaldo=Proveedor::where('id',$id)->get();
             $datosComprobante=new CtaCteP(request()->except('_token'));
             $datosComprobante->proveedor_id=$id;
 
@@ -61,7 +61,7 @@ class CtaCtePController extends Controller
         	case 'FACTURA':
         		$datosComprobante->debe=$request->importe;
         		$datosComprobante->haber=0;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
+        		$datosComprobante->acumulado=$proveedorsaldo[0]->saldo + $request->importe;
                 $datosComprobante->importesubtotal=$request->importesubtotal;
                 $datosComprobante->iva=$request->iva;
                 $datosComprobante->percepcioniva=$request->percepcioniva;
@@ -74,7 +74,7 @@ class CtaCtePController extends Controller
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$acumulado[0]->saldo + $request->importe
+                		'saldo'=>$proveedorsaldo[0]->saldo + $request->importe
                           ]);
         	break;
 
@@ -82,32 +82,32 @@ class CtaCtePController extends Controller
         	case 'NOTA DE DEBITO':
         		$datosComprobante->debe=$request->importe;
         		$datosComprobante->haber=0;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
+        		$datosComprobante->acumulado=$proveedorsaldo[0]->saldo + $request->importe;
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$acumulado[0]->saldo + $request->importe
+                		'saldo'=>$proveedorsaldo[0]->saldo + $request->importe
                           ]);
 
         	break;
         	case 'NOTA DE CREDITO':
         		$datosComprobante->debe=0;
         		$datosComprobante->haber=$request->importe;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
+        		$datosComprobante->acumulado=$proveedorsaldo[0]->saldo - $request->importe;
         		$datosComprobante->save();
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                          'saldo'=>$acumulado[0]->saldo - $request->importe
+                          'saldo'=>$proveedorsaldo[0]->saldo - $request->importe
                           ]);
         	break;
         	case 'REMITO':
         		$datosComprobante->debe=$request->importe;
         		$datosComprobante->haber=0;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo + $request->importe;
+        		$datosComprobante->acumulado=$proveedorsaldo[0]->saldo + $request->importe;
         		$datosComprobante->save();
         		$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                		'saldo'=>$acumulado[0]->saldo + $request->importe
+                		'saldo'=>$proveedorsaldo[0]->saldo + $request->importe
                           ]);
 
 
@@ -116,11 +116,11 @@ class CtaCtePController extends Controller
         	case 'RECIBO':
         		$datosComprobante->debe=0;
         		$datosComprobante->haber=$request->importe;
-        		$datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
+        		$datosComprobante->acumulado=$proveedorsaldo[0]->saldo - $request->importe;
         		$datosComprobante->save();
 				$editarcliente=Proveedor::where('id',$id)
                 ->update([
-                          'saldo'=>$acumulado[0]->saldo - $request->importe
+                          'saldo'=>$proveedorsaldo[0]->saldo - $request->importe
                           ]);
         	break;
         }
