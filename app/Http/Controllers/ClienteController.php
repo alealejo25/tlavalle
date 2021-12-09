@@ -16,7 +16,7 @@ class ClienteController extends Controller
 	public function index(Request $request)
     {
         
-        $clientes=Cliente::search($request->name)->orderBy('nombre','ASC')->paginate(10);
+        $clientes=Cliente::search($request->name)->orderBy('nombre','ASC')->paginate(25);
         return view('abms.clientes.index')
             ->with('clientes',$clientes);
 

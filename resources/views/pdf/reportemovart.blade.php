@@ -112,7 +112,7 @@
                     <td >{{$datos->movimiento->nro_comprobante}}</td> 
                     <td >{{$datos->movimiento->tipo}}</td>
                     <td >{{$datos->cantidad}}</td>
-                    <td >{{$datos->fecha}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
                     <td >{{$datos->movimiento->cliente->nombre}}</td>
                    
                 </tr>

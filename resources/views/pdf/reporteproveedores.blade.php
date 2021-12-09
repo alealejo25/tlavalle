@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Flete</title>
+    <title>Reporte de Proveedores</title>
     <style>
         body {
             margin: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             font-size: 0.75rem;
             font-weight: normal;
-            line-height: 0.9;
+            line-height: 1.1;
             color: #151b1e;           
         }
         .table {
@@ -23,7 +23,7 @@
             border-collapse: collapse;
         }
         .table-bordered {
-            border: 3px solid #c2cfd6;
+            border: 1px solid #c2cfd6;
         }
         thead {
             display: table-header-group;
@@ -36,7 +36,7 @@
             border-color: inherit;
         }
         .table th, .table td {
-            padding: 0.25rem;
+            padding: 0.75rem;
             vertical-align: top;
             border-top: 1px solid #c2cfd6;
         }
@@ -57,7 +57,7 @@
         th {
             font-weight: bold;
             text-align: -internal-center;
-            text-align: center;
+            text-align: left;
         }
         tbody {
             display: table-row-group;
@@ -83,50 +83,35 @@
 <body>
     <div>
     	<img src="img/logotlpdf.jpg">
-    	 <span class="derecha">Fecha de Emision {{now()}}</span>
+        <h2>Lista de Proveedores <span class="derecha">{{now()}}</span></h2>
+
     </div>
- 	<h2>Reporte Cta Cte Choferes</h2>
-
-@foreach ($chofer as $datos)
-<h3>Nombre: {{$datos->nombre}}</h3>
-<h3>Direccion: {{$datos->direccion}}</h3>
-<h3>Cuit: {{$datos->cuit}}</h3>
-@endforeach
-
-	<div>
-
-
-
+    <div>
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Tipo Comprobante</th>
-                    <th>Nro. Comprobante</th>
-                    <th>Fecha Emision</th>
-                    <th>Fecha Vencimiento</th>
-                    <th>Debe</th>
-                    <th>Haber</th>
-                    <th>Acumulado</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Contacto</th>
+                    <th>Telefono</th>
+                    <th>CUIT</th>
+                    <th>Saldo</th>
                 </tr>
             </thead>
-
             <tbody>
-                @foreach ($consulta as $datos)
+                @foreach ($consulta as $a)
                 <tr>
-                    <td >{{$datos->tipocomprobante}}</td>
-                    <td >{{$datos->nrocomprobante}}</td>
-                     <td >{{date("d/m/Y",strtotime($datos->fechaemision))  }}</td>
-                    <td >{{date("d/m/Y",strtotime($datos->fechavencimiento))}}</td>
-                    <td align="right">$ {{number_format($datos->debe,2,",",".")}}</td>
-                    <td align="right">$ {{number_format($datos->haber,2,",",".")}}</td>
-                    <td align="right">$ {{number_format($datos->acumulado,2,",",".")}}</td>
- 
+                    <td>{{$a->nombre}}</td>
+                    <td>{{$a->direccion}}</td>
+                    <td>{{$a->contacto}}</td>
+                     <td>{{$a->telefono_contacto}}</td>
+                    <td>{{$a->cuit}}</td>
+                    <td align="right">$ {{number_format($a->saldo,2,",",".")}}</td>
                 </tr>
-            @endforeach                   
+                @endforeach                               
             </tbody>
         </table>
     </div>
-
-
+ 
 </body>
 </html>

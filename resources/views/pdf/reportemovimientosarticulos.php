@@ -112,7 +112,7 @@
                     <td >{{$datos->nrocomprobante}}</td>
                     <td >{{$datos->tipo}}</td>
                     <td >{{$datos->descripcion}}</td>
-                    <td >{{$datos->fecha}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
                     <td >{{$datos->chofer->nombre}}</td>
                     <td >{{$datos->cantidad}}</td>
                     

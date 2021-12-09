@@ -110,8 +110,9 @@
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
-                    <td >{{$datos->fechainicio}}</td>
-                    <td >{{$datos->fechafin}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fechainicio))  }}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fechafin))  }}</td>
+                    
                     <td >{{$datos->observacion}}</td>
                     <td >{{$datos->estado}}</td>
                  </tr>

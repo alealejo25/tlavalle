@@ -265,6 +265,19 @@ Route::get('reportes/ctasctesc/','ReporteController@index');
 Route::post('reportes/reportectasctesc/','ReporteController@reportectasctesc')->name('reportectasctesc');
 
 
+//CLIENTES
+Route::get('reportes/clientes/','ReporteController@clientes');
+Route::post('reportes/reporteclientes/','ReporteController@reporteclientes')->name('reporteclientes');
+
+
+// PROVEEDORES
+Route::get('reportes/proveedores/','ReporteController@proveedores');
+Route::post('reportes/reporteproveedores/','ReporteController@reporteproveedores')->name('reporteproveedores');
+
+//BIENES DE USO
+Route::get('reportes/bienesdeuso/','ReporteController@bienesdeuso');
+Route::post('reportes/reportebienesdeuso/','ReporteController@reportebienesdeuso')->name('reportebienesdeuso');
+
 //CTAS CTES PROVEEDORES
 Route::get('reportes/ctasctesp/','ReporteController@ctasctesp');
 Route::post('reportes/reportectasctesp/','ReporteController@reportectasctesp')->name('reportectasctesp');

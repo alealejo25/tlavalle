@@ -112,7 +112,7 @@
 
                 <tr>
                     <td>{{$a->nroremito}}</td>
-                    <td>{{$a->fecha}}</td>
+                    <td>{{date("d/m/Y",strtotime($a->fecha))  }}</td>
                     <td>{{$a->flete->descripciontarifa}}</td>
                     <td align="right"><h2>$ {{number_format($a->importe,2,",",".")}}</h2></td>
                     

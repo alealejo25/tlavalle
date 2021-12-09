@@ -116,7 +116,7 @@
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
-                    <td >{{$datos->fecha}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fecha))  }}</td>
                     <td >{{$datos->descripcion}}</td>
                     <td align="right">$ {{number_format($datos->gastosvarios,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->dinerocaja,2,",",".")}}</td>

@@ -211,7 +211,8 @@ class CtaCteCController extends Controller
     }
 	public function listarcomprobantes($id)
     {
-    	$cuentacorrientecliente=CtaCteC::where('cliente_id',$id)->orderBy('id','DESC')->paginate(30);
+        $flete='FLETE';
+    	$cuentacorrientecliente=CtaCteC::whereNULL('estado')->where('cliente_id',$id)->orderBy('id','DESC')->paginate(30);
     	$cliente=Cliente::where('id',$id)->get();
 
 

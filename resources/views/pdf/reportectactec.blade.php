@@ -115,8 +115,8 @@
                 <tr>
                     <td >{{$datos->tipocomprobante}}</td>
                     <td >{{$datos->nrocomprobante}}</td>
-                    <td >{{$datos->fechaemision}}</td>
-                    <td >{{$datos->fechavencimiento}}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fechaemision))  }}</td>
+                    <td >{{date("d/m/Y",strtotime($datos->fechavencimiento))}}</td>
                     <td align="right">$ {{number_format($datos->debe,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->haber,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->acumulado,2,",",".")}}</td>

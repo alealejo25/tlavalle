@@ -16,7 +16,7 @@ class BienDeUsoController extends Controller
 	public function index(Request $request)
     {
 
-        $bienes_de_uso=BienDeUso::search($request->name)->orderBy('descripcion','asc')->paginate(10);
+        $bienes_de_uso=BienDeUso::search($request->name)->orderBy('descripcion','asc')->paginate(25);
         return view('abms.bienesdeuso.index')
                 ->with('bienes_de_uso',$bienes_de_uso);
     }

@@ -22,6 +22,7 @@ use App\Flete;
 use App\Anticipo;
 use App\GastoVarioFlete;
 use App\RemitoFlete;
+use App\BienDeUso;
 use Afip;
 
 
@@ -100,7 +101,7 @@ public function reportectasctesc(Request $request)
     {
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
     	$ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        $consulta=CtaCteC::whereBetween('fechaemision',[$fi, $ff])->where('cliente_id',$request->cliente_id)->get();
+        $consulta=CtaCteC::whereBetween('fechaemision',[$fi, $ff])->where('cliente_id',$request->cliente_id)->whereNull('estado')->get();
 
         $cliente= Cliente::where('id',$request->cliente_id)->get();
 
@@ -113,6 +114,37 @@ public function reportectasctesc(Request $request)
 
     }
 // FIN reporte de ctas ctes por fecha de clientes ---------------------------------------------------
+public function clientes()
+    {
+        $consulta=Cliente::orderBy('nombre','ASC')->get();
+
+       $pdf=\PDF::loadView('pdf.reporteclientes',['consulta'=>$consulta])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteclientes.pdf');
+
+    }
+public function proveedores()
+    {
+        $consulta=Proveedor::orderBy('nombre','ASC')->get();
+
+       $pdf=\PDF::loadView('pdf.reporteproveedores',['consulta'=>$consulta])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteproveedores.pdf');
+
+    }
+
+public function bienesdeuso()
+    {
+        $consulta=BienDeUso::orderBy('descripcion','ASC')->get();
+
+       $pdf=\PDF::loadView('pdf.reportebienesdeuso',['consulta'=>$consulta])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportebienesdeuso.pdf');
+
+    }
+
+
+
 
 //reporte de ctas ctes por fecha de proveedores
  public function ctasctesp(Request $request)

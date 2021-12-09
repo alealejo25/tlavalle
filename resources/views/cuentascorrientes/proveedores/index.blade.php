@@ -8,7 +8,7 @@
 @endif
 			<div class="row">
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-					<h3>Cuentas Corrientes Proveedores </h3>
+					<h3>Cuentas Corrientes Proveedores </h3><a href="../reportes/proveedores"><button  class="btn btn-primary">Reporte Proveedores</button></a>
 					@if(session('status'))
 						@if(session('status')=='1')
 							<div class="alert alert-success">
