@@ -823,7 +823,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 			$datosComprobante->cliente_id=$request->cliente_id1;
 			$datosComprobante->fechaemision=$date;
 			$datosComprobante->fechavencimiento=$date;
-			$datosComprobante->estado='FLETE';
+			$datosComprobante->flete=1;
 			$datosComprobante->save();
 		}
 		// TERMINAR GUARDAR REMITO1!!!!
@@ -882,7 +882,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 			$datosComprobante->cliente_id=$request->cliente_id2;
 			$datosComprobante->fechaemision=$date;
 			$datosComprobante->fechavencimiento=$date;
-			$datosComprobante->estado='FLETE';
+			$datosComprobante->flete=1;
 			$datosComprobante->save();
 		}
 		// TERMINAR GUARDAR REMITO2!!!!
@@ -940,7 +940,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 			$datosComprobante->cliente_id=$request->cliente_id3;
 			$datosComprobante->fechaemision=$date;
 			$datosComprobante->fechavencimiento=$date;
-			$datosComprobante->estado='FLETE';
+			$datosComprobante->flete=1;
 			$datosComprobante->save();
 		}
 		// TERMINAR GUARDAR REMITO3!!!
@@ -995,7 +995,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
 			$datosComprobante->cliente_id=$request->cliente_id4;
 			$datosComprobante->fechaemision=$date;
 			$datosComprobante->fechavencimiento=$date;
-			$datosComprobante->estado='FLETE';
+			$datosComprobante->flete=1;
 			$datosComprobante->save();
 		}
 		// TERMINAR GUARDAR REMITO4!!!
