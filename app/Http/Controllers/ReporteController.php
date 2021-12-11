@@ -101,7 +101,7 @@ public function reportectasctesc(Request $request)
     {
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
     	$ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        $consulta=CtaCteC::whereBetween('fechaemision',[$fi, $ff])->where('cliente_id',$request->cliente_id)->whereNull('estado')->get();
+        $consulta=CtaCteC::whereBetween('fechaemision',[$fi, $ff])->where('flete',null)->where('cliente_id',$request->cliente_id)->whereNull('estado')->get();
 
         $cliente= Cliente::where('id',$request->cliente_id)->get();
 
