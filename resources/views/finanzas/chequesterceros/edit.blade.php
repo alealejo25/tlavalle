@@ -44,12 +44,7 @@
 
 				{!! $errors->first('cliente_id','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="Form-group">
-				<label for="proveedor_id">Proveedor</label>
-				{!!Form::select('proveedor_id',$proveedores,$chequesterceros->proveedor->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 
-				{!! $errors->first('proveedor_id','<div class="invalid-feedback">:message</div>')!!}
-			</div>
 			<div class="Form-group">
 				<label for="banco_id">Banco</label>
 				{!!Form::select('banco_id',$bancos,$chequesterceros->banco->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}

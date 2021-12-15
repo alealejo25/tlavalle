@@ -29,7 +29,7 @@ public function index(Request $request)
 
         /*VALIDACION -----------------------------------------*/
         $campos=[
-            'cbu'=>'required|integer',
+            'cbu'=>'required|max:22',
             'alias_cbu'=>'required|string|max:40',
             'titular'=>'required|string|max:60',
             'dni'=>'required|integer',

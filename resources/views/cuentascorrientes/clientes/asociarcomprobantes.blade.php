@@ -35,7 +35,7 @@
 					<div>
 						@foreach ($cuentacorrientecliente as $remitos)
 						<label>
-							{{Form::checkbox('rem[]',$remitos->id)}} Nro de Remito:  {{$remitos->nrocomprobante}} / Observacion: {{$remitos->observacion}}	{!! $errors->first('nrocomprobante','<div class="invalid-feedback">:message</div>')!!}
+							{{Form::checkbox('rem[]',$remitos->id)}} Nro de Remito:  {{$remitos->nrocomprobante}} / Observacion: {{$remitos->observacion}}	
 						</label>
 						<br>
 						@endforeach

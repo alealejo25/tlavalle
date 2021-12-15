@@ -251,6 +251,38 @@ class CtaCtePController extends Controller
                         'estado'=>'ANULADO',
                           ]);
                 break;
+
+
+        case 'RECIBO':
+                $datosComprobante->nrocomprobante=$datoscomprobante[0]->nrocomprobante.'/bis';
+                $datosComprobante->fechaemision=$date;
+                $datosComprobante->fechavencimiento=$date;
+                $datosComprobante->debe=$datoscomprobante[0]->haber;
+                $datosComprobante->haber=0;
+                $datosComprobante->acumulado=$acumulado[0]->saldo + $datoscomprobante[0]->haber;
+                 $datosComprobante->importesubtotal=0;
+                $datosComprobante->iva=0;
+                $datosComprobante->percepcioniva=0;
+                $datosComprobante->ingresobruto=0;
+                $datosComprobante->tem=0;
+                $datosComprobante->ganancia=0;
+                
+                $datosComprobante->tipocomprobante='ANULACION RECIBO';
+                $datosComprobante->observacion='Anulacion por equivocación de carga';
+               // $datosComprobante->importefinal=$request->importefinal;
+                $datosComprobante->factura_id=$id;
+                $datosComprobante->estado='REALIZADO';
+                $datosComprobante->save();
+                $editarcliente=Proveedor::where('id',$datoscomprobante[0]->proveedor_id)
+                ->update([
+                          'saldo'=>$acumulado[0]->saldo + $datoscomprobante[0]->haber
+                          ]);
+                $editarcomprobante=CtaCteP::where('id',$id)
+                ->update([
+                        'estado'=>'ANULADO',
+                          ]);
+                break;
+
         }
         flash::success('Comprobante Anulado!!! - Tipo ');
        return Redirect('cuentascorrientes/proveedores/')->with('Mensaje','Comprobante ingresado!!!');

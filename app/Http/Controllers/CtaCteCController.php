@@ -284,7 +284,7 @@ public function guardaredicioncomprobante(Request $request,$id)
           ];
         $Mensaje=["required"=>'Debe asociar al menos un remito'];
         $this->validate($request,$campos,$Mensaje);
-        
+
         $acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
         $datosComprobante=new CtaCteC(request()->except('_token'));
 

@@ -1160,6 +1160,7 @@ public function guardarprestamo(Request $request){
 
       $datomovop=MovimientoOPP::where('ordendepago_id',$id)->get();
 
+
       $datosopproveedor=OrdenPago::where('id',$id)->get();
       $datosopproveedor->each(function($datosopproveedor){
           $datosopproveedor->chofer;
@@ -1217,7 +1218,8 @@ public function cerrarop($id){
     $datosComprobante->fechavencimiento=$date;
     $datosComprobante->debe=0;
     $datosComprobante->haber=$datosopchofer[0]->montoacumulado;
-    $datosComprobante->acumulado=$datoacumulado[0]->acumulado - $datosopchofer[0]->montoacumulado;
+    $datosComprobante->acumulado=$saldofinal;
+    //$datosComprobante->acumulado=$datoacumulado[0]->acumulado - $datosopchofer[0]->montoacumulado;
     $datosComprobante->save();
 
 

@@ -69,6 +69,7 @@ class ChequeTerceroController extends Controller
             	->with('proveedores',$proveedores)
         		->with('bancos',$bancos)
             	->with('chequesterceros',$chequesterceros);
+                
     }
     public function update(Request $request, $id)
     {
