@@ -267,6 +267,24 @@ public function guardaredicioncomprobante(Request $request,$id)
 
    public function guardarfacturac(Request $request,$id)
    {
+    /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'nrocomprobante'=>'required',
+            'fechaemision'=>'required',
+            'fechavencimiento'=>'required',
+            'importe'=>'required|numeric',
+
+          ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+
+      $campos=[
+            'rem'=>'required'
+          ];
+        $Mensaje=["required"=>'Debe asociar al menos un remito'];
+        $this->validate($request,$campos,$Mensaje);
+        
         $acumulado=Cliente::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
         $datosComprobante=new CtaCteC(request()->except('_token'));
 
@@ -288,7 +306,7 @@ public function guardaredicioncomprobante(Request $request,$id)
         $acumulado=CtaCteC::orderBy('id','DESC')->limit(1)->get();
 
         $cantidad=count($request->rem);
-
+        
         for($i=0;$i<$cantidad;$i++){
 
             $editarcliente=CtaCteC::where('cliente_id',$id)->where('id',$request->rem[$i])

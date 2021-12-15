@@ -10,6 +10,17 @@
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 					<h3>Remitos - Cliente:  @foreach ($cliente as $clientes){{$clientes->nombre}} 				@endforeach
 					</h3>
+
+					@if(count($errors)>0)
+			<div class="alert alert-danger" role="alert">
+				<ul>
+					
+					@foreach ($errors->all() as $error)
+					<li>{{$error}}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif	
 				</div>
 			</div>
 
@@ -24,7 +35,7 @@
 					<div>
 						@foreach ($cuentacorrientecliente as $remitos)
 						<label>
-							{{Form::checkbox('rem[]',$remitos->id)}} Nro de Remito:  {{$remitos->nrocomprobante}} / Observacion: {{$remitos->observacion}}	
+							{{Form::checkbox('rem[]',$remitos->id)}} Nro de Remito:  {{$remitos->nrocomprobante}} / Observacion: {{$remitos->observacion}}	{!! $errors->first('nrocomprobante','<div class="invalid-feedback">:message</div>')!!}
 						</label>
 						<br>
 						@endforeach
