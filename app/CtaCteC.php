@@ -20,6 +20,7 @@ class CtaCteC extends Model
         'acumulado',
 	    'observacion',
 	    'estado',
+	    'flete',
 	    'cliente_id',
 	    'factura_id'
 

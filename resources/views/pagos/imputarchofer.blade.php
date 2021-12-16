@@ -61,7 +61,9 @@
 						@endif
 
 						@if($datoopchofer->estado=='ABIERTO')
+							
 							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/cerrarop')}}"><input type="button" value="Cerrar OP" class="btn btn-danger" onclick="return confirm('Seguro que desea Cerrar la Orden de Pago?');">	</a>
+
 						@else
 							<a href="{{url('fletes/anticipos/'.$datoopchofer->id.'/finalizarflete')}}"><input type="button" disabled value="Cerrar OP" class="btn btn-danger">	</a>
 						@endif
@@ -99,7 +101,7 @@
 						@endif
 
 						@if($datoopchofer->estado=='ABIERTO')
-							<a href="{{url('pagos/chofer/'.$datoopchofer->id.'/cerrarop')}}"><input type="button" value="Cerrar OP" class="btn btn-danger" onclick="return confirm('Seguro que desea Cerrar la Orden de Pago?');">	</a>
+							<a href="{{url('pagos/chofer/'.$datoopchofer->id.'/cerraropchofer')}}"><input type="button" value="Cerrar OP" class="btn btn-danger" onclick="return confirm('Seguro que desea Cerrar la Orden de Pago?');">	</a>
 						@else
 							<a><input type="button" disabled value="Cerrar OP" class="btn btn-danger">	</a>
 						@endif

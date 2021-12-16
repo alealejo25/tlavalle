@@ -1248,7 +1248,7 @@ public function cerraropchofer($id){
                      ]);
 
 
-      flash::success('Se registro el pago en efectivo al chofer'); 
+      flash::success('Se cerro la OP del Chofer'); 
     return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
        

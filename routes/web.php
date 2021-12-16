@@ -60,7 +60,7 @@ Route::get('pagos/guardar','PagoController@guardar')->name('guardar');
 
 Route::get('fletes/listaranticipoPdf/{id?}/pdf','FleteController@listarPdf')->name('flete_pdf');
 Route::get('fletes/listarfletePdf/{id?}/pdf','FleteController@listarPdfflete')->name('fletefinal_pdf');
-Route::get('pagos/proveedor/{id?}/pdf','PagoController@listarPdfOPProveedor')->name('OPfinalP_pdf');
+Route::get('pagos/proveedor/{id?}/pdf','PagoController@listarPdfOPProveedor')->name('OPfinalP_pdf'); 
 
 
 
@@ -196,7 +196,7 @@ Route::post('pagos/chofer/guardarpagotransferenciaproveedor','PagoController@gua
 
 
 Route::get('pagos/proveedor/{id?}/cerrarop','PagoController@cerrarop')->name('cerrarop');
-Route::get('pagos/chofer/{id?}/cerrarop','PagoController@cerraropchofer')->name('cerraropchofer');
+Route::get('pagos/chofer/{id?}/cerraropchofer','PagoController@cerraropchofer')->name('cerraropchofer');
 
 
 

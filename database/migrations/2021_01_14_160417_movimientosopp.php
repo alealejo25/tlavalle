@@ -17,7 +17,7 @@ class Movimientosopp extends Migration
             $table->increments('id');
             $table->decimal('importe',12,2);
             $table->string('forma',20);
-            $table->string('nroinstrumento',20)->nullable();
+            $table->string('nroinstrumento',30)->nullable();
             $table->string('estado',15)->nullable();
             $table->integer('ordendepago_id')->unsigned();
             $table->date('fecha');
