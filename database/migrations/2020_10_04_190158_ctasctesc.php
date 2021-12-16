@@ -29,7 +29,7 @@ class Ctasctesc extends Migration
             $table->decimal('importefinal',12,2)->nullable();
 
             $table->string('observacion',150)->nullable();
-            $table->string('estado',30)->unsigned()->nullable();
+            $table->string('estado',30)->nullable();
             $table->integer('flete')->nullable();
             $table->integer('cliente_id')->unsigned();
             $table->integer('factura_id')->unsigned()->nullable();
