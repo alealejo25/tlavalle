@@ -1181,9 +1181,19 @@ $formatter = new NumeroALetras();
     }
 
 public function cerrarop($id){
-        $date = new \DateTime();
 
+
+    $date = new \DateTime();
     $datosopchofer=OrdenPago::where('id',$id)->get();
+
+    if($datosopchofer[0]->estado=='CERRADO')
+    {
+      flash::success('LA OP YA FUE CERRADA'); 
+            return view('pagos.imputarchofer')
+            ->with('datosopchofer',$datosopchofer);
+    }
+    else
+    {
     $actualizarop=OrdenPago::where('id',$id) 
                 ->update([
                 'montofinal'=>$datosopchofer[0]->montoacumulado,
@@ -1227,7 +1237,7 @@ public function cerrarop($id){
     return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
  
-       
+    } 
 
   }
 public function cerraropchofer($id){
