@@ -1188,7 +1188,7 @@ public function cerrarop($id){
 
     if($datosopchofer[0]->estado=='CERRADO')
     {
-      flash::success('LA OP YA FUE CERRADA'); 
+      flash::danger('LA OP YA FUE CERRADA'); 
             return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
     }

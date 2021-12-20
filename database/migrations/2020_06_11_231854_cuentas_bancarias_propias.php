@@ -15,7 +15,7 @@ class CuentasBancariasPropias extends Migration
     {
         Schema::create('cuentas_bancarias_propias', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('cbu',22);
+                $table->string('cbu',30);
                 $table->string('alias_cbu',60);
                 $table->string('titular',60);
                 $table->string('dni',60);
