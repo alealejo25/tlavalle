@@ -28,12 +28,14 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>#</th>
-					<th>Tipo de Comprobante</th>
-					<th>Nro Comprobante</th>
-					<th>Fecha Vencimiento</th>
+					<th>Tipo Comprob.</th>
+					<th>Nro Comprob.</th>
+					<th>Fec. Emision</th>
+					<th>Fec. Venc.</th>
 					<th>Debe</th>
 					<th>Haber</th>
 					<th>Acumulado</th>
+					<th>Observaciones</th>
 					<th>Estado</th>
 
 				</thead>
@@ -42,6 +44,7 @@
 					<td>{{ $chofer->id}}</td>
 					<td>{{ $chofer->tipocomprobante}}</td>
 					<td>{{ $chofer->nrocomprobante}}</td>
+					<td>{{date("d/m/Y",strtotime($chofer->fechaemision))  }}</td>
 					<td>{{date("d/m/Y",strtotime($chofer->fechavencimiento))  }}</td>
 					<td class="text-right">${{  number_format($chofer->debe,2,",",".")}}</td>
 					<td  class="text-right">${{  number_format($chofer->haber,2,",",".")}}</td>
@@ -50,6 +53,7 @@
 					@else
 						<td class="text-right">${{  number_format($chofer->acumulado,2,",",".")}}</td>
 					@endif
+					<td>{{ $chofer->observacion}}</td>
 					<td>{{ $chofer->estado}}</td>
 					
 					

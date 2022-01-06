@@ -100,13 +100,14 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Tipo Comprobante</th>
-                    <th>Nro. Comprobante</th>
-                    <th>Fecha Emision</th>
-                    <th>Fecha Vencimiento</th>
+                    <th>Tipo Comp.</th>
+                    <th>Nro. Comp.</th>
+                    <th>Fec. Emision</th>
+                    <th>Fec. Venc.</th>
                     <th>Debe</th>
                     <th>Haber</th>
                     <th>Acumulado</th>
+                    <th>Observaciones</th>
                 </tr>
             </thead>
 
@@ -120,7 +121,7 @@
                     <td align="right">$ {{number_format($datos->debe,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->haber,2,",",".")}}</td>
                     <td align="right">$ {{number_format($datos->acumulado,2,",",".")}}</td>
-
+                    <td >{{$datos->observacion}}</td>
                 </tr>
             @endforeach                   
             </tbody>

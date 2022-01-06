@@ -28,12 +28,14 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>#</th>
-					<th>Tipo de Comprobante</th>
-					<th>Nro Comprobante</th>
-					<th>Fecha Vencimiento</th>
+					<th>Tipo de Comprob.</th>
+					<th>Nro Comprob.</th>
+					<th>Fec. Emision</th>
+					<th>Fec. Venc.</th>
 					<th>Debe</th>
 					<th>Haber</th>
 					<th>Acumulado</th>
+					<th>Observaciones</th>
 					<th>Estado</th>
 
 				</thead>
@@ -42,6 +44,7 @@
 					<td>{{ $cliente->id}}</td>
 					<td>{{ $cliente->tipocomprobante}}</td>
 					<td>{{ $cliente->nrocomprobante}}</td>
+					<td>{{date("d/m/Y",strtotime($cliente->fechaemision))}}</td>
 					<td>{{date("d/m/Y",strtotime($cliente->fechavencimiento))}}</td>
 					<td class="text-right">${{  number_format($cliente->debe,2,",",".")}}</td>
 					<td  class="text-right">${{  number_format($cliente->haber,2,",",".")}}</td>
@@ -50,9 +53,9 @@
 					@else
 						<td class="text-right">${{  number_format($cliente->acumulado,2,",",".")}}</td>
 					@endif
- 
+ 					<td>{{ $cliente->observacion}}</td>
 					<td>{{ $cliente->estado}}</td>
-					
+
 					
 					<td>
 				 	<form method="get" class="submit-prevent-form" action="{{url('cuentascorrientes/proveedores/'.$cliente->id.'/anular') }}">
