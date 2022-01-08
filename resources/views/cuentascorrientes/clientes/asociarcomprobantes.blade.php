@@ -62,6 +62,21 @@
 					{!! $errors->first('importe','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 				<div class="Form-group">
+					<label for="importesubtotal">Importe SubTotal</label>
+					<input type="number" step=0.01 name="importesubtotal" class="form-control {{$errors->has('importesubtotal')?'is-invalid':''}}" placeholder="Importe Subtotal ..." value="{{old('importesubtotal')}}">
+					{!! $errors->first('importesubtotal','<div class="invalid-feedback">:message</div>')!!}
+				</div>
+			<div class="Form-group">
+				<label for="iva">IVA</label>
+				<input type="number" step=0.01 name="iva" class="form-control {{$errors->has('iva')?'is-invalid':''}}" placeholder="IVA ..." value="{{old('iva')}}">
+				{!! $errors->first('iva','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="Form-group">
+				<label for="exento">Exento</label>
+				<input type="number" step=0.01 name="exento" class="form-control {{$errors->has('exento')?'is-invalid':''}}" placeholder="Exento ..." value="{{old('iva')}}">
+				{!! $errors->first('exento','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+				<div class="Form-group">
 					<label for="observacion">Observacion</label>
 					<input type="text" name="observacion" class="form-control {{$errors->has('observacion')?'is-invalid':''}}" value="{{old('observacion')}}"> 
 					{!! $errors->first('observacion','<div class="invalid-feedback">:message</div>')!!}

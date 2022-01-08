@@ -2,7 +2,6 @@
 @section('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-lg-6 col-lg-6 col-xs-12">
-
 			@foreach ($clientes as $cliente)
 			<h3>Ingreso de comprobante</h3>
 			<h4>Cliente: {{$cliente->nombre}}</h4>

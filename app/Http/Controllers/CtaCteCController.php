@@ -103,7 +103,7 @@ class CtaCteCController extends Controller
             'fechavencimiento'=>'required',
             'importe'=>'required|numeric',
             'importesubtotal'=>'required|numeric'
-           
+
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
@@ -267,6 +267,7 @@ public function guardaredicioncomprobante(Request $request,$id)
 
    public function guardarfacturac(Request $request,$id)
    {
+        
     /*VALIDACION -----------------------------------------*/
         $campos=[
             'nrocomprobante'=>'required',
@@ -279,7 +280,7 @@ public function guardaredicioncomprobante(Request $request,$id)
         $this->validate($request,$campos,$Mensaje);
 
 
-      $campos=[
+        $campos=[
             'rem'=>'required'
           ];
         $Mensaje=["required"=>'Debe asociar al menos un remito'];
@@ -294,8 +295,11 @@ public function guardaredicioncomprobante(Request $request,$id)
         $datosComprobante->haber=$request->importe;
         $datosComprobante->acumulado=$acumulado[0]->saldo - $request->importe;
         $datosComprobante->factura_id=null;
+        $datosComprobante->importesubtotal=$request->importesubtotal;
+        $datosComprobante->iva=$request->iva;
+        $datosComprobante->exento=$request->exento;
 
-        
+
         $datosComprobante->save();
 
         $editarcliente=Cliente::where('id',$id)
