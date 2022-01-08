@@ -29,7 +29,7 @@ class MantenimientoController extends Controller
     }
 
     public function listarcamion(){
-      $camiones=MantenimientoC::orderBy('fechainicio','DESC')->paginate(30);
+      $camiones=MantenimientoC::orderBy('id','DESC')->paginate(30);
       $camiones->each(function($camiones){
             $camiones->camion;
           });
