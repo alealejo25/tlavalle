@@ -6,9 +6,21 @@
 	Session::get('Mensaje')
 }}
 @endif
+
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Generar Pagos a choferes</h3>
+		<h3>Generar Pagos a choferes/proveedores</h3>
+		@if(session('status'))
+			@if(session('status')=='1')
+				<div class="alert alert-success">
+					Se cerro la OP!!!!		
+				</div>
+			@else
+				<div class="alert alert-danger">
+					NO CERRO LA OP!!!!
+				</div>
+			@endif
+		@endif
 	</div>
 </div>
 
@@ -60,17 +72,23 @@
 							<a><input type="button" disabled value="Transferencia" class="btn btn-success">	</a>
 						@endif
 
-						@if($datoopchofer->estado=='ABIERTO')
-							
-							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/cerrarop')}}"><input type="button" value="Cerrar OP" class="btn btn-danger" onclick="return confirm('Seguro que desea Cerrar la Orden de Pago?');">	</a>
+						
+									
+						
 
-						@else
-							<a href="{{url('fletes/anticipos/'.$datoopchofer->id.'/finalizarflete')}}"><input type="button" disabled value="Cerrar OP" class="btn btn-danger">	</a>
-						@endif
 							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pdf')}}"><input type="button" value="Imprimir" class="btn btn-warning">	</a>
 
 							
+
+
 					</form>
+
+					@if($datoopchofer->estado=='ABIERTO')
+					<form method="get" class="submit-prevent-form" action="{{url('pagos/proveedor/'.$datoopchofer->id.'/cerrarop') }}">
+
+							<button class="btn btn-primary submit-prevent-button" type="submit" onclick="return confirm('Seguro que desea Cerrar la Orden de Pago?');"><i class="spinner fa fa-spinner fa-spin" ></i>Cerrar OP</button>
+					</form> 
+					@endif
 					@else
 						<td>{{ $datoopchofer->chofer->apellido}}, {{ $datoopchofer->chofer->nombre}}</td>
 						<td>{{ $datoopchofer->fecha}}</td>

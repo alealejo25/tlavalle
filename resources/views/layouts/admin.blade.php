@@ -227,6 +227,12 @@
                 @can('estaciones_index')
                 <li><a href="/abms/estaciones"><i class="fa fa-circle-o"></i> Estaciones de Servicio</a></li>
                 @endcan
+                @can('estaciones_index')
+                <li><a href="/abms/ingresosbrutos"><i class="fa fa-circle-o"></i> Ingresos brutos</a></li>
+                @endcan
+                @can('estaciones_index')
+                <li><a href="/abms/iva"><i class="fa fa-circle-o"></i> IVA</a></li>
+                @endcan
                 @can('proveedores_index')
                 <li><a href="/abms/proveedores"><i class="fa fa-circle-o"></i> Proveedores</a></li>
                 @endcan
@@ -235,6 +241,9 @@
                 @endcan
                 @can('tarifas_index')
                 <li><a href="/abms/tarifas"><i class="fa fa-circle-o"></i> Tarifas de Fletes</a></li>
+                @endcan
+                 @can('tarifas_index')
+                <li><a href="/abms/tem"><i class="fa fa-circle-o"></i> TEM</a></li>
                 @endcan
                 @can('vehiculosparticulares_index')
                 <li><a href="/abms/vehiculosparticulares"><i class="fa fa-circle-o"></i> Vehiculos Particulares</a></li>

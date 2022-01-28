@@ -37,9 +37,9 @@
 			</div>
 
 			<div class="Form-group">
-				<label for="descripcion">Descripcion</label>
-				<input type="text" name="descripcion" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}" value="{{old('descripcion')}}"> 
-				{!! $errors->first('descripcion','<div class="invalid-feedback">:message</div>')!!}
+				<label for="observacion">Observacion</label>
+				<input type="text" name="observacion" class="form-control {{$errors->has('observacion')?'is-invalid':''}}" value="{{old('observacion')}}"> 
+				{!! $errors->first('observacion','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 
 

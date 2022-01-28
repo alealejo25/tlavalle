@@ -91,6 +91,11 @@ Route::resource('abms/afipprestamosmoratorias','AfipPrestamoMoratoriaController'
 Route::resource('abms/rentasprestamosmoratorias','RentaPrestamoMoratoriaController');
 Route::resource('abms/prestamos','PrestamoController');
 
+Route::resource('abms/iva','IvaController');
+
+Route::resource('abms/tem','TemController');
+Route::resource('abms/ingresobruto','IngresoBrutoController');
+
 
 
 

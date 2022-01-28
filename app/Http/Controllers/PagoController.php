@@ -22,6 +22,8 @@ use App\CtaCteP;
 use Luecano\NumeroALetras\NumeroALetras;
 
 use Carbon\Carbon;
+use DB;
+
 
 class PagoController extends Controller
 {   
@@ -595,10 +597,9 @@ $date = new \DateTime();
 
 
     $datosopchofer->each(function($datosopchofer){
-          
-          $datosopchofer->proveedor;
+           $datosopchofer->proveedor;
         });
-      flash::success('Se registro el pago con transferencia al chofer'); 
+      flash::success('Se registro el pago con cheque tercero al Proveedor'); 
 
 
     return view('pagos.imputarchofer')
@@ -1188,12 +1189,14 @@ public function cerrarop($id){
 
     if($datosopchofer[0]->estado=='CERRADO')
     {
-      flash::danger('LA OP YA FUE CERRADA'); 
+        flash('LA OP YA FUE CERRADA')->warning();
             return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
     }
     else
     {
+    try{//esto es para que si hay un error en un insert en una table no grabe en la otra
+        DB::beginTransaction(); 
     $actualizarop=OrdenPago::where('id',$id) 
                 ->update([
                 'montofinal'=>$datosopchofer[0]->montoacumulado,
@@ -1205,7 +1208,6 @@ public function cerrarop($id){
     $actualizarproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)
                 ->update([
                 'saldo'=>$saldofinal
-
                      ]);
 
     $datosopchofer=OrdenPago::orderBy('id','DESC')->get();
@@ -1232,10 +1234,19 @@ public function cerrarop($id){
     //$datosComprobante->acumulado=$datoacumulado[0]->acumulado - $datosopchofer[0]->montoacumulado;
     $datosComprobante->save();
 
-
-      flash::success('Se cerro la OP del Proveedor'); 
-    return view('pagos.imputarchofer')
+    DB::commit();
+            flash::success('Se cerro la OP del Proveedor');
+             return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
+
+    } catch(\Exception $e){
+            DB::rollBack();
+            return redirect ("/pagos/ordenesdepagos")->with('status','2');
+    }
+
+   // flash::success('Se cerro la OP del Proveedor'); 
+    ///return view('pagos.imputarchofer')
+      //      ->with('datosopchofer',$datosopchofer);
  
     } 
 

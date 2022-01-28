@@ -36,7 +36,7 @@ class ProveedorController extends Controller
             'email1'=>'required',
             'contacto'=>'required|string|max:50',
             'telefono_contacto'=>'required|integer',
-            'cuit'=>'required|integer',
+            'cuit'=>'required|integer|unique:proveedores',
             'saldo'=>'required|numeric',
             'saldoinicial'=>'required|numeric'
         ];
