@@ -8,10 +8,10 @@
 @endif
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Estaciones <a href="estaciones/create"><button class="btn btn-success">Nuevo</button></a></h3>
+		<h3>Listado de Ingresos Brutos <a href="ingresosbrutos/create"><button class="btn btn-success">Nuevo</button></a></h3>
 		
 	</div>
-	@include('abms.estaciones.search')
+
 </div>
 
 <div class="row">
@@ -20,29 +20,19 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>#</th>
-					<th>Nombre</th>
-					<th>Direccion</th>
-					<th>Telefono</th>
-					<th>Contacto</th>
-					<th>Telefono Contacto</th>
-					<th>Cuit</th>
-					<th>Saldo</th>
+					<th>Provincia</th>
+					<th>Impuesto</th>
 					<th>Opciones</th>
 				</thead>
-               @foreach ($estaciones as $estacion)
+               @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $estacion->id}}</td>
-					<td>{{ $estacion->nombre}}</td>
-					<td>{{ $estacion->direccion}}</td>
-					<td>{{ $estacion->telefono}}</td>
-					<td>{{ $estacion->contacto}}</td>
-					<td>{{ $estacion->telefono_contacto}}</td>
-					<td>{{ $estacion->cuit}}</td>
-					<td class="text-right">${{  number_format($estacion->saldo,2,",",".")}}</td>
+					<td>{{ $dato->id}}</td>
+					<td>{{ $dato->provincia}}</td>
+					<td class="text-right">{{  number_format($dato->impuesto,2,",",".")}} %</td>
 
 					<td>
-					<form method="post" action="{{url('abms/estaciones/'.$estacion->id) }}">
-							<a href="{{url('abms/estaciones/'.$estacion->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
+					<form method="post" action="{{url('abms/ingresosbrutos/'.$dato->id) }}">
+							<a href="{{url('abms/ingresosbrutos/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
 							{{csrf_field()}}
 							{{method_field('DELETE')}}
 							<button type="submit" onclick="return confirm('Seguro que desea Borrar?');" class="btn btn-danger">Eliminar</button>
@@ -54,7 +44,7 @@
 				@endforeach
 			</table>
 		</div>
-		{{$estaciones->render()}}
+		{{$datos->render()}}
 	</div>
 </div>
 

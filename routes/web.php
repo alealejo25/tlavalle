@@ -94,7 +94,7 @@ Route::resource('abms/prestamos','PrestamoController');
 Route::resource('abms/iva','IvaController');
 
 Route::resource('abms/tem','TemController');
-Route::resource('abms/ingresobruto','IngresoBrutoController');
+Route::resource('abms/ingresosbrutos','IngresoBrutoController');
 
 
 

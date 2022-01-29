@@ -43,7 +43,7 @@
 			
 			<div class="Form-group">
 				<br/>
-				<a href="/abms/estaciones"><button class="btn btn-success">Regresar</button></a>
+				<a href="/abms/tem"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
 		</div>

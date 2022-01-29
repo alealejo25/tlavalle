@@ -11,7 +11,7 @@
 		<h3>Listado de TEM <a href="tem/create"><button class="btn btn-success">Nuevo</button></a></h3>
 		
 	</div>
-	@include('abms.estaciones.search')
+	
 </div>
 
 <div class="row">
@@ -26,8 +26,9 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
+					<td>{{ $dato->id}}</td>
 					<td>{{ $dato->provincia}}</td>
-					<td class="text-right">${{  number_format($dato->impuesto,2,",",".")}}</td>
+					<td class="text-right">{{  number_format($dato->impuesto,2,",",".")}} %</td>
 
 					<td>
 					<form method="post" action="{{url('abms/tem/'.$dato->id) }}">

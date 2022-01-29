@@ -34,7 +34,7 @@ class TemController extends Controller
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'provincia'=>'required|string|max:45',
-            'impuesto'=>'required',
+            'impuesto'=>'required|numeric|max:100',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
