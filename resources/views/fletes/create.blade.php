@@ -31,7 +31,7 @@
 			
 			<br>
 			<div class="Form-group">
-				<button class="btn btn-primary submit-prevent-button" type="submit"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
+				<button class="btn btn-primary submit-prevent-button" type="submit" onclick="return confirm('Seguro que desea Iniciar el Flete?');"><i class="spinner fa fa-spinner fa-spin"></i>Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 

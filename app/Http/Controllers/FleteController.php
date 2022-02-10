@@ -14,6 +14,7 @@ use App\MovimientoCaja;
 use App\Camion;
 use App\Cliente;
 use App\CtaCteC;
+use App\CtaCteCho;
 use App\RemitoFlete;
 
 
@@ -56,6 +57,8 @@ class FleteController extends Controller
 
      public function store(Request $request)
      {
+
+
 
 
  		$date = new \DateTime();
@@ -105,10 +108,13 @@ class FleteController extends Controller
 		$nremitoanticipo=Anticipo::orderBy('id','DESC')->limit(1)->get();
 
 		if(count($nremitoanticipo)>0){
+
 	    	$datosAnticipo->nroremito=$nremitoanticipo[0]->nroremito+1;
+	    	$nroremitoanticipo=$nremitoanticipo[0]->nroremito+1;
 	    }
 	    else{
 	    	$datosAnticipo->nroremito=300000;
+	    	$nroremitoanticipo=300000;
 	    }
 
 		 $datosAnticipo->save();
@@ -143,6 +149,19 @@ class FleteController extends Controller
                   				'saldo'=>$saldofinal
                                  ]);
 
+        $datosctactecho=new CtaCteCho();
+     	$datosctactecho->tipocomprobante="ANTICIPO";
+     	$datosctactecho->nrocomprobante=$nroremitoanticipo;
+     	$datosctactecho->fechaemision=$date;
+     	$datosctactecho->fechavencimiento=$date;
+     	$datosctactecho->haber=$request->anticipos;
+     	$datosctactecho->debe=0;
+     	$datosctactecho->acumulado=$saldofinal;
+		$datosctactecho->chofer_id=$request->chofer_id;
+		$datosctactecho->observacion="Flete Nro. ".$datosFlete->nroremito;
+
+
+ 		$datosctactecho->save();
 
        flash::success('Se INICIO el flete con remito numero: F'.$datosFlete->nroremito); 
        //return Redirect('fletes/');
@@ -244,10 +263,10 @@ class FleteController extends Controller
 		$datosAnticipo=new Anticipo(request()->except('_token'));
 		// GUARDAR ANTICIPO ----------------------------------------------
 
+
+		$fletenro=Flete::where('id',$request->flete_id)->limit(1)->get();
+		$nroflete= $fletenro[0]->nroremito;
 		$nremitoanticipo=Anticipo::orderBy('id','DESC')->limit(1)->get();
-
-
-
 			if(count($nremitoanticipo)>0){
 		    	$datosAnticipo->nroremito=$nremitoanticipo[0]->nroremito+1;
 		    }
@@ -255,7 +274,7 @@ class FleteController extends Controller
 		    	$datosAnticipo->nroremito=300000;
 		    }
 		    $datosAnticipo->estado='PAGADO';
-		$datosAnticipo->save();
+			$datosAnticipo->save();
 		// FIN DE GUARDAR ANTICIPO--------------------------------------
 
 	// GUARDAR MOVIMIENTO DE CAJA ----------------------------------------------
@@ -265,7 +284,7 @@ class FleteController extends Controller
 		$movimientocaja=new MovimientoCaja();
 		$movimientocaja->tipo='ANTICIPO';
 		$movimientocaja->tipo_movimiento='EGRESO';
-		$movimientocaja->descripcion='ANTICIPO POR FLETE N° ';
+		$movimientocaja->descripcion='ANTICIPO POR FLETE N° '.$nroflete;
 		$movimientocaja->fecha=$date;
 		$movimientocaja->importe=$anticipoimporte[0]->importe;
 		$movimientocaja->caja_id=2;
@@ -289,10 +308,42 @@ class FleteController extends Controller
                                  ]);
 
 		$datochofer=Chofer::where('id',$request->chofer_id)->limit(1)->get();
+		$saldofinal=$datochofer[0]->saldo-$request->importe;
 		$editarchofer=Chofer::where('id',$request->chofer_id)
             ->update([
                       'saldo'=>$datochofer[0]->saldo-$request->importe
                      ]);
+
+
+
+	
+
+	$datoacumulado=CtaCteCho::where('chofer_id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
+
+
+    $acumulado=Chofer::where('id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
+  
+
+     $datosctactecho=new CtaCteCho();
+     	$datosctactecho->tipocomprobante="ANTICIPO";
+     	$datosctactecho->nrocomprobante=$datosAnticipo->nroremito;
+     	$datosctactecho->fechaemision=$date;
+     	$datosctactecho->fechavencimiento=$date;
+     	$datosctactecho->haber=$request->importe;
+     	$datosctactecho->debe=0;
+     	$datosctactecho->acumulado=$saldofinal;
+		$datosctactecho->chofer_id=$request->chofer_id;
+		$datosctactecho->observacion="Flete Nro. ".$nroflete;
+
+		$datosctactecho->save();
+
+
+
+
+
+
+
+
 
 		flash::success('Se INGRESO un nuevo anticipo');
         flash::success('Se actualizo la CAJA PRINCIPAL');
@@ -761,8 +812,11 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
  		$datoFlete=Flete::where('id',$id)->limit(1)->get();
 
  		$chofer_id=$datoFlete[0]->chofer_id; 		
+ 		$remito_flete =$datoFlete[0]->nroremito;
 		$datochofer=Chofer::where('id',$chofer_id)->limit(1)->get();
 
+		$saldofinalcho1=$datochofer[0]->saldo+$request->valorflete;
+		$saldofinalcho2=$datochofer[0]->saldo+$request->valorflete+$request->importe;
 		$editarchofer=Chofer::where('id',$chofer_id)
         ->update([
                   'saldo'=>$datochofer[0]->saldo+$request->valorflete+$request->importe,
@@ -1156,6 +1210,35 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
                 ->update([
                           'km'=>$request->kmfin,
                           ]);
+
+
+
+
+
+        $datosctactecho=new CtaCteCho();
+     	$datosctactecho->tipocomprobante="PAGO-FLETE";
+     	$datosctactecho->nrocomprobante=$remito_flete;
+     	$datosctactecho->fechaemision=$date;
+     	$datosctactecho->fechavencimiento=$date;
+     	$datosctactecho->haber=0;
+     	$datosctactecho->debe=$request->valorflete;
+     	$datosctactecho->acumulado=$saldofinalcho1;
+		$datosctactecho->chofer_id=$chofer_id;
+		$datosctactecho->observacion="Flete Nro. ".$remito_flete;
+ 		$datosctactecho->save();
+
+
+        $datosctactecho=new CtaCteCho();
+     	$datosctactecho->tipocomprobante="GASTOS-FLETE";
+     	$datosctactecho->nrocomprobante=$remito_flete;
+     	$datosctactecho->fechaemision=$date;
+     	$datosctactecho->fechavencimiento=$date;
+     	$datosctactecho->haber=0;
+     	$datosctactecho->debe=$request->importe;
+     	$datosctactecho->acumulado=$saldofinalcho2;
+		$datosctactecho->chofer_id=$chofer_id;
+		$datosctactecho->observacion=$request->descripciontarifa;
+ 		$datosctactecho->save();
 
 
  		DB::commit();

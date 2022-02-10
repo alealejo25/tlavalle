@@ -91,7 +91,7 @@
 	<div class="card">
 		<div class="row">
 		    <div class="Form-group col-lg-3" >
-				<h3>Monto: {{$datos->proveedor->nombre}} / CUIT: {{$datos->proveedor->cuit}}</h3>
+				<h3>Nombre: {{$datos->proveedor->nombre}} / CUIT: {{$datos->proveedor->cuit}}</h3>
 
 				<h3>Monto: $ {{number_format($datos->montofinal,2,",",".")}} / Fecha: {{$datos->fecha}} </h3>
             </div>

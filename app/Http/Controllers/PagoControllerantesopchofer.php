@@ -1257,8 +1257,7 @@ public function cerraropchofer($id){
     $date = new \DateTime();
     $datosopchofer=OrdenPago::where('id',$id)->get();
    
-    try{//esto es para que si hay un error en un insert en una table no grabe en la otra
-        DB::beginTransaction(); 
+
     $actualizarop=OrdenPago::where('id',$id)
                 ->update([
                 'montofinal'=>$datosopchofer[0]->montoacumulado,
@@ -1282,7 +1281,7 @@ public function cerraropchofer($id){
 
 
     $acumulado=Chofer::where('id',$datosopchofer[0]->chofer_id)->orderBy('id','DESC')->limit(1)->get();
-  
+    $saldofinal=$acumulado[0]->saldo+$datosopchofer[0]->montoacumulado;
 
         $datosctactecho=new CtaCteCho();
         $datosctactecho->chofer_id=$datosopchofer[0]->chofer_id;
@@ -1298,19 +1297,16 @@ public function cerraropchofer($id){
         $datosctactecho->save();
 
 
+       
 
-    DB::commit();
-            flash::success('Se cerro la OP del Chofer');
-             return view('pagos.imputarchofer')
+      flash::success('Se cerro la OP del Chofer'); 
+    return view('pagos.imputarchofer')
             ->with('datosopchofer',$datosopchofer);
-
-    } catch(\Exception $e){
-            DB::rollBack();
-            return redirect ("/pagos/ordenesdepagos")->with('status','2');
-    }
-    
        
 
   }
 
+
+
+ 
 }
