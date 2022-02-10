@@ -1280,7 +1280,6 @@ public function cerraropchofer($id){
 
     $datoacumulado=CtaCteCho::where('chofer_id',$datosopchofer[0]->chofer_id)->orderBy('id','DESC')->limit(1)->get();
 
-
     $acumulado=Chofer::where('id',$datosopchofer[0]->chofer_id)->orderBy('id','DESC')->limit(1)->get();
   
 

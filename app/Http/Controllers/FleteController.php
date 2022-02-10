@@ -315,7 +315,6 @@ class FleteController extends Controller
                      ]);
 
 
-
 	
 
 	$datoacumulado=CtaCteCho::where('chofer_id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
