@@ -20,7 +20,7 @@
 
 
 			<div class="Form-group">
-				<label for="proveedor_id">Seleccione Proveedor</label>
+				<label for="proveedor_id">Seleccisssone Proveedor</label>
 				{!!Form::select('proveedor_id',$proveedores,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div> 
 			<div class="Form-group">

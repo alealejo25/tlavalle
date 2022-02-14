@@ -114,7 +114,6 @@ class PagoController extends Controller
     
 
    public function pagochequepropiochofer($id){
-    
     $datosopchofer=OrdenPago::where('id',$id)->get();
     $datosopchofer->each(function($datosopchofer){
           $datosopchofer->chofer;
@@ -122,8 +121,11 @@ class PagoController extends Controller
         });
 
     $estado='DISPONIBLE';
-    $chequespropio=ChequePropio::where('estado', $estado)->orderBy('numero','ASC')->pluck('numero','id');
+    $chequespropio=ChequePropio::where('estado', $estado)->orderBy('numero','ASC')->get();
+    $chequespropio->each(function($chequespropio){
+          $chequespropio->banco;
 
+        });
 
     return view('pagos.chofer.cargarpagochequepropio')
             ->with('id',$id)
@@ -138,7 +140,11 @@ class PagoController extends Controller
         });
 
     $estado='DISPONIBLE';
-    $chequespropio=ChequePropio::where('estado', $estado)->orderBy('numero','ASC')->pluck('numero','id');
+    $chequespropio=ChequePropio::where('estado', $estado)->orderBy('numero','ASC')->get();
+    $chequespropio->each(function($chequespropio){
+          $chequespropio->banco;
+
+        });
 
 
     return view('pagos.proveedor.cargarpagochequepropio')
@@ -159,8 +165,12 @@ class PagoController extends Controller
 
     
     $estado='DISPONIBLE';
-    $chequestercero=ChequeTercero::where('estado', $estado)->orderBy('importe','ASC')->pluck('importe','id');
-
+    //$chequestercero=ChequeTercero::where('estado', $estado)->orderBy('importe','ASC')->pluck('importe','id');
+    $chequestercero=ChequeTercero::where('estado', $estado)->orderBy('numero','ASC')->get();
+    $chequestercero->each(function($chequestercero){
+          $chequestercero->banco;
+          $chequestercero->cliente;
+        });
 
     return view('pagos.chofer.cargarpagochequetercero')
             ->with('id',$id)
@@ -177,7 +187,11 @@ class PagoController extends Controller
 
     
     $estado='DISPONIBLE';
-    $chequestercero=ChequeTercero::where('estado', $estado)->orderBy('importe','ASC')->pluck('importe','id');
+     $chequestercero=ChequeTercero::where('estado', $estado)->orderBy('numero','ASC')->get();
+    $chequestercero->each(function($chequestercero){
+          $chequestercero->banco;
+          $chequestercero->cliente;
+        });
 
     return view('pagos.proveedor.cargarpagochequetercero')
             ->with('id',$id)
@@ -400,6 +414,7 @@ $date = new \DateTime();
   }
 
  public function guardarpagochequepropiochofer(Request $request){
+
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'chequepropio_id'=>'required',
@@ -961,6 +976,15 @@ public function guardarprestamo(Request $request){
         /*--------------------------------------------------------*/
         
 	    $datosprestamo=new PrestamoChofer(request()->except('_token'));
+
+        $remito=PrestamoChofer::orderBy('id','DESC')->limit(1)->get();
+       
+       if(count($remito)>0){
+          $datosprestamo->nroremito=$remito[0]->nroremito+1;
+        }
+        else{
+          $datosprestamo->nroremito='400000';
+        }
       $datosprestamo->importerestante=$request->importe;
       $datosprestamo->cantcuotasfaltantes=$request->cantcuotas;
       $datosprestamo->valorcuota=$request->importe/$request->cantcuotas;
@@ -1009,6 +1033,25 @@ public function guardarprestamo(Request $request){
         $movimientoprestamochofer->save();
         $contador++;
       }
+
+    $consultachofer=Chofer::where('id',$request->chofer_id)->get();
+    $saldofinal=$consultachofer[0]->saldo;
+     
+
+        $datosctactecho=new CtaCteCho();
+        $datosctactecho->tipocomprobante="PRESTAMO";
+        $datosctactecho->nrocomprobante=$datosprestamo->nroremito;
+        $datosctactecho->fechaemision=$date;
+        $datosctactecho->fechavencimiento=$date;
+        $datosctactecho->haber=$request->importe;
+        $datosctactecho->debe=0;
+        $datosctactecho->acumulado=$saldofinal;
+        $datosctactecho->chofer_id=$request->chofer_id;
+        $datosctactecho->observacion="Prestamo nro: ". $datosprestamo->nroremito;
+
+
+        $datosctactecho->save();
+
       flash::success('Se registro el prestamos del chofer'); 
       return Redirect('pagos/listarprestamo/');
  }
@@ -1077,15 +1120,41 @@ public function guardarprestamo(Request $request){
                     'fechadescuento'=>$date
                         ]);
 
-
-
-
         $prestamos=PrestamoChofer::orderBy('id','desc')->paginate(10);
 
         //esto es para las relacion de la tabla acoplados con camion
         $prestamos->each(function($prestamos){
           $prestamos->chofer;
         });
+
+
+
+
+        $datosctactecho=new CtaCteCho();
+        $datosctactecho->tipocomprobante="CUOTA-SALDADA";
+        $datosctactecho->nrocomprobante='';
+        $datosctactecho->fechaemision=$date;
+        $datosctactecho->fechavencimiento=$date;
+        $datosctactecho->haber=$consultaprestamochofer->valorcuota;
+        $datosctactecho->debe=0;
+        $datosctactecho->acumulado=$saldofinalchofer;
+        $datosctactecho->chofer_id=$consultaprestamochofer->chofer_id;
+        $datosctactecho->observacion="Prestamo nro: ". $consultaprestamochofer->nroremito;
+        $datosctactecho->save();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         flash::success('Se registro el pago de la cuota del chofer '.$consultachofer->nombre );
         flash::success('Se actualizo al cuenta corriente de '.$consultachofer->nombre );  
         return view('pagos.listarprestamo')
@@ -1109,9 +1178,6 @@ public function guardarprestamo(Request $request){
     // GUARDAR ANTICIPO ----------------------------------------------
 
     $nremitoanticipo=Anticipo::orderBy('id','DESC')->limit(1)->get();
-
-
-
       if(count($nremitoanticipo)>0){
           $datosAnticipo->nroremito=$nremitoanticipo[0]->nroremito+1;
         }
@@ -1152,6 +1218,23 @@ public function guardarprestamo(Request $request){
                     'saldo'=>$saldofinal
                   
                         ]);
+
+
+
+        $datosctactecho=new CtaCteCho();
+        $datosctactecho->tipocomprobante="ANTICIPO";
+        $datosctactecho->nrocomprobante=$datosAnticipo->nroremito;
+        $datosctactecho->fechaemision=$request->fecha;
+        $datosctactecho->fechavencimiento=$request->fecha;
+        $datosctactecho->haber=$request->importe;
+        $datosctactecho->debe=0;
+        $datosctactecho->acumulado=$saldofinal;
+        $datosctactecho->chofer_id=$request->chofer_id;
+        $datosctactecho->observacion="";
+
+
+        $datosctactecho->save();
+
 
         flash::success('Se INGRESO un nuevo anticipo y se actualizo la cuenta del Chofer');
         flash::success('Se actualizo la CAJA ');

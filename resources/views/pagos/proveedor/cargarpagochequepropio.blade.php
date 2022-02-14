@@ -23,10 +23,22 @@
 				<input type="hidden" name="ordendepago_id" class="form-control {{$errors->has('ordendepago_id')?'is-invalid':''}}"   value="{{$id}}">
 				{!! $errors->first('ordendepago_id','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="Form-group">
+<!-- 			<div class="Form-group">
 				<label for="cheque_id">Seleccione el importe del Cheque Propio</label>
 				{!!Form::select('chequepropio_id',$chequespropio,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+			</div> -->
+
+			<div class="Form-group">
+				<select name="chequepropio_id" id="cheque" class="form-control" >
+					<option value="">Selecccione el cheque</option>
+						@foreach ($chequespropio as $chequespropios) 
+							<option  value="{{ $chequespropios->id }}">{{$chequespropios->numero}} - {{$chequespropios->banco->denominacion}} - {{date("d/m/Y",strtotime($chequespropios->fecha))}}</option>
+						@endforeach
+				</select>
 			</div>
+
+
+
 			<div class="Form-group">
 				<label for="importe">Importe</label>
 				<input type="number" step=0.01 name="importe" class="form-control {{$errors->has('importe')?'is-invalid':''}}" placeholder="Importe..." value="{{old('importe')}}">
