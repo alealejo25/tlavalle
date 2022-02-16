@@ -18,13 +18,10 @@ use App\CtaCteCho;
 use App\RemitoFlete;
 
 
-
-
 use Laracasts\Flash\Flash;
 use Barryvdh\DomPDF\Facade as PDF;
 
 use DB;
-
 
 class FleteController extends Controller
 {    public function __construct()
@@ -315,6 +312,10 @@ class FleteController extends Controller
                      ]);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 689a339 (cta cte choferes)
 	
 
 	$datoacumulado=CtaCteCho::where('chofer_id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
@@ -1236,7 +1237,7 @@ try{//esto es para que si hay un error en un insert en una table no grabe en la 
      	$datosctactecho->debe=$request->importe;
      	$datosctactecho->acumulado=$saldofinalcho2;
 		$datosctactecho->chofer_id=$chofer_id;
-		$datosctactecho->observacion="Flete Nro. ".$remito_flete;
+		$datosctactecho->observacion=$request->descripciontarifa;
  		$datosctactecho->save();
 
 
