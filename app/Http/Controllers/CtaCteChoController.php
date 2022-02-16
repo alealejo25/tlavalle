@@ -16,8 +16,7 @@ class CtaCteChoController extends Controller
         $this->middleware('auth');
     }
 	public function index(Request $request)
-    {
-        
+    {        
         $choferes=Chofer::orderBy('nombre','ASC')->paginate(50);
         return view('cuentascorrientes.choferes.index')
             ->with('choferes',$choferes);
@@ -32,7 +31,6 @@ class CtaCteChoController extends Controller
 		 	->with('cuentacorrientechofer',$cuentacorrientechofer)
 		 	->with('choferes',$choferes)
   			->with('id',$id);
-
 
     }
 
