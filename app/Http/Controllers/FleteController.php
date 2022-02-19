@@ -312,10 +312,10 @@ class FleteController extends Controller
                      ]);
 
 
-<<<<<<< HEAD
-=======
+/*<<<<<<< HEAD*/
+/*=======*/
 
->>>>>>> 689a339 (cta cte choferes)
+/*>>>>>>> 689a339 (cta cte choferes)*/
 	
 
 	$datoacumulado=CtaCteCho::where('chofer_id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
@@ -324,7 +324,7 @@ class FleteController extends Controller
     $acumulado=Chofer::where('id',$request->chofer_id)->orderBy('id','DESC')->limit(1)->get();
   
 
-     $datosctactecho=new CtaCteCho();
+       $datosctactecho=new CtaCteCho();
      	$datosctactecho->tipocomprobante="ANTICIPO";
      	$datosctactecho->nrocomprobante=$datosAnticipo->nroremito;
      	$datosctactecho->fechaemision=$date;
