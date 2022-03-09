@@ -37,7 +37,6 @@ class ReporteController extends Controller
        $choferes=Chofer::orderBy('nombre','ASC')->pluck('nombre','id');
         return view('reportes.fletes')
          ->with('choferes',$choferes);
-
     }
     public function reportefletes(Request $request)
     {

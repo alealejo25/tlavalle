@@ -20,6 +20,8 @@ use App\MovimientoOPC;
 use App\MovimientoOPP;
 use App\CtaCteP;
 use App\CtaCteCho;
+use App\Empleado;
+use App\PagoEmpleado;
 use Luecano\NumeroALetras\NumeroALetras;
 
 use Carbon\Carbon;
@@ -1395,4 +1397,123 @@ public function cerraropchofer($id){
 
   }
 
+
+public function listarempleados(){
+  
+    $datos=Empleado::orderBy('id','DESC')->get();
+    
+    return view('pagos.empleado.listarempleados')
+            ->with('datos',$datos);
+   }
+ 
+public function historial($id){
+
+   $empleados=Empleado::where('id',$id)->get();
+   $datos=PagoEmpleado::where('empleado_id',$id)->orderBy('id','DESC')->get();
+
+    return view('pagos.empleado.historial')
+            ->with('datos',$datos)
+            ->with('empleados',$empleados);
+   }
+
+
+ public function reportepagos($id)
+    {
+       $empleados=Empleado::where('id',$id)->get();
+
+        $datos=PagoEmpleado::where('empleado_id',$id)->orderBy('id','DESC')->get();
+
+        $pdf=\PDF::loadView('pdf.reportepagos',['empleados'=>$empleados, 'datos'=>$datos])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportepagos.pdf');
+
+
+
+    }
+public function pagar($id)
+    {
+        $empleados=Empleado::where('id',$id)->get();
+        $datos=PagoEmpleado::where('empleado_id',$id)->get();
+        $ultimopago=PagoEmpleado::where('empleado_id',$id)->orderBy('id','DESC')->limit(1)->get();
+
+
+        return view('pagos.empleado.pagar')
+            ->with('datos',$datos)
+            ->with('empleados',$empleados)
+            ->with('id',$id)
+            ->with('ultimopago',$ultimopago);
+    }
+
+    public function guardarpago(Request $request)
+    {
+
+       $date = new \DateTime();
+         /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'observacion'=>'required|max:80',
+            'monto'=>'required|numeric',
+            'mes'=>'required',
+            'año'=>'required'
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        $consultadeperiodo=PagoEmpleado::where('mes',$request->mes)->where('año',$request->año)->where('empleado_id',$request->id)->get();
+
+    
+
+        if(count($consultadeperiodo)==0){
+            $pago=new PagoEmpleado(request()->except('_token'));
+            $pago->fecha=$date;
+            $pago->saldo=0;
+            $pago->empleado_id=$request->id;
+
+            $nrocomprobante=PagoEmpleado::orderBy('id','DESC')->limit(1)->get();
+
+            if(count($nrocomprobante)>0){
+                $pago->nrocomprobante=$nrocomprobante[0]->nrocomprobante+1;
+            }
+            else{
+                $pago->nrocomprobante=600000;
+            }
+            $pago->save();
+               
+                $empleados=Empleado::where('id',$request->id)->get();
+                $datos=PagoEmpleado::where('empleado_id',$request->id)->get();
+                flash::success('Se grabo el pago al empleado');
+                return view('pagos.empleado.historial')
+                    ->with('datos',$datos)
+                    ->with('empleados',$empleados);
+
+        }
+        else{
+                $empleados=Empleado::where('id',$request->id)->get();
+                $datos=PagoEmpleado::where('empleado_id',$request->id)->get();
+                flash::warning('Ya existe el pago del periodo elegido, no grabo el registro');
+                return view('pagos.empleado.historial')
+                    ->with('datos',$datos)
+                    ->with('empleados',$empleados);
+        }
+
+       
+    }
+
+
+    public function editar($id)
+    {
+        $datos=PagoEmpleado::find($id);
+        return view('pagos.empleado.editar')
+            ->with('datos',$datos);
+           
+    }
+
+    public function aprendiendo()
+    {
+        
+        return view('pagos.empleado.aprendiendo');
+            
+           
+    }
+
 }
+ 

@@ -20,7 +20,9 @@ class Empleado extends Model
     'area',
     'sueldoanterior',
     'sueldoactual',
-  
+     'fechaingreso',
+    'saldo'
+
     ];
     public function PagoEmpleado()
     {

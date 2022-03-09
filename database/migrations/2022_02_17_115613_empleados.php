@@ -15,17 +15,18 @@ class Empleados extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',25);
-            $table->string('apellido',25);
+            $table->string('nombre',30);
+            $table->string('apellido',30);
             $table->string('dni',25);
             $table->string('direccion',100);
             $table->date('fechanac');
             $table->string('nrocelular',11);
-            $table->string('area',11);
+            $table->string('area',30);
             $table->decimal('sueldoanterior',12,2)->default(0);
             $table->decimal('sueldoactual',12,2)->default(0);
-            $table->decimal('saldo',12,2)->default(0);
+            $table->decimal('saldo',12,2)->default(0)->nullable();
             $table->string('foto',256)->nullable();
+            $table->date('fechaingreso')->nullable();
             $table->integer('condicion')->unsigned()->default(0);
 
             $table->timestamps();

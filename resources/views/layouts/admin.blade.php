@@ -14,7 +14,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
     <!-- daterange picker -->
-  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <!--<link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">-->
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -35,7 +35,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 <!-- custom scripts --> 
-<script type="text/javascript" src="js/script.js"></script> 
+<!-- <script type="text/javascript" src="js/script.js"></script> -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -44,13 +44,13 @@
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
 
 <!-- fullcalendar -->
-<link href="css/fullcalendar.css" rel="stylesheet" />
+<!--<link href="css/fullcalendar.css" rel="stylesheet" />
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print" />
 
 
 
 <script src="js/moment.min.js"></script>
-<script src="js/fullcalendar.js"></script>
+<script src="js/fullcalendar.js"></script>-->
 
 
 
@@ -223,6 +223,9 @@
                 @endcan
                 @can('cuentasbancariasproveedores_index')
                 <li><a href="/abms/cuentasbancariasproveedores"><i class="fa fa-circle-o"></i> Cuentas Bancarias Proveedores</a></li>
+                @endcan
+                @can('estaciones_index')
+                <li><a href="/abms/empleados"><i class="fa fa-circle-o"></i> Empleados</a></li>
                 @endcan
                 @can('estaciones_index')
                 <li><a href="/abms/estaciones"><i class="fa fa-circle-o"></i> Estaciones de Servicio</a></li>
@@ -405,6 +408,24 @@
                 
               </ul>
             </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>Sueldos Empleados</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('acoplados_index')
+                <li><a href="/pagos/empleados/listar"><i class="fa fa-circle-o"></i> Listar Empleados </a></li>
+                @endcan
+
+              </ul>
+            </li>
+
+
+
+
              <li class="treeview">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Consultas</span>

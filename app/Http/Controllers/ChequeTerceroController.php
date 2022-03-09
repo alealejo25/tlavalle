@@ -15,7 +15,7 @@ class ChequeTerceroController extends Controller
     }
 	public function index(Request $request)
     {
-        $chequesterceros=ChequeTercero::orderBy('numero','DESC')->paginate(20);
+        $chequesterceros=ChequeTercero::orderBy('id','DESC')->paginate(20);
         $chequesterceros->each(function($chequesterceros){
 /*          $chequesterceros->cliente;
             $chequesterceros->banco;
@@ -41,7 +41,7 @@ class ChequeTerceroController extends Controller
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'numero'=>'required|string|max:30',
-            'importe'=>'required|integer',
+            'importe'=>'required',
             'fecha'=>'required',
             'cliente_id'=>'required',
             'banco_id'=>'required',

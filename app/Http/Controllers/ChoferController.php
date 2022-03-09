@@ -7,15 +7,12 @@ use App\Camion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
 
 use App\Http\Requests\CategoriaFormRequest;
-
 use Laracasts\Flash\Flash;
-
 use DB;
 
 class ChoferController extends Controller

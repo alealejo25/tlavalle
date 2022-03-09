@@ -19,9 +19,10 @@ class Pagosempleados extends Migration
             $table->date('fecha');
             $table->decimal('monto',12,2);
             $table->decimal('saldo',12,2);
-            $table->integer('mes')->unsigned();
+            $table->string('mes',25);
             $table->integer('año')->unsigned();
             $table->string('forma',20);
+            $table->string('observacion',80);
             $table->integer('empleado_id')->unsigned();
             $table->integer('condicion')->unsigned()->default(0);
             $table->timestamps();

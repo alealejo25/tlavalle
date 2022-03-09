@@ -1308,5 +1308,18 @@ public function cerraropchofer($id){
 
 
 
+
+    public function listarempleados(){
+        dd('estamos adentro');
+
+       
+
+    }
+
+
+
+
+
+
  
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PagoEmpleado extends Model
 {
-    protected $table="empleados";
+    protected $table="pagosempleados";
 
     protected $primaryKeys='id';
 
@@ -18,9 +18,9 @@ class PagoEmpleado extends Model
     'mes',
     'año',
     'empleado_id',
-    'sueldoanterior',
-    'sueldoactual',
-    'forma'
+    'forma',
+    'observacion',
+    'empleado_id'
   
     ];
     public function Empleado()

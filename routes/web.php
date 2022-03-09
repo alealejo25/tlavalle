@@ -35,6 +35,7 @@ Auth::routes(['register'=>false,'reset'=>false]);
 Route::get('logout', 'Auth\LoginController@logout');
 
 
+
 Route::get('abms/articulos/listarPdf','ArticuloController@listarPdf')->name('articulos_pdf');
 Route::get('abms/camiones/listarPdf','CamionController@listarPdf')->name('camiones_pdf');
 Route::get('abms/acoplados/listarPdf','AcopladoController@listarPdf')->name('acoplado_pdf');
@@ -90,6 +91,7 @@ Route::resource('abms/cuentasbancariaspropias','CuentaBancariaPropiaController')
 Route::resource('abms/afipprestamosmoratorias','AfipPrestamoMoratoriaController');
 Route::resource('abms/rentasprestamosmoratorias','RentaPrestamoMoratoriaController');
 Route::resource('abms/prestamos','PrestamoController');
+Route::resource('abms/empleados','EmpleadoController');
 
 Route::resource('abms/iva','IvaController');
 
@@ -154,6 +156,21 @@ Route::resource('finanzas/cierrecajas','CierreCajaController');
 Route::resource('finanzas/chequespropios','ChequePropioController');
 
 
+Route::get('pagos/empleados/listar','PagoController@listarempleados');
+
+
+
+
+//prueba de jquery despues borrrar
+Route::get('pagos/empleados/aprendiendo','PagoController@aprendiendo');
+//-------------------------------------------------------------
+
+Route::get('pagos/empleados/{id?}/historial', 'PagoController@historial')->name('historial');
+Route::get('pagos/empleados/{id?}/reportepagos', 'PagoController@reportepagos')->name('reportepagos');
+Route::get('pagos/empleados/{id?}/pagar', 'PagoController@pagar')->name('pagar');
+Route::get('pagos/empleados/{id?}/editar', 'PagoController@editar')->name('editar');
+Route::post('pagos/empleados/guardarpago','PagoController@guardarpago')->name('guardarpago');
+Route::post('pagos/empleados/grabaredicion','PagoController@grabaredicion')->name('grabaredicion');
 
 Route::get('pagos/pagoefectivo','PagoController@pagoefectivo');
 Route::post('pagos/guardarpagoefectivo','PagoController@guardarpagoefectivo')->name('guardarpagoefectivo');
