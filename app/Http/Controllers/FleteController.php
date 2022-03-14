@@ -145,7 +145,6 @@ class FleteController extends Controller
                			->update([
                   				'saldo'=>$saldofinal
                                  ]);
-
         $datosctactecho=new CtaCteCho();
      	$datosctactecho->tipocomprobante="ANTICIPO";
      	$datosctactecho->nrocomprobante=$nroremitoanticipo;
