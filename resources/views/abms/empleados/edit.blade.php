@@ -14,7 +14,7 @@
 			</div>
 			@endif	
  			
- 			{!!Form::model($datos,['method'=>'PATCH','route'=>['empleados.update',$datos->id]])!!}
+ 			{!!Form::model($datos,['method'=>'PATCH','route'=>['empleados.update',$datos->id],'enctype'=>'multipart/form-data'])!!}
 			{{Form::token()}}
 			<div class="Form-group">
 				<!-- <label for="nombre">Dominio</label> -->
@@ -70,11 +70,18 @@
 				<input type="text" name="area" id="area" class="form-control {{$errors->has('area')?'is-invalid':''}}"  placeholder="Area..." value="{{$datos->area}}">
 				{!! $errors->first('area','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+			<div class="Form-group">
+				<label for="foto">Foto</label>
+				<img src="{{asset('img/'. $datos->foto)}}" height="150" width="150">
+				<input type="file" name="foto" id="foto" class="form-control">
+				{!! $errors->first('foto','<div class="invalid-feedback">:message</div>')!!}
+			</div>
 			<br>
 			<div class="Form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
+
 
 			
 			{!!Form::close()!!}

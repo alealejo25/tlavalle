@@ -11,6 +11,7 @@ class Empleado extends Model
     protected $primaryKeys='id';
 
     protected $fillable = [
+        'id',
     'nombre',
     'apellido',
     'dni',
@@ -20,7 +21,8 @@ class Empleado extends Model
     'area',
     'sueldoanterior',
     'sueldoactual',
-     'fechaingreso',
+    'fechaingreso',
+    'foto',
     'saldo'
 
     ];

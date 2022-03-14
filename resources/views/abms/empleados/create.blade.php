@@ -70,6 +70,11 @@
 				<input type="text" name="area" id="area" class="form-control" placeholder="Area..." value="{{old('area')}}">
 				{!! $errors->first('area','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+			<div class="Form-group">
+				<label for="foto">Foto</label>
+				<input type="file" name="foto" id="foto" class="form-control">
+				{!! $errors->first('foto','<div class="invalid-feedback">:message</div>')!!}
+			</div>
 			
 			<br>
 			<div class="Form-group">

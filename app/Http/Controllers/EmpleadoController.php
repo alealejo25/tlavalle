@@ -15,6 +15,11 @@ use App\Http\Requests\CategoriaFormRequest;
 use Laracasts\Flash\Flash;
 use DB;
 
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class EmpleadoController extends Controller
 {
      public function __construct()
@@ -41,7 +46,6 @@ class EmpleadoController extends Controller
     }
     public function store(Request $request)
     {
-
     /*VALIDACION -----------------------------------------*/
     $campos=[
         'nombre'=>'required|string|max:60',
@@ -52,14 +56,28 @@ class EmpleadoController extends Controller
         'nrocelular'=>'required',
         'saldo'=>'required|numeric',
         'area'=>'required',
+        'foto'=>'image|mimes:gif,jpeg,png',
         'sueldoactual'=>'required|numeric',
         'sueldoanterior'=>'required|numeric'
     ];
     $Mensaje=["required"=>'El :attribute es requerido'];
     $this->validate($request,$campos,$Mensaje);
   
+    $file=$request->file('foto');
+    if($file<>"")
+    {
+    $foto=$file->getClientOriginalName();
+    $foto2=$request->dni . $foto;
+    \Storage::disk('local')->put($foto2,\File::get($file));
+    }
+    else
+    {
+        $foto2="sinfoto.jpg";
+    }
     /* forma de grabar los datos en una variable */
     $datos=new Empleado(request()->except('_token'));
+
+    $datos->foto=$foto2;
     $datos->save();
         /*-------------------------------------------------------*/
        /* otra forma de guardar los datos tambien funciona*/
@@ -96,15 +114,61 @@ class EmpleadoController extends Controller
                         'area'=>'required|max:30',
                         'sueldoactual'=>'required|numeric',
                         'sueldoanterior'=>'required|numeric',
+                        'foto'=>'image|mimes:gif,jpeg,png',
                         'saldo'=>'required|numeric'
                     ];
                     $Mensaje=["required"=>'El :attribute es requerido'];
                     $this->validate($request,$campos,$Mensaje); 
  
 
-        $datos=request()->except(['_token','_method']);
-        Empleado::where('id','=',$id)->update($datos);
 
+    $file=$request->file('foto');
+
+    if($file<>"")
+    {
+    $foto=$file->getClientOriginalName();
+    $foto2=$request->dni . $foto;
+    \Storage::disk('local')->put($foto2,\File::get($file));
+    }
+   
+    
+     if($file<>"")
+    {
+    $actualizarproveedor=Empleado::where('id',$id)
+                        ->update([
+                                'nombre'=>$request->nombre,
+                                'apellido'=>$request->apellido,
+                                'dni'=>$request->dni,
+                                'direccion'=>$request->direccion,
+                                'fechanac'=>$request->fechanac,
+                                'nrocelular'=>$request->nrocelular,
+                                'area'=>$request->area,
+                                'sueldoactual'=>$request->sueldoactual,
+                                'sueldoanterior'=>$request->sueldoanterior,
+                                'saldo'=>$request->saldo,
+                                'foto'=>$foto2
+                                 ]);
+    }
+    else
+    {
+          $actualizarproveedor=Empleado::where('id',$id)
+                        ->update([
+                                'nombre'=>$request->nombre,
+                                'apellido'=>$request->apellido,
+                                'dni'=>$request->dni,
+                                'direccion'=>$request->direccion,
+                                'fechanac'=>$request->fechanac,
+                                'nrocelular'=>$request->nrocelular,
+                                'area'=>$request->area,
+                                'sueldoactual'=>$request->sueldoactual,
+                                'sueldoanterior'=>$request->sueldoanterior,
+                                'saldo'=>$request->saldo,
+                                
+                                 ]); 
+    }
+
+
+        
 
         return Redirect('abms/empleados')->with('Mensaje','Empleado Modificado con éxito!!!!!');
     }

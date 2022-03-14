@@ -20,6 +20,7 @@
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>#</th>
+					<th>Foto</th>
 					<th>Nombre</th>
 					<th>Apellido</th>
 					<th>DNI</th>
@@ -34,7 +35,9 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
+					
 					<td>{{ $dato->id}}</td>
+					<td><img src="{{asset('img/'. $dato->foto)}}" height="50" width="50"></td>
 					<td>{{ $dato->nombre}}</td>
 					<td>{{ $dato->apellido}}</td>
 					<td>{{ $dato->dni}}</td>
