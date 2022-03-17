@@ -90,7 +90,7 @@
 @foreach ($chofer as $datos)
 <h3>Nombre: {{$datos->nombre}}</h3>
 <h3>Direccion: {{$datos->direccion}}</h3>
-<h3>Cuit: {{$datos->cuit}}</h3>
+
 @endforeach
 
 	<div>

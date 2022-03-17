@@ -11,8 +11,8 @@
 
                         <!--TITULO-->
                         <h4 class="text-center mb-5">Reporte Cuentas Corrientes Choferes. </h4>
-                        {!!Form::open(['route' => 'reportefletes','method'=>'POST'])!!}
-						{{Form::token()}}
+                        {!!Form::open(['route' => 'reportectasctescho','method'=>'POST'])!!}
+						{{Form::token()}} 
                         <!--ENCABEZADO-->
                         <div class="row">
 

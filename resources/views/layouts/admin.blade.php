@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Transportes Lavalle | Sistema Integral</title>
+    <title >Transportes Lavalle | Sistema Integral</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -68,8 +68,13 @@
       .select2-selection{
         height:calc(1.7em + .75rem + 2px) !important;
       }
+      .a1{ color: white;
+          font-size: large; 
+          margin-right: 1em;
 
+          }
     </style>
+    
 
   <!--  ------->
 
@@ -105,7 +110,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>TL</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Trans. Lavalle</b></span>
+          <span class="a1"><b>Trans. Lavalle</b></span>
         </a>
 
          <!-- Header Navbar: style can be found in header.less -->
@@ -132,16 +137,16 @@
                         <!-- Authentication Links -->
                         @guest
                            
-                                <a class="nav-link" href="{{ route('login') }}" >{{ __('Login') }}</a>
+                                <a color="red" class="a1" href="{{ route('login') }}" class="a1">{{ __('Login') }}</a>
                            
                            
                         @else
 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a color="red" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre class="a1">
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="a1">
                                         @csrf
                                     </form>
                         
@@ -156,7 +161,7 @@
                   @auth
                   
                         <a href="#" onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">Cerrar Sesion</a>
+                          document.getElementById('logout-form').submit();" class="a1">Cerrar Sesion</a>
 
                   @endauth
                 </ul>

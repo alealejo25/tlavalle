@@ -157,6 +157,8 @@ Route::resource('finanzas/chequesterceros','ChequeTerceroController');
 Route::resource('finanzas/cierrecajas','CierreCajaController');
 Route::resource('finanzas/chequespropios','ChequePropioController');
 
+Route::get('finanzas/chequeterceros/listar', 'ChequeTerceroController@listarchequetercero');
+Route::post('finanzas/chequeterceros/mostrarcheques', 'ChequeTerceroController@mostrarcheques')->name('mostrarcheques');
 
 Route::get('pagos/empleados/listar','PagoController@listarempleados');
 
@@ -204,8 +206,9 @@ Route::get('pagos/proveedor/{id?}/pagochequepropioproveedor', 'PagoController@pa
 Route::get('pagos/proveedor/{id?}/pagoefectivoproveedor', 'PagoController@pagoefectivoproveedor')->name('pagoefectivoproveedor');
 Route::get('pagos/proveedor/{id?}/pagotransferenciaproveedor', 'PagoController@pagotransferenciaproveedor')->name('pagotransferenciaproveedor');
 
-
-
+Route::get('pagos/proveedor/{id?}/pagosproveedor', 'PagoController@pagosproveedor')->name('pagosproveedor');
+Route::post('pagos/proveedor/ajax', 'PagoController@ajax')->name('ajax');
+Route::post('pagos/proveedor/ajax/borrar', 'PagoController@borrarajax')->name('borrarajax');
 
 Route::post('pagos/chofer/guardarpagoefectivochofer','PagoController@guardarpagoefectivochofer')->name('guardarpagoefectivochofer');
 Route::post('pagos/chofer/guardarpagotransferenciachofer','PagoController@guardarpagotransferenciachofer')->name('guardarpagotransferenciachofer');
@@ -305,7 +308,6 @@ Route::post('reportes/reportebienesdeuso/','ReporteController@reportebienesdeuso
 //CTAS CTES PROVEEDORES
 Route::get('reportes/ctasctesp/','ReporteController@ctasctesp');
 Route::post('reportes/reportectasctesp/','ReporteController@reportectasctesp')->name('reportectasctesp');
-
 
 //CTAS CTES CHOFERES
 Route::get('reportes/ctasctescho/','ReporteController@ctasctescho');

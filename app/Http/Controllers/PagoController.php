@@ -264,6 +264,32 @@ $date = new \DateTime();
        
 
   }
+
+  public function pagosproveedor($id){
+    $datosopchofer=OrdenPago::where('id',$id)->get();
+    $datosopchofer->each(function($datosopchofer){
+          $datosopchofer->proveedor;
+        });
+    $datosopproveedor=MovimientoOPP::where('ordendepago_id',$id)->get();
+    //$datosopproveedor=json_encore($datosoppro);
+
+    return view('pagos.imputarchofer')
+            ->with('datosopchofer',$datosopchofer)
+            ->with('datosopproveedor',$datosopproveedor);
+  }
+
+  public function ajax(Request $request){
+
+     $datosopproveedor=MovimientoOPP::where('ordendepago_id',$request->id)->get();
+     return $datosopproveedor;
+  }
+
+  public function borrarajax(Request $request){
+ 
+        MovimientoOPP::destroy($request->id);
+        return "existo";
+  }
+
   public function guardarpagoefectivoproveedor(Request $request){
   $date = new \DateTime();
         /*VALIDACION -----------------------------------------*/

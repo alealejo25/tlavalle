@@ -15,17 +15,45 @@ class ChequeTerceroController extends Controller
     }
 	public function index(Request $request)
     {
-        $chequesterceros=ChequeTercero::orderBy('id','DESC')->paginate(20);
+        $chequesterceros=ChequeTercero::orderBy('id','DESC')->paginate(30);
         $chequesterceros->each(function($chequesterceros){
 /*          $chequesterceros->cliente;
             $chequesterceros->banco;
             $chequesterceros->proveedor;
 */
+
         });
         
         return view('finanzas.chequesterceros.index')
         ->with('chequesterceros',$chequesterceros);
     }
+
+    public function listarchequetercero(Request $request)
+    {
+        return view('finanzas.chequesterceros.listar');
+        
+    }
+    public function mostrarcheques(Request $request)
+    {
+
+
+        if($request->mostrar=="Mostrar Todos"){
+            $chequesterceros=ChequeTercero::orderBy('id','DESC')->get();
+        }
+        else{
+            $chequesterceros=ChequeTercero::where('estado','DISPONIBLE')->orderBy('id','DESC')->get();   
+        }
+
+        $chequesterceros->each(function($chequesterceros){
+            $chequesterceros->cliente;
+            $chequesterceros->banco;
+            $chequesterceros->proveedor;
+        });
+        return ($chequesterceros);
+        
+    }
+
+
     public function create()
     {
         $clientes=Cliente::orderBy('nombre','ASC')->pluck('nombre','id');
@@ -40,7 +68,7 @@ class ChequeTerceroController extends Controller
     {
         /*VALIDACION -----------------------------------------*/
         $campos=[
-            'numero'=>'required|string|max:30',
+            'numero'=>'required|string|max:30|unique:chequesterceros',
             'importe'=>'required',
             'fecha'=>'required',
             'cliente_id'=>'required',

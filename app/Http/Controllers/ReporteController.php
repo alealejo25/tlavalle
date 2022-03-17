@@ -185,7 +185,7 @@ public function reportectasctescho(Request $request)
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
         $consulta=CtaCteCho::whereBetween('fechaemision',[$fi, $ff])->where('chofer_id',$request->chofer_id)->get();
 
-        $chofer= Proveedor::where('id',$request->chofer_id)->get();
+        $chofer= Chofer::where('id',$request->chofer_id)->get();
 
 
         $pdf=\PDF::loadView('pdf.reportectactecho',['consulta'=>$consulta, 'chofer'=>$chofer])
