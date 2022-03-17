@@ -28,6 +28,7 @@
 					<th>Cliente</th>
 					<th>Proveedor</th>
 					<th>Banco</th>
+					<th>Opciones</th>
 				</thead>
                	<tbody id="tbody">
 					
@@ -47,6 +48,8 @@
 
 
 <script>
+
+
 	function tabla(){
 			//			$('#ver').click(function(){
 				var mostrar = $('#todos').html();
@@ -73,11 +76,9 @@
 							if(data[i].proveedor_id != null){
 								proveedor=data[i].proveedor.nombre;
 							}
-							tabla+='<tr><td>'+data[i].id+'</td><td>'+data[i].numero+'</td><td align="right">$'+data[i].importe+'</td><td>'+data[i].fecha+'</td><td>'+data[i].estado+'</td><td>'+data[i].cliente.nombre+'</td><td>'+proveedor+'</td><td><button class="btn btn-warning" onclick="borrarregistro('+data[i].id+')">Editar</button></td></tr>';        
+							tabla+='<tr><td>'+data[i].id+'</td><td>'+data[i].numero+'</td><td align="right">$'+data[i].importe+'</td><td>'+data[i].fecha+'</td><td>'+data[i].estado+'</td><td>'+data[i].cliente.nombre+'</td><td>'+proveedor+'</td><td>'+data[i].banco.denominacion+'</td><td><a href="/finanzas/chequesterceros/'+data[i].id+'/edit"><input type="button" value="Editar" class="btn btn-info">	</a></td></tr>';        
 					}
 
-
-					
 				$('#tbody').html(tabla);
 	            });
 //			});
@@ -87,14 +88,10 @@
 	//$('#todos').click(function(){
 	$(document).ready(function() {
 		tabla();	
-		
-				
 	});
 
 	$('#todos').click(function(){
 	tabla();	
-		
-				
 	});
 
 //	});

@@ -84,7 +84,7 @@ class ChequeTerceroController extends Controller
        
 
        //return response()->json($datosCamion);
-       return Redirect('finanzas/chequesterceros')->with('Mensaje','Cheque de Tercero Ingresado!!!!!');
+       return Redirect('finanzas/chequeterceros/listar')->with('Mensaje','Cheque de Tercero Ingresado!!!!!');
     }
        public function edit($id)
     {
@@ -103,6 +103,6 @@ class ChequeTerceroController extends Controller
     {
         $datosChequesTerceros=request()->except(['_token','_method']);
         ChequeTercero::where('id','=',$id)->update($datosChequesTerceros);
-        return Redirect('finanzas/chequesterceros')->with('Mensaje','Cheque de tercero Modificado con éxito!!!!!');
+        return Redirect('/finanzas/chequeterceros/listar')->with('Mensaje','Cheque de tercero Modificado con éxito!!!!!');
     }
 }

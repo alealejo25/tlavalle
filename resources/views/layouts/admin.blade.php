@@ -354,7 +354,7 @@
               <ul class="treeview-menu">
                 
                 @can('chequeterceros')
-                <li><a href="/finanzas/chequesterceros"><i class="fa fa-circle-o"></i> Cheques de Terceros</a></li>
+                <li><a href="/finanzas/chequeterceros/listar"><i class="fa fa-circle-o"></i> Cheques de Terceros</a></li>
                 @endcan
                 @can('cierresdecaja')
                 <li><a href="/finanzas/cierrecajas/create"><i class="fa fa-circle-o"></i> Cierres de Caja</a></li>

@@ -63,7 +63,7 @@
 			
 			<div class="Form-group">
 				<br/>
-				<a href="/finanzas/chequesterceros"><button class="btn btn-success">Regresar</button></a>
+				<a href="/finanzas/chequeterceros/listar"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
 		</div>
