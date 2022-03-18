@@ -17,6 +17,7 @@ class OrdenPago extends Model
     'tipo',
     'estado',
     'proveedor_id',
+    'ordendepago_id',
     'chofer_id'
 
 	];

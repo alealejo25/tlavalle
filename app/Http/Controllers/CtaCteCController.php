@@ -93,12 +93,12 @@ class CtaCteCController extends Controller
        return Redirect('cuentascorrientes/clientes/')->with('Mensaje','Comprobante ingresado!!!');
     }
     public function guardarcomprobantec(Request $request,$id)
-    {
+    { //dd($request);
 
       /*VALIDACION -----------------------------------------*/
         $campos=[
             'tipocomprobante'=>'required',
-            'nrocomprobante'=>'required|unique:CtasCtesC',
+            'nrocomprobante'=>'required',
             'fechaemision'=>'required',
             'fechavencimiento'=>'required',
             'importe'=>'required|numeric',

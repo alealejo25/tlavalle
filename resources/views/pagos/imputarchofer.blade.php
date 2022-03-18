@@ -168,7 +168,8 @@
                 _token : $('input[name="_token"]').val()
             },
             function (data, status) {
-                // reload Users by using readRecords();
+            	//recarga la tabla
+            	console.log(data);
                 tabla();
             }
         );
@@ -200,7 +201,6 @@
 	
 		}
 	$('#ver').click(function(){
-
 		tabla();	
 		
 				

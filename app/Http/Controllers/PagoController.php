@@ -286,8 +286,44 @@ $date = new \DateTime();
 
   public function borrarajax(Request $request){
  
-        MovimientoOPP::destroy($request->id);
-        return "existo";
+        $datos=MovimientoOPP::where('id',$request->id)->get();
+        $datosop=OrdenPago::where('id',$datos[0]->ordendepago_id)->get();
+        $acumulado=$datosop[0]->montoacumulado-$datos[0]->importe;
+        
+
+//        MovimientoOPP::destroy($request->id);
+        $forma=$datos[0]->forma;
+
+        $actualizarop=OrdenPago::where('id',$datos[0]->ordendepago_id)
+                    ->update([
+                        'montoacumulado'=>$acumulado,
+                        'montofinal'=>$acumulado
+                     ]);
+        
+        switch($forma) {
+            case('EFECTIVO'):
+
+                break;
+ 
+           case('TRANSFERENCIA'):
+ 
+                break;
+            case('CHEQUE TERCERO'):
+ 
+                break;
+ 
+           case('CHEQUE PROPIO'):
+ 
+                break;
+ 
+            default:
+                $msg = 'Ninguna forma';
+        }
+
+
+        
+
+        return "exito";
   }
 
   public function guardarpagoefectivoproveedor(Request $request){
