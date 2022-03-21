@@ -67,9 +67,9 @@ class PagoController extends Controller
             ->with('datosopchofer',$datosopchofer);
    }
    public function pagoefectivoproveedor($id){
-       $datoscaja=Caja::orderBy('denominacion','ASC')->pluck('denominacion','id');
-    $datosopchofer=OrdenPago::where('id',$id)->get();
-    $datosopchofer->each(function($datosopchofer){
+        $datoscaja=Caja::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $datosopchofer=OrdenPago::where('id',$id)->get();
+        $datosopchofer->each(function($datosopchofer){
           $datosopchofer->chofer;
           $datosopchofer->proveedor;
         });
@@ -1329,55 +1329,51 @@ $formatter = new NumeroALetras();
         
     }
 
-public function cerrarop($id){
-
+public function cerrarop($id_ordendepago){
+    
 
     $date = new \DateTime();
-    $datosopchofer=OrdenPago::where('id',$id)->get();
-
-    if($datosopchofer[0]->estado=='CERRADO')
+    $datosOP=OrdenPago::where('id',$id_ordendepago)->get();
+    $datosOP->each(function($datosOP){
+          $datosOP->proveedor;
+        });
+    if($datosOP[0]->estado=='CERRADO')
     {
         flash('LA OP YA FUE CERRADA')->warning();
             return view('pagos.imputarchofer')
-            ->with('datosopchofer',$datosopchofer);
+            ->with('datosopchofer',$datosOP);
     }
     else
     {
     try{//esto es para que si hay un error en un insert en una table no grabe en la otra
         DB::beginTransaction(); 
-    $actualizarop=OrdenPago::where('id',$id) 
+    $actualizarop=OrdenPago::where('id',$id_ordendepago) 
                 ->update([
-                'montofinal'=>$datosopchofer[0]->montoacumulado,
+                'montofinal'=>$datosOP[0]->montoacumulado,
                 'estado'=>'CERRADO'
                      ]);
 
-    $datosproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)->get();
-    $saldofinal=$datosproveedor[0]->saldo-$datosopchofer[0]->montoacumulado;
-    $actualizarproveedor=Proveedor::where('id',$datosopchofer[0]->proveedor_id)
+    $datosproveedor=Proveedor::where('id',$datosOP[0]->proveedor_id)->get();
+
+    $saldofinal=$datosproveedor[0]->saldo-$datosOP[0]->montoacumulado;
+
+    $actualizarproveedor=Proveedor::where('id',$datosOP[0]->proveedor_id)
                 ->update([
                 'saldo'=>$saldofinal
                      ]);
 
-    $datosopchofer=OrdenPago::orderBy('id','DESC')->get();
-    $datosopchofer->each(function($datosopchofer){
-          $datosopchofer->chofer;
-          $datosopchofer->proveedor;
-        });
+  
+    $datoacumulado=CtaCteP::where('proveedor_id',$datosOP[0]->proveedor_id)->orderBy('id','DESC')->limit(1)->get();
 
-
-    $datoacumulado=CtaCteP::where('proveedor_id',$datosopchofer[0]->proveedor_id)->orderBy('id','DESC')->limit(1)->get();
-
-    
-
-    $acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
+    //$acumulado=Proveedor::where('id',$id)->orderBy('id','DESC')->limit(1)->get();
     $datosComprobante=new CtaCteP();
-    $datosComprobante->proveedor_id=$datosopchofer[0]->proveedor_id;
+    $datosComprobante->proveedor_id=$datosOP[0]->proveedor_id;
     $datosComprobante->tipocomprobante='ORDEN DE PAGO';
-    $datosComprobante->nrocomprobante=$datosopchofer[0]->numero;
+    $datosComprobante->nrocomprobante=$datosOP[0]->numero;
     $datosComprobante->fechaemision=$date;
     $datosComprobante->fechavencimiento=$date;
     $datosComprobante->debe=0;
-    $datosComprobante->haber=$datosopchofer[0]->montoacumulado;
+    $datosComprobante->haber=$datosOP[0]->montoacumulado;
     $datosComprobante->acumulado=$saldofinal;
     //$datosComprobante->acumulado=$datoacumulado[0]->acumulado - $datosopchofer[0]->montoacumulado;
     $datosComprobante->save();
@@ -1385,7 +1381,7 @@ public function cerrarop($id){
     DB::commit();
             flash::success('Se cerro la OP del Proveedor');
              return view('pagos.imputarchofer')
-            ->with('datosopchofer',$datosopchofer);
+            ->with('datosopchofer',$datosOP);
 
     } catch(\Exception $e){
             DB::rollBack();
