@@ -285,35 +285,62 @@ $date = new \DateTime();
   }
 
   public function borrarajax(Request $request){
- 
+        $date = new \DateTime();
         $datos=MovimientoOPP::where('id',$request->id)->get();
         $datosop=OrdenPago::where('id',$datos[0]->ordendepago_id)->get();
         $acumulado=$datosop[0]->montoacumulado-$datos[0]->importe;
-        
 
-//        MovimientoOPP::destroy($request->id);
         $forma=$datos[0]->forma;
 
         $actualizarop=OrdenPago::where('id',$datos[0]->ordendepago_id)
                     ->update([
-                        'montoacumulado'=>$acumulado,
-                        'montofinal'=>$acumulado
+                        'montoacumulado'=>$acumulado
                      ]);
-        
+
+//////////////////////////////////////////////////////////   -------------//////////
         switch($forma) {
             case('EFECTIVO'):
-
+                $datosmovicajas=MovimientoCaja::where('caja_id',$datos[0]->nroinstrumento)->orderBy('id','DESC')->limit(1)->get();
+                $datosmovimientos=new MovimientoCaja();
+                $datosmovimientos->tipo= "Eliminacion de pago";
+                $datosmovimientos->tipo_movimiento="INGRESO";
+                $datosmovimientos->descripcion="DEVOLUCION EFECTIVO";
+                $datosmovimientos->fecha=$date;
+                $datosmovimientos->importe=$datosmovicajas[0]->importe;
+                $datosmovimientos->importe_final=$datosmovicajas[0]->importe+$datosmovicajas[0]->importe_final;
+                $datosmovimientos->caja_id=$datos[0]->nroinstrumento;
+                $datosmovimientos->save();
+                MovimientoOPP::destroy($request->id);
                 break;
  
            case('TRANSFERENCIA'):
  
                 break;
             case('CHEQUE TERCERO'):
- 
-                break;
+
+                $consultachequetercero=ChequeTercero::where('numero',$datos[0]->nroinstrumento)->where('importe',$datos[0]->importe)->where('proveedor_id',$datosop[0]->proveedor_id)->limit(1)->get();
+                MovimientoOPP::destroy($request->id);
+
+   
+                $actualizarop=ChequeTercero::where('id',$consultachequetercero[0]->id)
+                   ->update([
+                  'proveedor_id'=>null,
+                  'estado'=>"DISPONIBLE",
+                      ]);
+
+                  break;
  
            case('CHEQUE PROPIO'):
- 
+            $consultachequepropio=ChequePropio::where('numero',$datos[0]->nroinstrumento)->where('importe',$datos[0]->importe)->where('proveedor_id',$datosop[0]->proveedor_id)->limit(1)->get();
+                      MovimientoOPP::destroy($request->id);
+            $actualizarchequepropio=ChequePropio::where('id',$consultachequepropio[0]->id)
+                ->update([
+                        'estado'=>'DISPONIBLE',
+                        'importe'=>null,
+                        'fecha'=>$date,
+                        'proveedor_id'=>null
+                     ]);
+
                 break;
  
             default:
@@ -323,7 +350,7 @@ $date = new \DateTime();
 
         
 
-        return "exito";
+        return $acumulado;
   }
 
   public function guardarpagoefectivoproveedor(Request $request){
@@ -339,6 +366,7 @@ $date = new \DateTime();
     $Movimiento=new MovimientoOPP(request()->except('_token'));
     $Movimiento->forma="EFECTIVO";
     $Movimiento->estado="ABIERTO";
+    $Movimiento->nroinstrumento=$request->caja_id;
     $Movimiento->fecha=new \DateTime();
     $Movimiento->save();
 
@@ -648,7 +676,11 @@ $date = new \DateTime();
         /*--------------------------------------------------------*/
 
     $consultachequetercero=ChequeTercero::where('id',$request->chequetercero_id)->limit(1)->get();
+    if($consultachequetercero[0]->estado=='ENTREGADO'){
+        //return view('pagos.imputarchofer');
+        return redirect ("/pagos/ordenesdepagos");
 
+    }
 
     $Movimiento=new MovimientoOPP(request()->except('_token'));
     $Movimiento->forma="CHEQUE TERCERO";
@@ -1089,7 +1121,7 @@ public function guardarprestamo(Request $request){
       
       $contador=1;
       while ($contador <= $request->cantcuotas){
-        $movimientoprestamochofer=new MovimientoPrestamoChofer();
+     
         $movimientoprestamochofer->cuota=$contador;
         $movimientoprestamochofer->importe=$datosprestamo->valorcuota;
         $movimientoprestamochofer->estado='DEBE';
@@ -1334,6 +1366,7 @@ public function cerrarop($id_ordendepago){
 
     $date = new \DateTime();
     $datosOP=OrdenPago::where('id',$id_ordendepago)->get();
+
     $datosOP->each(function($datosOP){
           $datosOP->proveedor;
         });
@@ -1375,13 +1408,13 @@ public function cerrarop($id_ordendepago){
     $datosComprobante->debe=0;
     $datosComprobante->haber=$datosOP[0]->montoacumulado;
     $datosComprobante->acumulado=$saldofinal;
-    //$datosComprobante->acumulado=$datoacumulado[0]->acumulado - $datosopchofer[0]->montoacumulado;
+
     $datosComprobante->save();
 
     DB::commit();
             flash::success('Se cerro la OP del Proveedor');
-             return view('pagos.imputarchofer')
-            ->with('datosopchofer',$datosOP);
+             return redirect ("/pagos/ordenesdepagos");
+
 
     } catch(\Exception $e){
             DB::rollBack();

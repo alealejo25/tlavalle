@@ -46,7 +46,7 @@
 					@if ($datoopchofer->proveedor_id != NULL)
 						<td>{{ $datoopchofer->proveedor->nombre}}</td>
 						<td>{{date("d/m/Y",strtotime($datoopchofer->fecha))  }}</td>
-						<td class="text-right">${{number_format($datoopchofer->montoacumulado,2,",",".")}}</td>
+						<td class="text-right" id="montoacu">${{number_format($datoopchofer->montoacumulado,2,",",".")}}</td>
 						<td class="text-right">${{  number_format($datoopchofer->montofinal,2,",",".")}}</td>
 
 						<td>{{ $datoopchofer->estado}}</td>
@@ -69,10 +69,9 @@
 						@endif
 						@if($datoopchofer->estado=='ABIERTO')
 							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagotransferenciaproveedor')}}"><input type="button" value="Transferencia" class="btn btn-success">	</a>
-						@else
-							<a><input type="button" disabled value="Transferencia" class="btn btn-success">	</a>
-						@endif
-						<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagosproveedor')}}"><input type="button" value="pagos" class="btn btn-success">	</a>
+							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagosproveedor')}}"><input type="button" value="pagos" class="btn btn-success">	</a>
+											@endif
+						
 						<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pdf')}}"><input type="button" value="Imprimir" class="btn btn-warning">	</a>
 
 							
@@ -132,7 +131,7 @@
 		</div>
 
 	</div>
-	<input type="button" name="ver" id="ver" value="ver">
+	<input type="button" name="ver" id="ver" value="Ver Pagos Generados" class="btn btn-warning" hidden>
 	<form action="POST" action="/pagos/proveedor/ajax" id="form1">
 		@csrf
 		<input type="hidden" name="id1" value="1">
@@ -160,56 +159,76 @@
 	</div>
 </div>
 <script>
-	function borrarregistro(id) {
-    var conf = confirm("¿Está seguro, realmente desea eliminar el registro?");
-    if (conf == true) {
-        $.post("/pagos/proveedor/ajax/borrar", {
-                id: id,
-                _token : $('input[name="_token"]').val()
-            },
-            function (data, status) {
-            	//recarga la tabla
-            	console.log(data);
-                tabla();
-            }
-        );
-    }
-}
-//	$(document).ready(function(){
 
 
-		function tabla(){
-			
-		//			$('#ver').click(function(){
-				$.ajax({
-				url : "/pagos/proveedor/ajax",
-				type : "POST",
-				data : { id : $("#id").val(),
-						_token : $('input[name="_token"]').val()
-						}
-			}).done( function( data ){
-				var tabla;
-				//console.log( data.length);        
-					for (var i=0; i<data.length ;i++) {
-							var n=i+1;
-							tabla+='<tr><td>'+n+'</td><td>'+data[i].nroinstrumento+'</td><td>'+data[i].importe+'</td><td>'+data[i].forma+'</td><td>'+data[i].fecha+'</td><td><button class="btn btn-warning" onclick="borrarregistro('+data[i].id+')">borrar</button></td></tr>';        
-					}
-				$('#tbody').html(tabla);
-	            });
-//			});
-			
-	
-		}
-	$('#ver').click(function(){
-		tabla();	
+
+$(document).ready(function(){
+tabla();
+
+});
 		
+
+
+
+			function tabla(){
 				
+			//			$('#ver').click(function(){
+					$.ajax({
+					url : "/pagos/proveedor/ajax",
+					type : "POST",
+					data : { id : $("#id").val(),
+							_token : $('input[name="_token"]').val()
+							}
+				}).done( function( data ){
+					
+					var tabla=null;
+					if (data.length!=0)
+					{
+						for (var i=0; i<data.length ;i++) {
+								var n=i+1;
+								tabla+='<tr><td>'+n+'</td><td>'+data[i].nroinstrumento+'</td><td>'+data[i].importe+'</td><td>'+data[i].forma+'</td><td>'+data[i].fecha+'</td><td><button class="btn btn-warning" onclick="borrarregistro('+data[i].id+')">borrar</button></td></tr>';        
+					}
+					$('#tbody').html(tabla);
+
+					}     
+					else
+					{
+					$('#tbody').html("NO EXISTEN REGISTROS");
+					}
+		            });
+			
+				
+		
+			}
+
+
+			function borrarregistro(id) {
+	    	var conf = confirm("¿Está seguro, realmente desea eliminar el registro?");
+	    	if (conf == true) {
+		        $.post("/pagos/proveedor/ajax/borrar", {
+		                id: id,
+		                _token : $('input[name="_token"]').val()
+		            },
+		            function (data, status) {
+		            	$('#montoacu').html(data);
+		                tabla();
+			            }
+			        );
+			    }
+			}
+			
+
+
+	$('#ver').click(function(){
+			tabla();	
 	});
 
+
+
 	
 	
 
-//	});
+
 
 		
 		
