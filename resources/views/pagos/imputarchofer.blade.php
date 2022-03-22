@@ -53,19 +53,19 @@
 						<td>
 						<form method="post">
 						@if($datoopchofer->estado=='ABIERTO')
-							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagochequeterceroproveedor')}}"><input type="button" value="Cheque Tercero" class="btn btn-success">	</a>
+							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagochequeterceroproveedor')}}"><input type="button" value="C Tercero" class="btn btn-success">	</a>
 						@endif
 						@if($datoopchofer->estado=='ABIERTO')
-							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagochequepropioproveedor')}}"><input type="button" value="Cheque Propio" class="btn btn-success">	</a>
+							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagochequepropioproveedor')}}"><input type="button" value="C Propio" class="btn btn-success">	</a>
 						
 						@endif
 						@if($datoopchofer->estado=='ABIERTO')
-							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagoefectivoproveedor')}}"><input type="button" value="Efectivo" class="btn btn-success">	</a>
+							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagoefectivoproveedor')}}"><input type="button" value="Efec." class="btn btn-success">	</a>
 						
 						@endif
 						@if($datoopchofer->estado=='ABIERTO')
 							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagotransferenciaproveedor')}}"><input type="button" value="Transferencia" class="btn btn-success">	</a>
-							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagosproveedor')}}"><input type="button" value="pagos" class="btn btn-success">	</a>
+							<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pagosproveedor')}}"><input type="button" value="Ver Pagos" class="btn btn-success">	</a>
 											@endif
 						
 						<a href="{{url('pagos/proveedor/'.$datoopchofer->id.'/pdf')}}"><input type="button" value="Imprimir" class="btn btn-warning">	</a>
